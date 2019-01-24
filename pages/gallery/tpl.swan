@@ -1,0 +1,57 @@
+<filter src="../../utils/fmt.js" module="fmt"></filter>
+<template name="goods-grid">
+    <view class="goods-list grid">
+        <view class="gl-item flex-item"  s-for="{{data_list}}" s-for-item="item" s-key="product.product_id">
+            <navigator open-type="{{open_type?open_type:'navigate'}}" class="gl-item-nav" hover-class="gl-item-nav-active" url="/pages/product/product?product_id={{item.product.product_id}}{{fromother?'&from=other':''}}">
+                <image mode="aspectFit" src="{{images[item.image_default_id]?images[item.image_default_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{item.image_default_id}}" bindload="load_image" />
+                <text class="g-name" style="color:{{themecolor.text_primary}}">{{item.name}}</text>
+                <text class="g-price" style="color:{{themecolor.price_text}}">{{item.product.buy_price}}</text>
+                <view class="profit-tip" style="border-color:{{themecolor.price_text}}" s-if="{{pickout_data[item.product.product_id]&&!fromother}}">
+                    <view class="profit" catchtap="evt_pickout" data-productid="{{item.product.product_id}}" data-goodsid="{{item.goods_id}}">
+                        <view class="profit-label"  style="background-color:{{themecolor.price_text}}">赚</view>
+                        <view class="profit-val" style="color:{{themecolor.price_text}}">{{pickout_data[item.product.product_id]['s_price']}}
+                        </view>
+                        <view class="recommend {{pickout_data[item.product.product_id]['pickout']?'active':''}}">
+                            荐
+                        </view>
+                    </view>
+                </view>
+            </navigator>
+        </view>
+    </view>
+</template>
+<template name="goods-list">
+    <view class="weui-panel">
+        <view class="weui-panel__bd" >
+            <block s-for="{{data_list}}" s-for-item="item" s-key="product.product_id">
+            <navigator open-type="{{open_type?open_type:'navigate'}}" class="weui-media-box weui-media-box_appmsg co-item"  url="/pages/product/product?product_id={{item.product.product_id}}{{fromother?'&from=other':''}}">
+                <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                    <image mode="aspectFit" src="{{images[item.image_default_id]?images[item.image_default_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{item.image_default_id}}" bindload="load_image" />
+                </view>
+                <view class="weui-media-box__bd">
+                    <view class="weui-media-box__desc co-name" style="color:{{themecolor.text_primary}}">{{item.name}}</view>
+                    <view class="weui-media-box__desc co-inline co-brief" style="color:{{themecolor.text_info}}">
+                        {{item.brief}}
+                    </view>
+                    <view class="weui-media-box__desc co-inline">
+                        <view class="co-price g-price" style="color:{{themecolor.price_text}}">{{item.product.buy_price}}</view>
+                    </view>
+                    <view class="profit-tip" s-if="{{pickout_data[item.product.product_id]&&!fromother}}">
+                        <view class="profit" style="border-color:{{themecolor.price_text}}" catchtap="evt_pickout" data-productid="{{item.product.product_id}}" data-goodsid="{{item.goods_id}}">
+                            <view class="profit-label"  style="background-color:{{themecolor.price_text}}">赚</view>
+                            <view class="profit-val">{{pickout_data[item.product.product_id]['s_price']}}
+                            </view>
+                            <view class="recommend {{pickout_data[item.product.product_id]['pickout']?'active':''}}">
+                                荐
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-media-box__desc media-box-actions">
+
+                </view>
+            </navigator>
+            </block>
+        </view>
+    </view>
+</template>

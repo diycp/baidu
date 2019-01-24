@@ -1,0 +1,12 @@
+form{
+
+}
+form .weui-cell__hd{
+    width: 80px;
+}
+form .weui-cell__hd text,text.red{
+    color: #f00;
+}
+form button{
+    width: 100%;
+}

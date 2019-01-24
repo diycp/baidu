@@ -1,0 +1,19 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<view class="prompt-panel" s-if="{{empty_list == 'YES'}}">
+    <view class="icon-empty-list"></view>
+</view>
+<scroll-view scroll-y="true" style="height:{{sv_height}}px;" bindscrolltolower="evt_scrolltolower" s-if="{{notice_list}}">
+    <view class="notice-list weui-cells">
+        <navigator class="weui-cell weui-cell_access"  s-for="{{notice_list}}" s-for-item="notice" s-key="notice_id" url="detail/detail?notice_id={{notice.notice_id}}" >
+            <image mode="aspectFit" class="weui-media-box__thumb" bindload="load_image" src="{{images[notice.image_id]?images[notice.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{notice.image_id}}" />
+            <view class="">
+                <view class="title">{{notice.title}}</view>
+                <view class="pubtime">{{notice.last_modify}}</view>
+            </view>
+        </navigator>
+    </view>
+    <view class="weui-loadmore" s-if="{{pager.current && pager.total>pager.current}}">正在加载</view>
+    <view class="weui-loadmore weui-loadmore_line" s-if="{{pager.total>1 && pager.total == pager.current}}">
+        <view class="weui-loadmore__tips">共{{order_count}}条</view>
+    </view>
+</scroll-view>

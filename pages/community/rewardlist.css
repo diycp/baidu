@@ -1,0 +1,18 @@
+page{
+    background-color: #EFEFEF;
+}
+.weui-cells{
+    margin-top: 0;
+}
+.weui-cells::before{
+    border: none;
+}
+.weui-cell__bd__desc{
+    color: #999;
+}
+.avatar{
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    border: 1px #efefef solid;
+}

@@ -1,0 +1,56 @@
+
+/*
+media-follow-list start
+*/
+.weui-panel.media-follow-list{
+    margin-top: 10px;
+}
+.media-follow-list .weui-media-box__bd{
+    width: 100%;
+}
+.media-follow-list .avatar{
+    width: 35px;
+    height: 35px;
+}
+.media-follow-list .media-content-top{
+    display: flex;
+    justify-content:space-between;
+    width: 100%;
+}
+.media-follow-list .nickname{
+    font-size: 12px;
+    color: #333;
+    font-weight: bold;
+}
+.media-follow-list .timeago{
+    font-size: 12px;
+    color: #999;
+}
+.media-follow-list .media-options{
+    padding: 0;
+}
+.media-follow-list .media-options .media-opt {
+    padding-right: 0;
+    padding-left: 15px;
+}
+.media-follow-list .weui-media-box_appmsg{
+    align-items: flex-start;
+    padding: 10px 15px 5px 15px;
+}
+.media-follow-list .weui-media-box__hd{
+    width: 55px;
+}
+.media-follow-list .media-content{
+    padding: 5px 0;
+}
+.media-follow-list .media-options .timeago{
+
+}
+.media-follow-list .media-options .media-zan{
+    padding-left: 0;
+    padding-right: 15px;
+}
+.media-follow-list .media-options .media-unzan{
+    padding-left: 0;
+    padding-right: 0;
+}

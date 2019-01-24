@@ -1,0 +1,9 @@
+{
+    "enablePullDownRefresh":false,
+    "backgroundTextStyle":"light",
+    "backgroundColor":"#FE973E",
+    "navigationBarBackgroundColor": "#FE973E",
+    "navigationBarTextStyle": "white",
+    "disableScroll":true
+
+}

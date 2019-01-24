@@ -1,0 +1,14 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<view class="my-qrcode" s-if="{{hideLoading}}">
+    <image src="{{qrcode_image_url}}" style="width: {{win_width*0.7}}px; height: {{win_width*0.7}}px;"/>
+    <view class="weui-msg">
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">
+                成为“{{relation_data.name}}”{{relation_data.relation_type=='store'?'营业员':'业务员'}}
+            </view>
+            <view class="weui-msg__desc">
+                微信扫一扫即可加入
+            </view>
+        </view>
+    </view>
+</view>

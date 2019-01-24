@@ -1,0 +1,50 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{hideLoading}}">
+    <view s-if="{{!blog_data}}">
+        <view class="weui-msg">
+            <view class="weui-msg__icon-area">
+                <icon type="info" size="64"/>
+            </view>
+            <view class="weui-msg__text-area">
+                <view class="weui-msg__title">
+                    暂无发布
+                </view>
+                <view class="weui-msg__desc">
+                    您在社区里没有任何内容发布!
+                </view>
+            </view>
+            <view class="weui-msg__opr-area">
+                <view class="weui-btn-area">
+                    <button type="default" bindtap="evt_gocommunity">访问社区</button>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="user-top" s-else>
+        <image class="avatar-bg" src="{{images[user_data.avatar]?images[user_data.avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{user_data.avatar}}" bindload="load_image" mode="aspectFill"/>
+        <view class="user-info">
+            <image class="avatar" src="{{images[user_data.avatar]?images[user_data.avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{user_data.avatar}}" bindload="load_image" mode="aspectFill"/>
+            <view class="nickname">{{user_data.nickname}}</view>
+            <view class="user-lv">
+                <view class="user-lv-name">
+                    <view class="user-lv-name-label">{{user_lv_data.name}}</view>
+                </view>
+                <view class="user-lv-logo" s-if="{{user_lv_data.lv_logo}}">
+                    <image src="{{user_lv_data.lv_logo_url}}" mode="widthFix"/>
+                </view>
+            </view>
+            <view class="sign">
+                <input bindblur="evt_confirmsigndata" type="text" placeholder="{{'用一句话,编辑个人签名'}}" placeholder-style="color:#efefef;" confirm-type="保存" value="{{user_data.sign}}"/>
+            </view>
+            <navigator url="/pages/community/my/follow" class="user-opt">
+                <view class="label">被关注:</view>
+                <view class="val">{{user_data.follow_count}}</view>
+            </navigator>
+        </view>
+
+    </view>
+    <view class="my-case">
+        <import src="/pages/community/tpl/blog.swan"/>
+        <template is="widget-bloglist" data="{{data:blog_data,audio_playing:audio_playing,audio_play_time:audio_play_time,images:images,current_play_video_id:current_play_video_id,media_image_size:media_image_size,in_user_page:in_user_page,in_my_page:in_my_page,status_map:status_map,win_width:win_width,member:member}}"/>
+    </view>
+</block>

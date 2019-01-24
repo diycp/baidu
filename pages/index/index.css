@@ -1,0 +1,11 @@
+/**index.css**/
+@import "/widgets/widgets.css";
+/*
+    @import "/pages/vshop/home/_home.css";
+*/
+.navigator-hover{
+    background:none;
+}
+.weui-panel{
+    margin-top: 0;
+}

@@ -1,0 +1,35 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<filter src="../../../utils/fmt.js" module="fmt"></filter>
+<view class="weui-panel">
+  <view class="weui-panel__bd">
+    <view  class="weui-media-box weui-media-box_appmsg co-item">
+        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg" s-for="{{showimg}}" s-for-item="data_detail" s-key="{{index}}">
+            <image s-if="{{data_detail.image_id}}" mode="aspectFit" class="weui-media-box__thumb" src="{{images[data_detail.image_id]?images[data_detail.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{data_detail.image_id}}" bindload="load_image"></image>
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+            <view class="weui-media-box__desc co-price text-danger">
+              ￥{{fmt.price(activity.current_product.price)}}
+            </view>
+            <view class="weui-media-box__desc co-inline-surplus">
+                <view class="co-spec">{{activity.people_number}}人团,还差{{activity.surplus_people_number}}人</view>
+                <view class="co-countdown">
+                    <view class="countdown-block" s-if="{{countdown.days != 00 || countdown.hours != 00 || countdown.minutes != 00 || countdown.seconds != 00}}">
+                      <text class="count-down"> {{ countdown.days }}天 </text>
+                      <text class="count-down"> {{ countdown.hours }} : </text>
+                      <text class="count-down"> {{ countdown.minutes }} : </text>
+                      <text class="count-down"> {{ countdown.seconds }} </text>
+                      <text> 后结束 </text>
+                    </view>
+                </view>
+                <view s-for="{{members}}" s-for-item="member" s-key="{{index}}" class="avator">
+                  <image mode="aspectFit" class="weui-media-box__thumb" src="{{images[member.avatar]?images[member.avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{member.avatar}}" bindload="load_image"></image>
+                </view>
+            </view>
+        </view>
+    </view>
+  </view>
+</view>
+<view class="btn-area">
+  <!-- <navigator url="/pages/groupbooking/share/product/product?activity_id={{activity.activity_id}}&gb_id={{activity.gb_id}}&product_id={{activity.product_id}}" class="weui-btn weui-btn_mini weui-btn_default go_regimental">去参团</navigator> -->
+  <button class="weui-btn weui-btn_mini weui-btn_default" open-type="share">分享</button>
+</view>

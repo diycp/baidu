@@ -1,0 +1,87 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<view class="weui-tab">
+    <view class="weui-navbar">
+        <navigator open-type="redirect" url="/pages/oshop/order/index?order_type=all" class="weui-navbar__item {{order_type=='all'?'weui-bar__item_on':''}}" >
+            <view class="weui-navbar__title">全部</view>
+        </navigator>
+        <navigator open-type="redirect" url="/pages/oshop/order/index?order_type=s1" class="weui-navbar__item {{order_type=='s1'?'weui-bar__item_on':''}}">
+            <view class="weui-navbar__title">待付款</view>
+        </navigator>
+        <navigator open-type="redirect" url="/pages/oshop/order/index?order_type=s2" class="weui-navbar__item {{order_type=='s2'?'weui-bar__item_on':''}}">
+            <view class="weui-navbar__title">待发货</view>
+        </navigator>
+        <navigator open-type="redirect" url="/pages/oshop/order/index?order_type=s3" class="weui-navbar__item {{order_type=='s3'?'weui-bar__item_on':''}}">
+            <view class="weui-navbar__title">待收货</view>
+        </navigator>
+    </view>
+</view>
+<view class="weui-search-bar">
+    <picker bindchange="evt_changefilter" value="{{current_filter_index}}" range-key="title" range="{{filter_range}}">
+        <view class="picker">
+            {{filter_range[current_filter_index]['title']}}
+        </view>
+    </picker>
+    <view class="weui-search-bar__form">
+        <view class="weui-search-bar__box">
+            <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+            <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}"  bindinput="inputTyping" bindconfirm="confirmInput"/>
+            <view class="weui-icon-clear" s-if="{{inputVal.length > 0}}" bindtap="clearInput">
+                <icon type="clear" size="14"></icon>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="prompt-panel" s-if="{{empty_list == 'YES'}}">
+    <view class="icon-empty-list"></view>
+</view>
+<scroll-view scroll-y="true" style="height:{{sv_height}}px;" bindscrolltolower="evt_scrolltolower" s-if="{{order_list}}">
+    <view class="order-list">
+        <view class="order-item weui-panel"  s-for="{{order_list}}" s-for-item="order" s-key="order_id">
+            <navigator url="detail/detail?order_id={{order.order_id}}" class="{{order.status}}">
+                <view class="weui-panel__hd">
+                    {{order.order_id}}
+                    {{status_kvmap.pay_status[order.pay_status]}}
+                    {{status_kvmap.ship_status[order.ship_status]}}
+                    <block s-if="{{order.status=='dead'}}">{{status_kvmap.order_status[order.status]}}</block>
+                </view>
+                <view class="weui-panel__bd">
+                    <scroll-view scroll-x="true">
+                        <view class="order-item-panel">
+                            <block s-for="{{order_items_group[order.order_id]}}" s-for-item="item" s-key="index">
+                                <view class="item-image" s-if="{{item.item_type == 'product'}}">
+                                    <image mode="aspectFit" bindload="load_image"  src="{{images[item.image_id]?images[item.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{item.image_id}}" />
+                                </view>
+                                <view s-if="{{!order_items_group[item.order_id][1] || order_items_group[item.order_id][1].item_type == 'gift' && index==0}}" class="item-desc">
+                                    {{item.name}} {{item.spec_info?item.spec_info:''}}
+                                </view>
+                            </block>
+                        </view>
+                    </scroll-view>
+                </view>
+                <view class="weui-panel__ft">
+                    共{{order.quantity}}件商品 订单金额：¥ {{order.order_total}}
+                </view>
+                <view class="weui-panel__ft">
+                    <view class="weui-media-box__desc">
+                        {{order.consignee_name}}（{{order.consignee_mobile}}）下单于{{order.createtime}}
+                    </view>
+                </view>
+                <view class="weui-panel__ft" s-if="{{order.store_id}}">
+                    <view class="weui-media-box__desc">
+                        订单归属店铺:{{rel_store_list[order.store_id].name}} [{{rel_store_list[order.store_id].sno}}]
+                    </view>
+                </view>
+                <view class="weui-panel__ft" s-if="{{order.sc_member_id}}">
+                    <view class="weui-media-box__desc">
+                            <image class="avatar avatar-xs" mode="aspectFit" bindload="load_image"  src="{{images[sc_member_list[order.sc_member_id].avatar]?images[sc_member_list[order.sc_member_id].avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{sc_member_list[order.sc_member_id].avatar}}" />
+                            {{sc_member_list[order.sc_member_id].name}}  获得 {{order.sc_integral}} 服务积分
+                    </view>
+                </view>
+            </navigator>
+        </view>
+    </view>
+    <view class="weui-loadmore" s-if="{{pager.current && pager.total>pager.current}}">正在加载</view>
+    <view class="weui-loadmore weui-loadmore_line" s-if="{{pager.total>1 && pager.total == pager.current}}">
+        <view class="weui-loadmore__tips">共{{order_count}}单</view>
+    </view>
+</scroll-view>

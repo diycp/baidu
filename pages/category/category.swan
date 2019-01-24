@@ -1,0 +1,35 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{hideLoading}}">
+<view class="weui-search-bar">
+    <view class="weui-search-bar__form">
+        <view class="weui-search-bar__box">
+            <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+            <input type="text" class="weui-search-bar__input" placeholder="关键词搜索商品" value="{{inputVal}}"  bindinput="inputTyping" bindconfirm="confirmInput"/>
+            <view class="weui-icon-clear" s-if="{{inputVal.length > 0}}" bindtap="clearInput">
+                <icon type="clear" size="14"></icon>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="category-row" style="height:{{cr_height}}px">
+    <scroll-view scroll-y="true" class="layout-left" style="height:{{cr_height}}px">
+        <view class="c-root col-left">
+        <block  s-for="{{category_tree}}" s-for-item="item" s-key="index">
+            <view class="c-item {{cvisible == item.cat_id?'active':''}}" bindtap="evt_cactive" data-id="{{item.cat_id}}" s-if="{{item.addon.visible!='false'}}">{{item.cat_name}}</view>
+        </block>
+        </view>
+    </scroll-view>
+    <scroll-view scroll-y="true" class="layout-right"  style="height:{{cr_height}}px">
+        <block  s-for="{{category_tree}}" s-for-item="p" s-key="index">
+            <view class="c-children col-right" s-if="{{cvisible == p.cat_id}}">
+                <block  s-for="{{p.children}}" s-for-item="c" s-key="index">
+                    <view bindtap="evt_goto"  data-url="/pages/gallery/gallery?cat_id={{c.cat_id}}" class="c-item"  s-if="{{c.addon.visible!='false'}}">
+                        <image mode="aspectFit"   src="{{images[c.addon.icon]?images[c.addon.icon]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}"  data-ident="{{c.addon.icon}}"  bindload="load_image"/>
+                        <view>{{c.cat_name}}</view>
+                    </view>
+                </block>
+            </view>
+        </block>
+    </scroll-view>
+</view>
+</block>

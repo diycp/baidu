@@ -1,0 +1,17 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{hideLoading}}">
+    <image class="banner" s-if="{{banner}}" mode="aspectFill" src="{{images[banner]?images[banner]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{banner}}" bindload="load_image_l" style="width:100%;height:{{win_width*3/4}}px"/>
+    <view class="cstyle">
+        <navigator url="/pages/giftcard/checkout?cstyle_set={{index}}" class="cs-item" s-for="{{cstyle_set_list}}" style="width:{{(win_width-49)/2}}px;">
+            <image style="height:{{(win_width-49)/2*0.6}}px;width:100%;"  mode="aspectFill" src="{{images[item[0].image]?images[item[0].image]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{item[0].image}}" bindload="load_image_m" />
+            <view class="title">{{item[0].set}}</view>
+        </navigator>
+    </view>
+    <view class="weui-footer">
+        <view class="weui-footer__links">
+            <navigator url="crecord/index?is_recipient=0" class="weui-footer__link">已购买的礼品卡</navigator>
+            <navigator url="crecord/index?is_recipient=1" class="weui-footer__link">我收到的礼品卡</navigator>
+        </view>
+        <view class="weui-footer__text">礼品卡最终使用解释权归5号酒库所有</view>
+    </view>
+</block>

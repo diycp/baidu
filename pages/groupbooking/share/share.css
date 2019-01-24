@@ -1,0 +1,74 @@
+page{
+    background: #ffffff;
+}
+.weui-panel::after{
+    border:none !important;
+}
+.text-danger{
+    color:red;
+}
+.weui-media-box__hd_in-appmsg{
+    width: 175px;
+    height: 175px;
+}
+.surplus-number{
+    font-size: 15px;
+}
+.gbblock{
+    text-align:center;
+    padding:15px;
+}
+.avator{
+    width: 40px;
+    height: 40px;   
+    display: inline-block; 
+    margin-right: 5px;
+}
+.avator image{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.identity{
+    font-size:12px;
+}
+.remaining{
+    font-size:14px;
+    color:#000;
+}
+.co-spec{
+   color:#000; 
+}
+.co-price,.co-inline-surplus{
+    margin-bottom: 6px;
+}
+.co-countdown{
+    margin-bottom: 20px;
+}
+.co-countdown{
+    color: #353535;
+}
+.countdown-block{
+    font-size:14px;
+}
+.count-down{
+    color:#000;
+}
+.btn-area{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.btn-area button{
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    background-color: #EC3037;
+    border-radius: 0;
+    border: none;
+    color:#fff;
+    text-align: center;
+    font-size: 16px;
+}

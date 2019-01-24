@@ -1,0 +1,34 @@
+page{
+    background: #efefef;
+}
+.banner{
+    display: block;
+}
+.cstyle{
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 15px;
+}
+.cs-item{
+    background: #ffffff;
+    border:1px #fff solid;
+    border-radius: 4px;
+    box-shadow: 0 0 3px 1px #ececec;
+    margin:0 15px 15px 15px;
+}
+.cs-item:nth-child(2n+0){
+    margin-left: 0;
+}
+.cs-item image{
+    border-radius: 4px;
+    display: block;
+}
+.cs-item .title{
+    font-size: 14px;
+    text-align: center;
+    color:#777;
+    line-height: 25px;
+}
+.weui-footer{
+    padding: 10px 0;
+}

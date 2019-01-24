@@ -1,0 +1,159 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<form bindsubmit="evt_submit_order" s-if="{{activity_result}}" report-submit="true">
+<view class="weui-panel">
+        <!-- <view class="weui-panel__hd">收货人</view> -->
+        <view class="weui-panel__bd">
+            <block s-if="{{member_addrs}}">
+            <navigator url="/pages/member/addr/addr?select={{addr.addr_id}}" s-for="{{member_addrs}}" s-for-item="addr" s-key="index">
+                <view class="weui-media-box weui-media-box_appmsg member-addr" s-if="{{addr.selected == 'true'}}">
+                    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg location-box">
+                        <image mode="aspectFit" src="{{img_url}}/public/wechat/statics/image/xcxicon/location.png"/>
+                    </view>
+                    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                        <view class="weui-media-box__title name-and-mobile" >
+                            <view class="name">{{addr.name}}</view>
+                            <view class="mobile" >
+                                {{addr.mobile}}
+                            </view>
+                        </view>
+                        <view class="weui-media-box__desc area">{{addr.area_format}}</view>
+                        <view class="weui-media-box__desc address">{{addr.addr}}</view>
+                    </view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </view>
+            </navigator>
+            </block>
+            <block s-else>
+                <navigator url="../../../member/addr/edit/edit?fromcheckout=true">
+                    <view class="weui-media-box weui-media-box_appmsg member-addr">
+                        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg location-box">
+                            <icon type="clear" class="icon-clear2plus" color="red" size="16"/>
+                        </view>
+                        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                            <view class="weui-media-box__title" >
+                                新增收货地址
+                            </view>
+                            <view class="weui-media-box__desc">立即新增收货地址</view>
+                        </view>
+                        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                    </view>
+                </navigator>
+            </block>
+        </view>
+</view>
+
+<view class="weui-panel">
+        <!-- 自营 //TODO 多商户-->
+        <view class="weui-panel__bd">
+            <block>
+                <view  class="weui-media-box weui-media-box_appmsg co-item">
+                    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                        <image mode="aspectFit" class="weui-media-box__thumb" bindload="load_image" src="{{images[order.image_id]?images[order.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{order.image_id}}" />
+                    </view>
+                    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                        <view class="weui-media-box__desc co-name">{{order.name}}</view>
+                        <view class="weui-media-box__desc co-inline">
+                            <view class="co-spec">{{order.spec_info?order.spec_info:''}}</view>
+                            <view class="co-price">
+                                {{order.buy_price}}
+                                <text>x {{order.nums}} </text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </view>
+        <view class="weui-panel__ft">
+            <view class="weui-cell cart-total">
+                    共 {{order.nums}} 件商品 尾款小计: <text class="price">¥ {{order.balance_payment}}</text>
+            </view>
+            <view class="weui-cell">
+                已付订金金额: ￥{{order.deposit_price}}
+            </view>
+            <view class="weui-cell">
+                订金可抵扣金额: ￥{{order.deposit_deduction}}
+            </view>
+            <block>
+            <view class="weui-cell dlytype-cell" bindtap="evt_showmodal" data-modalname="dlytype_panel">
+                <view class="weui-cell__hd">
+                    配送方式
+                </view>
+                <view class="weui-cell__bd">
+                        {{selecteddly.dt_name}}
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">￥{{order.cost_freight}}</view>
+            </view>
+            </block>
+            <view class="weui-cell order-memo" >
+                <view class="weui-cell__hd">
+                    买家留言
+                </view>
+                <view class="weui-cell__bd">
+                        <input class="weui-input" bindinput="evt_setpagedata" data-key="memo" placeholder="选填:对本次交易的备注" />
+                </view>
+            </view>
+        </view>
+</view>
+
+<view class="weui-panel">
+    <view class="weui-panel__bd">
+        <block>
+        <view class="weui-cell payapp-cell" bindtap="evt_showmodal" data-modalname="payapp_panel">
+            <view class="weui-cell__hd">
+                支付方式
+            </view>
+            <view class="weui-cell__bd">
+                    {{selectedpay.display_name?selectedpay.display_name:selectedpay.name}}
+            </view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+        </block>
+        <view class="weui-cell order-memo" >
+            <view class="weui-cell__hd">
+                发票抬头
+            </view>
+            <view class="weui-cell__bd">
+                    <input class="weui-input" bindinput="evt_setpagedata" data-key="invoice_title" placeholder="选填:不需要发票则无需填写" />
+            </view>
+        </view>
+    </view>
+</view>
+
+
+<view class="checkout-footer" s-if="{{activity_result}}">
+    <view class="checkout-total">
+            共{{order.nums}}件商品,
+            合计：<text>¥ {{order.balance_payment}}</text>
+    </view>
+    <button form-type="submit" class="submit-order" >
+        提交订单
+    </button>
+</view>
+</form>
+
+<!--TEMPLATE IMPORT -->
+<import src="tpl/dlytype.swan"/>
+<view animation="{{modal_animation_data}}" class="quick-modal {{active_dlytype_panel?'active':''}}" bindtouchmove="evt_touchmovemodal" bindtap="evt_tapmodal" data-modalname="dlytype_panel">
+    <view class="modal-section">
+        <view class="modal-hd">
+            <text>选择配送方式</text>
+            <icon type="cancel" size="16" color="blcak" data-modalname="dlytype_panel"/>
+        </view>
+        <view class="modal-bd">
+            <template is="dlytype-use-panel" data="{{dlytypes:dlytypes}}"/>
+        </view>
+    </view>
+</view>
+
+<import src="tpl/payapp.swan"/>
+<view animation="{{modal_animation_data}}" class="quick-modal {{active_payapp_panel?'active':''}}" bindtouchmove="evt_touchmovemodal" bindtap="evt_tapmodal" data-modalname="payapp_panel">
+    <view class="modal-section">
+        <view class="modal-hd">
+            <text>选择支付方式</text>
+            <icon type="cancel" size="16" color="blcak" data-modalname="payapp_panel"/>
+        </view>
+        <view class="modal-bd">
+            <template is="payapp-use-panel" data="{{payapps:paymentapps}}"/>
+        </view>
+    </view>
+</view>

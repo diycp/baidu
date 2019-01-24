@@ -1,0 +1,51 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block  s-if="{{hideLoading}}">
+<block s-for="{{data}}" s-for-item="item" s-key="index">
+    <view class="weui-panel" s-if="{{item.success}}" >
+            <view class="weui-panel__bd">
+                <view class="weui-cell" data-code="{{item.success.logi_code}}" data-deliveryid="{{item.success.delivery_id}}">
+                    <view class="weui-cell__hd">
+                        物流公司
+                    </view>
+                    <view class="weui-cell__bd">
+                        <image src="https://cdn.kuaidi100.com/images/all/148x48/{{item.success.logi_py}}_logo.png" class="logi-logo" mode="aspectFit"/>
+                    </view>
+                    <view class="weui-cell__ft">
+                        {{item.success.logi_name}}
+                    </view>
+                </view>
+                <view class="weui-cell">
+                    <view class="weui-cell__hd">
+                        物流单号
+                    </view>
+                    <view class="weui-cell__bd">
+
+                    </view>
+                    <view class="weui-cell__ft">
+                        {{item.success.logi_no}}
+                    </view>
+                </view>
+            </view>
+            <view class="weui-panel__bd">
+                <scroll-view scroll-x="true">
+                    <view class="order-item-panel">
+                        <block s-for="{{item.success.delivery_items}}" s-for-item="item" s-key="index">
+                            <view class="item-image">
+                                <image mode="aspectFit" bindload="load_image"  src="{{images[item.image_id]?images[item.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{item.image_id}}" />
+                                <view class="sendnum">x {{item.sendnum}}</view>
+                            </view>
+                        </block>
+                    </view>
+                </scroll-view>
+            </view>
+            <view class="weui-panel__bd logistics-logs">
+                <view class="weui-cell" s-for="{{item.success.logi_log}}" s-for-item="item" s-key="index">
+                    <view class="weui-cell__bd">
+                        <view class="time">{{item.time}}</view>
+                        <view class="context">{{item.context}}</view>
+                    </view>
+                </view>
+            </view>
+    </view>
+</block>
+</block>

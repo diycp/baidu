@@ -1,0 +1,3 @@
+<view class="rules-content">
+	<text> {{ activity.warm_prompt }} </text>		
+</view>

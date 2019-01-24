@@ -1,0 +1,16 @@
+.lv-price-text {
+    color: #ED2A41;
+    font-size: 14px;
+}
+
+.lv-remark {
+    text-indent: 24px;
+    line-height: 1.5;
+    -webkit-line-clamp: 10;
+}
+
+.member-lv-unrenew {
+    padding:5px;
+    color:#cc0000;
+    font-size: 14px;
+}

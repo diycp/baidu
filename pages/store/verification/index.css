@@ -1,0 +1,55 @@
+page{
+
+}
+.image-box{
+    position: relative;
+}
+.image-box image{
+    display: block;
+}
+.schedule-code{
+    position: absolute;
+    font-size: 14px;
+    color: #fff;
+    background: rgba(0,0,0,0.3);
+    right: 0;
+    bottom: 0;
+    padding: 2px 10px;
+}
+.wp-first{
+    margin-top: 0;
+}
+.time-desc{
+    margin-top: 5px;
+    font-size: 14px;
+    color: #333;
+}
+.scan{
+    width: 100px;
+    height: 100px;
+    margin: 15px auto;
+    border-radius: 100%;
+    box-shadow: 0px 0px 10px 0px #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.scan .icon{
+    width: 64px;
+    height: 64px;
+    background-size:cover;
+}
+.ticket-batch-no{
+    font-size: 12px;
+    color: #666;
+}
+.ticket-price{
+    font-size: 16px;
+    color: #000;
+}
+.quick-modal.active{
+    opacity: 1;
+}
+.modal-section{
+    background: #fff;
+}

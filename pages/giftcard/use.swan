@@ -1,0 +1,104 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<filter src="../../utils/fmt.js" module="fmt"></filter>
+<block s-if="{{error}}">
+    <view class="weui-msg">
+        <view class="weui-msg__icon-area">
+            <icon type="warn" size="64" color="#ff0700"/>
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">
+                礼品卡无法使用
+            </view>
+            <view class="weui-msg__desc">
+                {{error}}
+            </view>
+        </view>
+    </view>
+    <view class="weui-msg__opr-area">
+        <view class="weui-btn-area">
+            <button type="default" bindtap="evt_gohome">返回首页</button>
+        </view>
+        <!-- <view class="weui-btn-area">
+            <button bindtap="evt_gohome" type="dedault">返回首页</button>
+        </view> -->
+    </view>
+</block>
+<block s-if="{{!error && hideLoading}}">
+    <form bindsubmit="evt_submit_order" report-submit="true">
+        <view class="weui-panel">
+                <!-- <view class="weui-panel__hd">收货人</view> -->
+                <view class="weui-panel__bd">
+                    <block s-if="{{member_addrs}}">
+                    <navigator url="/pages/member/addr/addr?select={{addr.addr_id}}" s-for="{{member_addrs}}" s-for-item="addr" s-key="index">
+                        <view class="weui-media-box weui-media-box_appmsg member-addr" s-if="{{addr.selected == 'true'}}">
+                            <view class="weui-media-box__hd weui-media-box__hd_in-appmsg location-box">
+                                <view class="icon icon-location icon-sm"></view>
+                            </view>
+                            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                                <view class="weui-media-box__title name-and-mobile" >
+                                    <view class="name">{{addr.name}}</view>
+                                    <view class="mobile" >
+                                        {{addr.mobile}}
+                                    </view>
+                                </view>
+                                <view class="weui-media-box__desc area">{{fmt.region(addr.area_format)}}</view>
+                                <view class="weui-media-box__desc address">{{addr.addr}}</view>
+                            </view>
+                            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                        </view>
+                    </navigator>
+                    </block>
+                    <block s-else>
+                        <navigator url="/pages/member/addr/edit/edit?fromcheckout=true">
+                            <view class="weui-media-box weui-media-box_appmsg member-addr">
+                                <view class="weui-media-box__hd weui-media-box__hd_in-appmsg location-box">
+                                    <icon type="clear" class="icon-clear2plus" color="red" size="16"/>
+                                </view>
+                                <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                                    <view class="weui-media-box__title" >
+                                        新增收货地址
+                                    </view>
+                                    <view class="weui-media-box__desc">立即新增收货地址</view>
+                                </view>
+                                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                            </view>
+                        </navigator>
+                    </block>
+                </view>
+        </view>
+        <view class="card-info-panel">
+            <view class="card-image" style="width:{{win_width*0.4-25}}px;height:{{(win_width*0.4-25)*3/5}}">
+                <image mode="aspectFill" src="{{images[crecord.card_image]?images[crecord.card_image]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{crecord.card_image}}" bindload="load_image_l" />
+            </view>
+            <view class="card-info" style="width:{{win_width*0.6-15}}px;">
+                <view class="c-cid"><text>ID:</text>{{crecord.crecord_id}}</view>
+                <view class="c-title">{{crecord.card_title}}</view>
+                <view class="c-memo">{{crecord.card_memo}}</view>
+                <view class="c-price"><text>¥</text>{{fmt.price(crecord.order_total)}}</view>
+            </view>
+        </view>
+        <view class="card-items" s-if="{{!mini}}">
+            <view class="weui-cells">
+                <view class="weui-cell" s-for="{{crecord.items}}">
+                    <view class="weui-cell__hd">
+                        <image style="width:40px;height:40px;" mode="aspectFill" src="{{images[item.image_id]?images[item.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{item.image_id}}" bindload="load_image_s" />
+                    </view>
+                    <view class="weui-cell__bd">
+                        {{item.name}}<text>{{item.spec_info}}</text>
+                    </view>
+                    <view class="weui-cell__ft">
+                        {{fmt.price(item.buy_price)}} x {{item.nums}}
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="checkout-footer">
+            <view class="checkout-total">
+                    礼品卡抵扣金额：<text>¥</text>{{fmt.price(crecord.order_total)}}
+            </view>
+            <button form-type="submit" type="warn" class="submit-order">
+                确认兑换
+            </button>
+        </view>
+    </form>
+</block>

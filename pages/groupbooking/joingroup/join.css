@@ -1,0 +1,53 @@
+page{
+    background: #efefef;
+}
+.text-danger{
+    color:red;
+}
+.surplus-number{
+    font-size: 15px;
+}
+.gbblock{
+    text-align:center;
+    padding:15px;
+}
+.avator{
+    width: 80px;
+    height: 80px;   
+    display: inline-block; 
+}
+.avator image{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.identity{
+    font-size:12px;
+    width: 80px;
+    height: 19px;
+    float: left;
+}
+.remaining{
+    font-size:14px;
+    color:#000;
+}
+.countdown-block{
+    font-size:14px;
+}
+.count-down{
+    color:#000;
+}
+.btn-area{
+    padding:15px 25px;
+}
+.btn-area navigator{
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    background-color: red;
+    border-radius: 5px;
+    color:#fff;
+    text-align: center;
+    font-size: 16px;
+}

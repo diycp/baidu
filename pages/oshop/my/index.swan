@@ -1,0 +1,171 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<view class="weui-panel top-panel" s-if="{{!error && hideLoading}}">
+    <view class="weui-media-box weui-media-box_appmsg" s-if="{{enterprise}}">
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+            <view class="weui-media-box__title shop-name">
+                <view class="name">{{enterprise.name||"企业"}}  </view>
+            </view>
+            <view class="weui-media-box__desc">编号:{{enterprise.eno||"123456789"}}</view>
+        </view>
+        <view class="weui-cell__ft">
+            <image class="avatar avatar-xs" mode="aspectFit" src="{{member.avatarUrl?member.avatarUrl:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" />
+            <view class="shop-lv" >
+                {{relation=='admin'?'管理员':'业务员'}}
+            </view>
+        </view>
+    </view>
+    <view class="weui-media-box weui-media-box_appmsg" s-if="{{store_list}}">
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+            <view class="weui-media-box__title shop-name">
+                <view class="name">{{store_list[0].name||"店铺"}}</view>
+            </view>
+            <view class="weui-media-box__desc">编号:{{store_list[0].sno||"123456789"}}</view>
+        </view>
+        <view class="weui-cell__ft">
+            <image class="avatar avatar-xs" mode="aspectFit" src="{{member.avatarUrl?member.avatarUrl:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" />
+            <view class="shop-lv" >
+                {{relation=='manager'?'店长':'营业员'}}
+            </view>
+        </view>
+    </view>
+    <view class="weui-media-box__info benefit">
+        <navigator url="/pages/oshop/order/index" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+            <view class="label">今日营业额</view>
+            <view class="val f-red">{{count_today_order_subprice||0}}</view>
+        </navigator>
+        <navigator url="/pages/oshop/order/index" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+            <view class="label">当月营业额</view>
+            <view class="val f-red">{{count_month_order_subprice||0}}</view>
+        </navigator>
+    </view>
+    <view class="weui-media-box__info benefit">
+        <navigator url="/pages/oshop/order/index" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+            <view class="label">今日订单</view>
+            <view class="val">{{count_today_order||0}}</view>
+
+        </navigator>
+        <navigator url="/pages/oshop/order/index" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+            <view class="label">当月订单</view>
+            <view class="val">{{count_month_order||0}}</view>
+
+        </navigator>
+        <navigator url="/pages/oshop/voucher/index?from={{date_day_first}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" s-if="{{relation=='admin'||relation=='manager'}}">
+            <view class="label">今日利润</view>
+            <view class="val f-red">{{count_voucher_subprice_day||0}}</view>
+
+        </navigator>
+        <navigator url="/pages/oshop/voucher/index?from={{date_month_first}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" s-if="{{relation=='admin'||relation=='manager'}}">
+            <view class="label">当月利润</view>
+            <view class="val f-red">{{count_voucher_subprice||0}}</view>
+
+        </navigator>
+    </view>
+</view>
+<view class="weui-grids" s-if="{{!error && hideLoading}}">
+    <navigator class="weui-grid" url="/pages/oshop/order/index">
+        <view class="weui-grid__icon">
+            <image mode="aspectFit" src="{{img_url}}/public/wechat/statics/image/xcxicon/orderlist.png" />
+        </view>
+        <view class="weui-grid__label">
+             订单管理
+        </view>
+    </navigator>
+    <navigator class="weui-grid" url="/pages/oshop/voucher/index" s-if="{{relation=='admin'||relation=='manager'}}">
+        <view class="weui-grid__icon">
+            <image mode="aspectFit" src="{{img_url}}/public/wechat/statics/image/xcxicon/cash.png" />
+        </view>
+        <view class="weui-grid__label">
+             凭证管理
+        </view>
+    </navigator>
+    <navigator class="weui-grid" url="/pages/oshop/statement/index" s-if="{{relation=='admin'||relation=='manager'}}">
+        <view class="weui-grid__icon">
+            <image mode="aspectFit" src="{{img_url}}/public/wechat/statics/image/xcxicon/moneybag.png" />
+        </view>
+        <view class="weui-grid__label">
+             结算管理
+        </view>
+    </navigator>
+    <navigator class="weui-grid" url="/pages/oshop/notice/index">
+        <view class="weui-grid__icon">
+            <image mode="aspectFit" src="{{img_url}}/public/wechat/statics/image/xcxicon/bear.png" />
+            <view class="icon-tip" s-if="{{count_week_notice>0}}"></view>
+        </view>
+        <view class="weui-grid__label">
+             平台公告
+        </view>
+    </navigator>
+    <navigator class="weui-grid" url="/pages/oshop/my/invite/invite" s-if="{{relation=='admin'||relation=='manager'}}">
+        <view class="weui-grid__icon">
+            <image mode="aspectFit" src="{{img_url}}/public/wechat/statics/image/xcxicon/people.png" />
+
+        </view>
+        <view class="weui-grid__label">
+             邀请同事
+        </view>
+    </navigator>
+
+    <navigator class="weui-grid" url="/pages/oshop/shopinvite/invite" s-if="{{type=='enterprise'}}">
+        <view class="weui-grid__icon">
+            <image mode="aspectFit" src="{{img_url}}/public/wechat/statics/image/xcxicon/invite.png" />
+
+        </view>
+        <view class="weui-grid__label">
+             店铺邀请码
+        </view>
+    </navigator>
+    <navigator class="weui-grid" url="/pages/oshop/order/verification/index" s-if="{{type=='store'}}">
+        <view class="weui-grid__icon">
+            <image src="{{img_url}}/public/wechat/statics/image/xcxicon/service.png" />
+        </view>
+        <view class="weui-grid__label">
+             服务核销
+        </view>
+    </navigator>
+    <navigator class="weui-grid" url="/pages/oshop/stats/product/index">
+        <view class="weui-grid__icon">
+            <image mode="aspectFit" src="{{img_url}}/public/wechat/statics/image/xcxicon/hot_goods.png" />
+        </view>
+        <view class="weui-grid__label">
+             热销商品
+        </view>
+    </navigator>
+    <navigator class="weui-grid" url="/pages/oshop/stats/shop/index" s-if="{{type=='enterprise'}}">
+        <view class="weui-grid__icon">
+            <image mode="aspectFit" src="{{img_url}}/public/wechat/statics/image/xcxicon/success.png" />
+        </view>
+        <view class="weui-grid__label">
+             店铺业绩
+        </view>
+    </navigator>
+    <navigator s-if="{{relation=='admin'||relation=='manager'}}" class="weui-grid" url="/pages/oshop/stats/people/index?people_type={{type=='enterprise'?'salesman':'salesclerk'}}">
+        <view class="weui-grid__icon">
+            <image mode="aspectFit" src="{{img_url}}/public/wechat/statics/image/xcxicon/award.png" />
+        </view>
+         <view class="weui-grid__label" s-if="{{type=='enterprise'}}">业务员业绩</view>
+         <view class="weui-grid__label" s-else>营业员业绩</view>
+    </navigator>
+
+</view>
+<contact-button s-if="{{!error && hideLoading}}" type="default-light" size="20" session-from="vmcwapp-oshop" class="contact-button">
+    <view>客服</view>
+</contact-button>
+<block s-if="{{error && hideLoading}}">
+    <view class="weui-msg">
+        <view class="weui-msg__icon-area">
+            <icon type="warn" class="weui-icon_msg" color="red" size="64"/>
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">
+                {{error}}
+            </view>
+        </view>
+    </view>
+    <!-- <view class="weui-msg__opr-area">
+        <view class="weui-btn-area">
+            <button  bindtap="evt_redirect" data-url="/pages/oshop/signup/shop/edit" type="primary" >
+                立即加入
+            </button>
+        </view>
+    </view> -->
+</block>

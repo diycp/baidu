@@ -1,0 +1,42 @@
+<view class="weui-navbar">
+    <view  class="weui-navbar__item weui-bar__item_on" >
+        <view class="weui-navbar__title">售后申请</view>
+    </view>
+    <navigator open-type="redirect" url="/pages/member/aftersales/reqlist/index" class="weui-navbar__item">
+        <view class="weui-navbar__title">售后查询</view>
+    </navigator>
+</view>
+<scroll-view scroll-y="true" style="height:{{sv_height}}px;" bindscrolltolower="evt_scrolltolower" s-if="{{order_list}}">
+    <view class="orderhis-list" >
+        <view class="weui-panel" s-for="{{order_list}}" s-for-item="order" s-key="*this">
+                <view class="weui-panel__hd">
+                    {{order.order_id}}
+                </view>
+                <view class="weui-panel__bd">
+                    <block s-for="{{order_items_group[order.order_id]}}" s-for-item="item" s-key="index">
+                        <navigator  url="/pages/member/aftersales/request/request?order_id={{order.order_id}}&product_id={{item.product_id}}" class="weui-media-box weui-media-box_appmsg co-item">
+                            <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                                <image mode="aspectFit" class="weui-media-box__thumb" bindload="load_image" src="{{images[item.image_id]?images[item.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{item.image_id}}" />
+                            </view>
+                            <view class="weui-media-box__bd">
+                                <view class="weui-media-box__desc co-name">{{item.name}}</view>
+                                <view class="weui-media-box__desc co-inline">
+                                    <view class="co-spec">{{item.spec_info?item.spec_info:''}}</view>
+                                    <!-- <view class="co-price">
+                                           {{item.buy_price}}
+                                    </view> -->
+                                </view>
+                            </view>
+                        </navigator>
+                    </block>
+                </view>
+        </view>
+    </view>
+    <view class="weui-loadmore" s-if="{{pager.current && pager.total>pager.current}}">正在加载</view>
+    <view class="weui-loadmore weui-loadmore_line" s-if="{{pager.total>1 && pager.total == pager.current}}">
+        <view class="weui-loadmore__tips">没有更多了</view>
+    </view>
+</scroll-view>
+<contact-button class="contact-button" type="default-light"  size="25" session-from="vmcwapp-aftersales-index" >
+    <view>咨询</view>
+</contact-button>

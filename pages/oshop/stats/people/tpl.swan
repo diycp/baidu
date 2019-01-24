@@ -1,0 +1,46 @@
+<template name="salesclerk">
+<view class="weui-cells weui-cells_in-small-appmsg">
+    <view class="weui-cell" s-for="{{data_list}}" s-for-item="item" s-key="index">
+        <view class="weui-cell__hd">
+            <view class="item-order item-order-{{index+1}}">
+                {{index+1}}
+                <view class="item-order-cover"></view>
+            </view>
+            <image src="{{images[item.avatar]?images[item.avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}"  data-ident="{{item.avatar}}" mode="aspectFit" bindload="load_image" class="avatar"/>
+        </view>
+        <view class="weui-cell__bd weui-cell_primary">
+            <view class="cell-title">{{item.name}}</view>
+            <view class="cell-desc" s-if="{{item.integral_sum}}">累计服务积分:{{item.integral_sum}}</view>
+        </view>
+        <view class="weui-cell__ft" s-if="{{filter.order=='order_count'}}">
+            <view class="stats-label">订单数</view>
+            <view class="stats-val">{{item.order_count}}</view>
+        </view>
+        <view class="weui-cell__ft" s-if="{{filter.order=='order_sum'}}">
+            <view class="stats-label">销售额</view>
+            <view class="stats-val">{{item.order_sum}}</view>
+        </view>
+    </view>
+</view>
+</template>
+
+<template name="salesman">
+<view class="weui-cells weui-cells_in-small-appmsg">
+    <view class="weui-cell" s-for="{{data_list}}" s-for-item="item" s-key="index">
+        <view class="weui-cell__hd">
+            <view class="item-order item-order-{{index+1}}">
+                {{index+1}}
+                <view class="item-order-cover"></view>
+            </view>
+            <image src="{{images[item.avatar]?images[item.avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}"  data-ident="{{item.avatar}}" mode="aspectFit" bindload="load_image" class="avatar"/>
+        </view>
+        <view class="weui-cell__bd weui-cell_primary">
+            <view class="cell-title">{{item.name}}</view>
+        </view>
+        <view class="weui-cell__ft">
+            <view class="stats-label">发展店铺</view>
+            <view class="stats-val">{{item.invitation_count}}</view>
+        </view>
+    </view>
+</view>
+</template>

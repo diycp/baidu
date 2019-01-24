@@ -1,0 +1,181 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<filter src="../../../utils/fmt.js" module="fmt"></filter>
+<block s-if="{{hideLoading}}">
+    <view class="weui-tab">
+    <scroll-view scroll-x="true" style="height: 44px" class="scroll-tab">
+        <view class="weui-navbar">
+            <navigator open-type="redirect" url="/pages/member/presellingorder/index?order_type=all" class="weui-navbar__item {{order_type=='all'?'weui-bar__item_on':''}}" >
+                <view class="weui-navbar__title">全部</view>
+            </navigator>
+            <navigator open-type="redirect" url="/pages/member/presellingorder/index?order_type=s1" class="weui-navbar__item {{order_type=='s1'?'weui-bar__item_on':''}}">
+                <view class="weui-navbar__title">待付订金</view>
+            </navigator>
+            <navigator open-type="redirect" url="/pages/member/presellingorder/index?order_type=s2" class="weui-navbar__item {{order_type=='s2'?'weui-bar__item_on':''}}">
+                <view class="weui-navbar__title">已付订金</view>
+            </navigator>
+            <navigator open-type="redirect" url="/pages/member/presellingorder/index?order_type=s3" class="weui-navbar__item {{order_type=='s3'?'weui-bar__item_on':''}}">
+                <view class="weui-navbar__title">待付尾款</view>
+            </navigator>
+            <navigator open-type="redirect" url="/pages/member/presellingorder/index?order_type=s4" class="weui-navbar__item {{order_type=='s4'?'weui-bar__item_on':''}}">
+                <view class="weui-navbar__title">预售成功</view>
+            </navigator>
+            <navigator open-type="redirect" url="/pages/member/presellingorder/index?order_type=s5" class="weui-navbar__item {{order_type=='s5'?'weui-bar__item_on':''}}">
+                <view class="weui-navbar__title">预售失败</view>
+            </navigator>
+        </view>
+    </scroll-view>
+    </view>
+    <view class="prompt-panel" s-if="{{empty_list == 'YES'}}">
+        <view class="icon-empty-list"></view>
+    </view>
+    <scroll-view scroll-y="true" style="height:{{sv_height}}px;" bindscrolltolower="evt_scrolltolower" s-if="{{order_list}}">
+        <view class="order-list">
+            <view class="order-item weui-panel"  s-for="{{order_list}}" s-for-item="pslorder" s-key="psl_id" s-for-index="idx">
+                <view>
+                    <view class="weui-panel__hd">
+                        预售单号 : {{pslorder.presell_id}}
+                        <text class="pslorder-status"> {{ status_kvmap.status[pslorder.status] }} </text>
+                    </view>
+                    <view class="weui-panel__bd">
+                        <scroll-view scroll-x="true">
+                            <view class="order-item-panel">
+                                <block>
+                                    <view class="item-image">
+                                        <image mode="aspectFit" bindload="load_image"  src="{{images[pslorder.image_id]?images[pslorder.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{pslorder.image_id}}" />
+                                    </view>
+                                    <view class="item-desc">{{ pslorder.name }}
+                                        <view class="">{{pslorder.spec_info}}</view>
+                                    </view>
+                                </block>
+                            </view>
+                        </scroll-view>
+                    </view>
+                    <view class="weui-panel__ft">
+                        <!-- 待付定金 -->
+                        <view s-if="{{pslorder.status == 0}}">
+                            共{{pslorder.nums}}件商品 订金金额：¥ {{fmt.price(pslorder.deposit_price)}}
+                        </view>
+                        <!-- 已付定金 -->
+                        <view s-if="{{pslorder.status == 1 && pslorder.surplus_balance_starttime < 0}}">
+                            共{{pslorder.nums}}件商品 已付订金：¥ {{fmt.price(pslorder.deposit_price)}}
+                        </view>
+                        <!-- 待付尾款 -->
+                        <view s-elif="{{pslorder.status == '1' && pslorder.surplus_balance_endtime > 0 && pslorder.surplus_balance_starttime > 0}}">
+                            共{{pslorder.nums}}件商品 尾款金额：¥ {{fmt.price(pslorder.balance_payment)}}
+                        </view>
+                        <!-- 预售成功 -->
+                        <view class="special-ft" s-elif="{{pslorder.status == '2'}}" data-index="{{idx}}" bindtap="showdetail">
+                            共{{pslorder.nums}}件商品 预售金额:￥{{fmt.price(pslorder.order_total)}}
+                            <view class="{{isshow[idx].isshow?'show-hide show':'show-hide'}}"></view>
+                        </view>
+                        <view class="{{isshow[idx].isshow?'detail-block detail-show':'detail-block detail-hide'}}" s-if="{{pslorder.status == '2'}}">
+                            <view class="detail-item clearfix">
+                                <view class="right-block">
+                                    ￥{{fmt.price(pslorder.order_total)}}
+                                </view>
+                                <view class="left-block">
+                                    订单金额
+                                </view>
+                            </view>
+                            <view class="detail-item clearfix">
+                                <view class="right-block">
+                                    ￥{{fmt.price(pslorder.deposit_price)}}
+                                </view>
+                                <view class="left-block">
+                                    订金金额
+                                </view>
+                            </view>
+                            <view class="detail-item clearfix">
+                                <view class="right-block">
+                                    ￥{{fmt.price(pslorder.deposit_deduction)}}
+                                </view>
+                                <view class="left-block">
+                                    订金可抵扣金额
+                                </view>
+                            </view>
+                            <view class="detail-item clearfix">
+                                <view class="right-block">
+                                    ￥{{fmt.price(pslorder.balance_payment)}}
+                                </view>
+                                <view class="left-block">
+                                    尾款金额
+                                </view>
+                            </view>
+                            <view class="detail-item clearfix">
+                                <view class="right-block">
+                                    ￥{{fmt.price(pslorder.cost_freight)}}
+                                </view>
+                                <view class="left-block">
+                                    运费
+                                </view>
+                            </view>
+                        </view>
+                        <!-- 预售失败 -->
+                        <view s-elif="{{pslorder.status == '2'}}">
+                            共{{pslorder.nums}}件商品 已付订金：¥ {{fmt.price(pslorder.deposit_price)}}
+                        </view>
+                        <!-- 待付订金 -->
+                        <view s-if="{{pslorder.status == 0 || (pslorder.status == 1 && pslorder.surplus_balance_starttime < 0)}}">
+                            <view class="price-detail">
+                                订金可抵扣:￥{{fmt.price(pslorder.deposit_deduction)}}
+                            </view>
+                            <view class="price-detail">
+                                预售金额:￥{{fmt.price(pslorder.order_total)}}
+                            </view>
+                        </view>
+                        <!-- 已付定金 -->
+                        <view s-elif="{{pslorder.status == 1 &&  pslorder.surplus_balance_starttime < 0}}">
+                            <view class="price-detail">
+                                订金金额：¥ {{fmt.price(pslorder.deposit_price)}}
+                            </view>
+                            <view class="price-detail">
+                                预售金额:￥{{fmt.price(pslorder.order_total)}}
+                            </view>
+                        </view>
+                        <!-- 待付尾款 -->
+                        <view s-elif="{{pslorder.status == '1' && pslorder.surplus_balance_endtime > 0 && pslorder.surplus_balance_starttime > 0}}">
+                            <view class="price-detail">
+                                预售金额:￥{{fmt.price(pslorder.order_total)}}
+                            </view>
+                        </view>
+                        <!-- 预售失败 -->
+                        <view s-elif="{{pslorder.status == '3'}}">
+                            <view class="price-detail">
+                                预售金额:￥{{fmt.price(pslorder.order_total)}}
+                            </view>
+                        </view>
+                    </view>
+                    <view class="weui-panel__ft">
+                        <view class="weui-media-box__desc media-box-actions" s-if="{{order.status!='dead'}}">
+                            <button size="mini" catchtap="evt_navigator" data-url="/pages/member/order/detail/detail?order_id={{pslorder.order_id}}" plain="true" s-if="{{pslorder.status=='2'}}">订单详情</button>
+                            <button size="mini" catchtap="evt_navigator" data-url="/pages/preselling/payment/payment?order_id={{pslorder.presell_id}}" plain="true" class="pay-deposit" s-if="{{pslorder.status=='0' && pslorder.surplus_deposit_endtime > 0}}">支付订金</button>
+                            <view class="" s-if="{{pslorder.status=='0' && pslorder.surplus_deposit_endtime < 0}}">订金支付时间已关闭</view>
+                            <button size="mini" class="pay-balance" catchtap="evt_navigator" data-url="/pages/preselling/checkout/balance/checkout?order_id={{pslorder.presell_id}}&flow_success=0" plain="true" s-if="{{pslorder.status == '1' && pslorder.surplus_balance_endtime > 0 && pslorder.surplus_balance_starttime > 0}}" disabled="{{pslorder.deposit_refund_id != '0'}}">支付尾款</button>
+                            <text s-if="{{pslorder.status == '3' && pslorder.is_refund == '1'}}">订金不予退还</text>
+                            <text s-if="{{pslorder.status == '3' && pslorder.is_refund == '0' && pslorder.deposit_pay_status == '2'}}">订金退款中..</text>
+                            <text s-if="{{pslorder.status == '3' && pslorder.is_refund == '0' && pslorder.deposit_pay_status == '3'}}">订金退还成功</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="tips" s-if="{{pslorder.status == '0' && pslorder.surplus_deposit_endtime > 0}}">
+                    <view class="tips-inner text-danger"> 温馨提示,订金支付在{{countdown[idx].days}}天{{countdown[idx].hours}}:{{countdown[idx].minutes}}:{{countdown[idx].seconds}}后截止,请您尽快支付! </view>
+                </view>
+                <view class="tips" s-if="{{pslorder.status == '1' && pslorder.surplus_balance_starttime < 0 && pslorder.surplus_balance_endtime > 0}}">
+                    <view class="tips-inner text-danger">
+                        温馨提示,尾款支付在{{countdown[idx].days}}天{{countdown[idx].hours}}:{{countdown[idx].minutes}}:{{countdown[idx].seconds}}后开始!
+                    </view>
+                    <view class="tips-inner text-danger" s-if="{{pslorder.is_refund != 'true'}}">
+                            如果在规定时间内未支付尾款,订金则不予退还!
+                    </view>
+                </view>
+                <view class="tips" s-if="{{pslorder.status == '1' && pslorder.surplus_balance_endtime > 0 && pslorder.surplus_balance_starttime > 0}}">
+                    <view class="tips-inner text-danger"> 温馨提示,尾款支付在{{countdown[idx].days}}天{{countdown[idx].hours}}:{{countdown[idx].minutes}}:{{countdown[idx].seconds}}后截止,请您尽快支付! </view>
+                </view>
+            </view>
+        </view>
+        <view class="weui-loadmore" s-if="{{pager.current && pager.total>pager.current}}">正在加载</view>
+        <view class="weui-loadmore weui-loadmore_line" s-if="{{pager.total>1 && pager.total == pager.current}}">
+            <view class="weui-loadmore__tips">共{{order_count}}单</view>
+        </view>
+    </scroll-view>
+</block>

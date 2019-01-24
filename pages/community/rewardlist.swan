@@ -1,0 +1,16 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+
+<block s-if="{{hideLoading}}">
+    <view class="weui-cells">
+        <view class="weui-cell" s-for="{{reward_data}}">
+            <view class="weui-cell__hd">
+                <image class="avatar" src="{{images[reward_user_data[item.reward_from].avatar]?images[reward_user_data[item.reward_from].avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{reward_user_data[item.reward_from].avatar}}" bindload="load_image" mode="aspectFill"/>
+            </view>
+            <view class="weui-cell__bd weui-cell_primary">
+                <view class="weui-cell__bd__title">{{reward_user_data[item.reward_from].nickname}}</view>
+                <view class="weui-cell__bd__desc">打赏{{item.reward_money}}</view>
+            </view>
+            <view class="weui-cell__ft"><text>{{item.timeago}}</text></view>
+        </view>
+    </view>
+</block>

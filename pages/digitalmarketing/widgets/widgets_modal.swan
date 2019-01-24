@@ -1,0 +1,103 @@
+<view class="box opacity" id="opacity-box" hidden="{{!detail.showMask}}" style="height:{{stylesheets.opacityBox.height}}px">
+
+    <!-- 规则 -->
+    <view id="rule-box" class="rule-box" hidden="{{!detail.showRule}}">
+        <view class="cloud-small cs-01"><image src="{{static_path}}/bg-cloud-s.png" mode="widthFix"></image></view>
+        <view class="rule-title"><image src="{{static_path}}/balloon.png" mode="widthFix"></image></view>
+        <view class="rule-text">
+            <view data-close-btn="rule" class="close-btn" bindtap="closeRule"><image src="{{static_path}}/close.png" mode="widthFix"></image></view>
+            <view class="h3">{{title}}</view>
+            <view class="content-view">
+                <view class="p">
+                    开始时间：{{chance.activity.from_time}}
+                </view>
+                <view class="p">
+                    截至时间：{{chance.activity.to_time}}
+                </view>
+                <view class="p">活动规则：</view>
+                <view class="p">
+                    {{chance.activity.description}}
+                </view>
+            </view>
+        </view>
+        <view class="cloud-small cs-02"><image src="{{static_path}}/bg-cloud-s.png" mode="widthFix"></image></view>
+        <view class="cloud-small cs-03"><image src="{{static_path}}/bg-cloud-s.png" mode="widthFix"></image></view>
+        <view class="cloud-small cs-04"><image src="{{static_path}}/bg-cloud-s.png" mode="widthFix"></image></view>
+    </view>
+
+    <!-- 错误 -->
+    <view id="error-box" class="msg-show-box" hidden="{{!detail.showError}}">
+        <view class="view-box">
+            <view class="msg-ico"><image src="{{static_path}}/cry.png" mode="widthFix"></image></view>
+            <view class="h3">操作错误</view>
+            <view class="content-view">
+                <view id="err-msg" class="p">{{detail.errMsg}}</view>
+            </view>
+            <view class="button-view">
+                <view class="bl bl-danger" bindtap="closeError">再试试</view>
+                <navigator class="bl bl-warning" url="/pages/index/index" open-type="switchTab">返回首页</navigator>
+            </view>
+        </view>
+    </view>
+
+    <!-- 未抽中 -->
+    <view id="loseBox" class="msg-show-box" hidden="{{!detail.showLose}}">
+        <view class="view-box">
+            <view class="msg-ico"><image src="{{static_path}}/cry.png" mode="widthFix"></image></view>
+            <view class="h3">很遗憾</view>
+            <view class="content-view">
+                <view class="p">手气不好，什么都没抽到</view>
+            </view>
+            <view class="button-view">
+                <view class="bl bl-danger" bindtap="closeLose">再试试</view>
+                <navigator class="bl bl-warning" url="/pages/index/index" open-type="switchTab">返回首页</navigator>
+            </view>
+        </view>
+    </view>
+
+    <!-- 积分 -->
+    <view id="scoreBox" class="msg-show-box" hidden="{{!detail.showScore}}">
+        <view class="view-box">
+            <view class="msg-ico"><image src="{{static_path}}/firework.png" mode="widthFix"></image></view>
+            <view class="h3">恭喜您中奖了</view>
+            <view class="content-view">
+                <view class="p">{{detail.scoreText}} 积分已放入您的账户</view>
+            </view>
+            <view class="button-view">
+                <navigator class="bl bl-danger" url="/pages/member/integral/integral" open-type="navigate">查看</navigator>
+                <view class="bl bl-danger" bindtap="closeScore">再试试</view>
+                <navigator class="bl bl-warning" url="/pages/integralmall/gallery" open-type="redirect">使用积分</navigator>
+            </view>
+        </view>
+    </view>
+
+    <!-- 优惠券 -->
+    <view id="couponBox" class="msg-show-box" hidden="{{!detail.showCoupon}}">
+        <view class="view-box">
+            <view class="msg-ico"><image src="{{static_path}}/firework.png" mode="widthFix"></image></view>
+            <view class="h3">恭喜您中奖了</view>
+            <view class="content-view">
+                <view class="p">{{detail.couponText}} 优惠券已放入您的账户</view>
+            </view>
+            <view class="button-view">
+                <navigator class="bl bl-danger" url="/pages/member/coupons/index">查看</navigator>
+                <view class="bl bl-warning" bindtap="closeCoupon">再试试</view>
+            </view>
+        </view>
+    </view>
+
+    <!-- 商品 -->
+    <view id="productBox" class="msg-show-box" hidden="{{!detail.showProduct}}">
+        <view class="view-box">
+            <view class="msg-ico"><image src="{{static_path}}/firework.png" mode="widthFix"></image></view>
+            <view class="h3">恭喜您中奖了</view>
+            <view class="content-view">
+                <view class="p">您抽中{{detail.productText}}，请填写收货人信息
+                    以便我们尽快为您发货</view>
+            </view>
+            <view class="button-view">
+                <view bindtap="closeProduct" class="bl bl-danger">选择收货地址</view>
+            </view>
+        </view>
+    </view>
+</view>

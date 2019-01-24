@@ -1,0 +1,40 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<view class="weui-search-bar">
+    <view>从</view>
+    <picker mode="date" bindchange="evt_changefilter_from" start="{{se_start}}" end="{{se_end}}" value="{{filter.form}}" >
+        <view class="picker">
+            {{filter.from?filter.from:se_start}}
+        </view>
+    </picker>
+    <view>至</view>
+    <picker mode="date" bindchange="evt_changefilter_to" start="{{se_start}}" end="{{se_end}}" value="{{filter.to?filter.to:se_end}}">
+        <view class="picker">
+            {{filter.to?filter.to:se_end}}
+        </view>
+    </picker>
+    <button size="mini" plain="true" bindtap="evt_dofilter">筛选</button>
+</view>
+<view class="prompt-panel" s-if="{{empty_list == 'YES'}}">
+    <view class="icon-empty-list"></view>
+</view>
+<scroll-view scroll-y="true" style="height:{{sv_height}}px;" bindscrolltolower="evt_scrolltolower" s-if="{{empty_list == 'NO'}}">
+    <view class="weui-panel">
+            <view class="weui-panel__hd" s-if="{{people_type=='salesclerk'}}">
+                <radio-group class="radio-group" bindchange="evt_radiochange" >
+                    <label class="radio">
+                        <radio value="order_count" color="#666" checked="{{filter.order=='order_count'}}"/>按单量排名
+                    </label>
+                    <label class="radio">
+                        <radio value="order_sum" color="#666"  checked="{{filter.order=='order_sum'}}"/>按销售额排名
+                    </label>
+                </radio-group>
+            </view>
+            <view class="weui-panel__bd">
+                <view class="weui-media-box weui-media-box_small-appmsg">
+                    <import src="tpl.swan"/>
+                    <template is="{{people_type}}" data="{{data_list:data_list,images:images,filter:filter}}"/>
+                </view>
+            </view>
+    </view>
+    <view class="weui-loadmore" s-if="{{pager.current && pager.total>pager.current}}">正在加载</view>
+</scroll-view>

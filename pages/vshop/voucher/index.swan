@@ -1,0 +1,89 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<filter src="../../../utils/fmt.js" module="fmt"></filter>
+<block s-if="{{hideLoading}}">
+<view class="weui-tab">
+    <view class="weui-navbar">
+        <navigator open-type="redirect" url="/pages/vshop/voucher/index?status=" class="weui-navbar__item {{filter_data['status']==''?'weui-bar__item_on':''}}" >
+            <view class="weui-navbar__title">全部</view>
+        </navigator>
+        <navigator open-type="redirect" url="/pages/vshop/voucher/index?status=ready" class="weui-navbar__item {{filter_data['status']=='ready'?'weui-bar__item_on':''}}">
+            <view class="weui-navbar__title">待结算</view>
+        </navigator>
+        <navigator open-type="redirect" url="/pages/vshop/voucher/index?status=process" class="weui-navbar__item {{filter_data['status']=='process'?'weui-bar__item_on':''}}">
+            <view class="weui-navbar__title">处理中</view>
+        </navigator>
+        <navigator open-type="redirect" url="/pages/vshop/voucher/index?status=succ" class="weui-navbar__item {{filter_data['status']=='succ'?'weui-bar__item_on':''}}">
+            <view class="weui-navbar__title">已结算</view>
+        </navigator>
+    </view>
+</view>
+<view class="weui-search-bar">
+    <view>从</view>
+    <picker mode="date" bindchange="evt_changefilter_from" start="{{se_start}}" end="{{se_end}}" value="{{filter_data['from']?filter_data['from']:se_start}}" >
+        <view class="picker">
+            {{filter_data['from']?filter_data['from']:se_start}}
+        </view>
+    </picker>
+    <view>至</view>
+    <picker mode="date" bindchange="evt_changefilter_to" start="{{se_start}}" end="{{se_end}}" value="{{filter_data['to']?filter_data['to']:se_end}}">
+        <view class="picker">
+            {{filter_data['to']?filter_data['to']:se_end}}
+        </view>
+    </picker>
+    <button size="mini" plain="true" bindtap="evt_dofilter">筛选</button>
+</view>
+<view class="prompt-panel" s-if="{{empty_list == 'YES'}}">
+    <view class="icon-empty-list"></view>
+</view>
+<scroll-view scroll-y="true" style="height:{{sv_height}}px;" bindscrolltolower="evt_scrolltolower" s-if="{{voucher_list}}">
+    <view class="voucher-panel">
+        <view class="weui-panel" s-for="{{voucher_list}}" s-for-item="voucher" s-key="voucher_id">
+                <view class="weui-panel__hd">
+                    {{voucher.createtime}}
+                    <view class="status-icon status-{{voucher.status}}">{{status_kvmap[voucher.status]}}</view>
+                </view>
+                <view class="weui-form-preview">
+                    <view class="weui-form-preview__hd">
+                        <view class="weui-form-preview__item">
+                            <label class="weui-form-preview__label">应结算金额</label>
+                            <text class="weui-form-preview__value">¥{{fmt.price(voucher.total_subprice)}}</text>
+                        </view>
+                    </view>
+                    <view class="weui-form-preview__bd">
+                        <view class="weui-form-preview__item">
+                            <label class="weui-form-preview__label">凭证号</label>
+                            <text class="weui-form-preview__value">{{voucher.voucher_id}}</text>
+                        </view>
+                        <view class="weui-form-preview__item">
+                            <label class="weui-form-preview__label">发货单号</label>
+                            <text class="weui-form-preview__value">{{voucher.delivery_id}}</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-panel__bd">
+                        <view class="weui-cell" s-for="{{voucher_items[voucher.voucher_id]}}" s-for-item="item" s-key="index">
+                            <view class="weui-cell__hd item-image">
+                                <image mode="aspectFit" bindload="load_image"  src="{{images[item.image_id]?images[item.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{item.image_id}}" />
+                            </view>
+                            <view class="weui-cell__bd weui-cell_primary">
+                                {{item.name}} {{item.spec_info?item.spec_info:''}}
+                                <view class="cell-total">
+                                    {{fmt.price(item.s_price)+' x '+item.s_num}} = <text class="price">{{fmt.price(item.s_subprice)}}</text>
+                                </view>
+                            </view>
+                        </view>
+                </view>
+                <view class="weui-panel__ft">
+                    <navigator class="weui-cell weui-cell_access weui-cell_link" url="/pages/vshop/order/detail/detail?order_id={{voucher.order_id}}">
+                        <view class="weui-cell__bd">相关订单</view>
+                        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                    </navigator>
+                </view>
+        </view>
+    </view>
+    <view class="weui-loadmore" s-if="{{pager.current && pager.total>pager.current}}">正在加载</view>
+    <view class="weui-loadmore weui-loadmore_line" s-if="{{pager.total>1 && pager.total == pager.current}}">
+        <view class="weui-loadmore__tips">共{{order_count}}单</view>
+    </view>
+</scroll-view>
+</block>

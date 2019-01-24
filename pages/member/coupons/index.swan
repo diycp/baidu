@@ -1,0 +1,41 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<filter src="../../../utils/fmt.js" module="fmt"></filter>
+<block  s-if="{{hideLoading}}">
+<view class="weui-navbar"  style="position: fixed;">
+    <view bindtap="evt_tapnavbar" data-navindex="0"  class="weui-navbar__item {{!couponlogs_active?'weui-bar__item_on':''}}" >
+        <view class="weui-navbar__title">我的优惠券</view>
+    </view>
+    <view bindtap="evt_tapnavbar" data-navindex="1" class="weui-navbar__item {{couponlogs_active?'weui-bar__item_on':''}}">
+        <view class="weui-navbar__title">优惠券使用记录</view>
+    </view>
+</view>
+<scroll-view scroll-y="true" style="height:{{sv_height}}px;" bindscrolltolower="evt_scrolltolower">
+    
+    <view class="coupons" s-if="{{!couponlogs_active}}">
+        <view class="prompt-panel" s-if="{{!available_coupons}}"> 
+            <view class="icon-empty-list"  style="background-image:url({{img_url}}/public/wechat/statics/image/xcxicon/coupon_empty.png)"></view>
+            <view class="text" style="color:#999;">暂时还没有优惠券哦</view>
+        </view>
+        <view class="coupon" s-for="{{available_coupons}}" s-for-item="coupon" s-key="index">
+            <view class="time-limit">有效期：{{coupon.from_time}} 至 {{coupon.to_time}}</view>
+            <view class="name">{{coupon.cpns_name}}</view>
+            <view class="description">{{coupon.description}}</view>
+            <view class="code">{{coupon.memc_code}}</view>
+            <view class="transform"></view>
+        </view>
+    </view>
+    <view class="coupons logs" s-if="{{couponlogs_active}}">
+        <view class="prompt-panel" s-if="{{!couponlogs}}"> 
+            <view class="icon-empty-list"  style="background-image:url({{img_url}}/public/wechat/statics/image/xcxicon/coupon_empty.png)"></view>
+            <view class="text" style="color:#999;">暂时还没有使用过优惠券哦</view>
+        </view>
+        <view class="coupon" s-for="{{couponlogs}}" s-for-item="couponlog" s-key="index">
+            <view class="time-limit">使用时间：{{couponlog.usetime}}</view>
+            <view class="name">{{couponlog.cpns_name}}</view>
+            <view class="description">在订单{{couponlog.order_id}}中省了{{fmt.price(couponlog.coupon_save)}}</view>
+            <view class="code">{{couponlog.memc_code}}</view>
+            <view class="transform"></view>
+        </view>
+    </view>
+</scroll-view>
+</block>

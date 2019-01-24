@@ -1,0 +1,52 @@
+<view class="weui-tab">
+    <view class="weui-navbar">
+        <navigator open-type="redirect" url="/pages/member/aftersales/index" class="weui-navbar__item" >
+            <view class="weui-navbar__title">售后申请</view>
+        </navigator>
+        <view class="weui-navbar__item weui-bar__item_on">
+            <view class="weui-navbar__title">售后查询</view>
+        </view>
+    </view>
+</view>
+<scroll-view scroll-y="true" style="height:{{sv_height}}px;" bindscrolltolower="evt_scrolltolower" s-if="{{request_list}}">
+    <view class="orderhis-list" >
+        <view class="weui-panel" s-for="{{request_list}}" s-for-item="request" s-key="*this">
+                <view class="weui-panel__hd">
+                    服务编号#{{request.request_id}}
+                </view>
+                <view class="weui-panel__bd">
+                    <navigator  url="/pages/member/aftersales/reqdetail/reqdetail?request_id={{request.request_id}}" class="weui-cell weui-cell_access">
+                        <view class="weui-cell__hd">
+                            <image mode="aspectFit" class="weui-media-box__thumb" bindload="load_image" src="{{images[request.product.info.image_id]?images[request.product.info.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{request.product.info.image_id}}" />
+                        </view>
+                        <view class="weui-cell__bd weui-cell_primary">
+                            <view class="weui-media-box__desc co-name">{{request.product.info.name}}</view>
+                            <view class="weui-media-box__desc co-inline">
+                                <view class="co-spec">
+                                    {{request.product.info.spec_info?request.product.info.spec_info:''}}
+                                    x {{request.product.quantity}}
+                                </view>
+                            </view>
+                        </view>
+                        <view class="weui-cell__ft weui-cell__ft_in-access">
+                            {{status_map[request.status]}}
+                        </view>
+                    </navigator>
+                </view>
+                <view class="weui-panel__ft">
+                    <navigator  url="/pages/member/order/detail/detail?order_id={{request.order_id}}" class="weui-cell weui-cell_access weui-cell_link">
+                        <view class="weui-cell__bd">
+                            所在订单#{{request.order_id}}
+                        </view>
+                    </navigator>
+                </view>
+        </view>
+    </view>
+    <view class="weui-loadmore" s-if="{{pager.current && pager.total>pager.current}}">正在加载</view>
+    <view class="weui-loadmore weui-loadmore_line" s-if="{{pager.total>1 && pager.total == pager.current}}">
+        <view class="weui-loadmore__tips">没有更多了</view>
+    </view>
+</scroll-view>
+<contact-button class="contact-button" type="default-light"  size="25" session-from="vmcwapp-aftersales-reqlist" >
+    <view>咨询</view>
+</contact-button>

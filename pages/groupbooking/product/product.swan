@@ -1,0 +1,232 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<filter src="../../../utils/fmt.js" module="fmt"></filter>
+<block s-if="{{hideLoading}}">
+    <view class="product-container">
+        <swiper class="slider" style="{{slider_height_style?slider_height_style:''}}" indicator-dots="{{slide_images.length>1}}" autoplay="true" interval="5000" duration="1000">
+          <block s-for="{{slide_images}}" s-for-item="item" s-key="*this">
+            <swiper-item>
+              <image bindtap="tapslide" data-src="{{item}}" class="slide" src="{{item}}" mode="aspectFit" />
+            </swiper-item>
+          </block>
+        </swiper>
+        <view class="product-actions" style="top:{{windowWidth-45}}px">
+            <view catchtap="evt_showqrcode" class="action-item">
+                <view class="icon icon-sm icon-qrcode"></view>
+            </view>
+        </view>
+        <view class="weui-panel">
+            <view class="weui-panel__hd weui-cell goods-product">
+                    <view class="weui-cell__bd">
+                        <view class="product-name clearfix">
+                            <view class="goodsname"  style="color:{{themecolor.text_primary}}">{{data_detail.product.name}}</view>
+                            <view class="groupnumber">
+                                {{ activity.people_number }}人成团
+                            </view>
+                            <view class="countdown" wx-if="{{countdown.days != 00 || countdown.hours != 00 || countdown.minutes != 00 || countdown.seconds != 00}}">
+                                <text> {{ countdown.days }}天 </text>
+                                <text> {{ countdown.hours }} : </text>
+                                <text> {{ countdown.minutes }} : </text>
+                                <text> {{ countdown.seconds }} 后结束</text>
+                            </view>
+                        </view>
+                        <view>
+                            <text class="price"  style="color:{{themecolor.price_text}}"> ￥{{fmt.price(current_product.price)}} </text>  <text class="mktprice"> ￥{{fmt.price(data_detail.product.price)}} </text>
+
+                        </view>
+                        <view>
+                            <text> 已售{{data_detail.buy_count}}件 </text>
+                            <!-- <text> 已团23件 </text> -->
+                        </view>
+                    </view>
+            </view>
+        </view>
+    </view>
+    <view class="weui-panel">
+        <view class="weui-panel_hd">
+           <view class="weui-media-box product-spec" s-if="{{data_detail.spec_desc.t}}">
+               <view class="spec-select" s-for="{{data_detail.spec_desc.t}}" s-for-index="idx"  s-for-item="item" s-key="idx">
+                   <view class="spec-title">{{item}}</view>
+                   <view class="spec-options">
+                       <block s-for="{{data_detail.spec_desc.v[idx]}}"  s-for-item="option"  s-key="index">
+                               <view class="spec-item disabled" s-if="{{option.marketable == 'false'}}">
+                                   <image mode="aspectFit" src="{{images[option.p_image_id]?images[option.p_image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" s-if="{{option.p_image_id}}" data-ident="{{option.p_image_id}}"  bindload="load_image"/>
+                                   <text>{{option.label}}</text>
+                               </view>
+                               <view bindtap="tapspecitem" data-productid="{{option.product_id}}" s-if="{{option.marketable == 'true'}}" class="spec-item {{option.current?' active':''}}">
+                                   <image src="{{images[option.p_image_id]?images[option.p_image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}"  mode="aspectFit" s-if="{{option.p_image_id}}" data-ident="{{option.p_image_id}}" bindload="load_image"/>
+                                   <text>{{option.label}}</text>
+                               </view>
+                       </block>
+                   </view>
+               </view>
+               <view class="spec-select">
+                   <view class="spec-title" style="color:{{themecolor.text_primary}}">数量</view>
+                   <view class="spec-options product-quantity">
+                        <button class="pq-minus" plain="true" disabled="{{quantityVal<2}}" bindtap="tappqminus">-</button>
+                          <input type="number" value="{{quantityVal}}" class="pq-ipt" />
+                          <button class="pq-minus" plain="true" bindtap="tappqplus" disabled="{{quantityVal>=current_product.member_restrict_number}}">+</button>
+                   </view>
+                   <view class="purchase">(限购{{current_product.member_restrict_number}}件)</view>
+               </view>
+           </view>
+           <view class="weui-media-box product-spec" s-else>
+                <view class="spec-select">
+                    <view class="spec-title" style="color:{{themecolor.text_primary}}">数量</view>
+                    <view class="spec-options product-quantity">
+                         <button class="pq-minus" plain="true" disabled="{{quantityVal<2}}" bindtap="tappqminus">-</button>
+                           <input type="number" value="{{quantityVal}}" class="pq-ipt" />
+                           <button class="pq-minus" plain="true" bindtap="tappqplus" disabled="{{quantityVal>=activity.surplus_number}}">+</button>
+                    </view>
+                    <view class="purchase">(限购{{current_product.member_restrict_number}}件)</view>
+                </view>
+           </view>
+        </view>
+    </view>
+    <view class="weui-panel" s-if="{{orders_list != false}}">
+        <view class="weui-panel__hd">
+            正在开团
+        </view>
+        <view class="weui-panel__bd">
+            <view class="weui-media-box weui-media-box_small-appmsg">
+                <view class="weui-cells weui-cells_in-small-appmsg">
+                    <view class="weui-cell weui-cell_access" s-for="{{orders_list}}" s-for-item="gbitem" s-if="{{gbitem.surplus_people>0}}">
+                        <view class="weui-cell__hd">
+                            <image class="avatar" src="{{images[gbitem.member.avatar]?images[gbitem.member.avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}"  mode="aspectFit" bindload="load_image" data-ident="{{gbitem.member.avatar}}" style="width:50px;height:50px;margin-right:5px;display:block"/>
+                        </view>
+                        <view class="weui-cell__bd weui-cell_primary">
+                            <view class="regimental_name">{{gbitem.member.name}}</view>
+                            <view class="regimental_detail">{{gbitem.surplus_people<=0?'100%':(activity.people_number - gbitem.surplus_people)/activity.people_number*100}}%·还差{{gbitem.surplus_people<=0?0:gbitem.surplus_people}}人</view>
+                            <view class="weui-progress">
+                                <view class="weui-progress__bar">
+                                    <view class="weui-progress__inner-bar" style="width:{{gbitem.surplus_people<=0?'100%':(activity.people_number - gbitem.surplus_people)/activity.people_number*100}}%"></view>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="weui-cell__ft weui-cell__ft_in-access regimental_ft">
+                            <navigator url="/pages/groupbooking/joingroup/join?activity_id={{activity.activity_id}}&gb_id={{gbitem.gb_id}}&product_id={{current_product.product_id}}" class="weui-btn weui-btn_mini weui-btn_default go_regimental" s-if="{{gbitem.surplus_people>0}}">去参团</navigator>
+                            <view class="weui-btn weui-btn_mini weui-btn_default go_regimental" s-else>去参团</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="weui-panel goods-recomment" s-if="{{comment.comment_count>0}}">
+        <view class="weui-panel__hd">
+            评价
+         </view>
+         <view class="weui-panel__bd" s-for="{{comment.comment_list}}" s-for-item="comment_item" s-for-index="comment_id">
+             <view class="weui-media-box weui-media-box_text">
+                 <view class="weui-media-box__title comment-hd">
+                     <view class="comment-author comment-cell">{{comment_item.author_name}}</view>
+                     <view class="comment-star comment-cell">
+                         <view class="star-picker sp-mini">
+                             <view class="star {{(comment_item.mark.mark_star>0)?'active':''}}">
+                                 <text>★</text>
+                                 <text>☆</text>
+                             </view>
+                             <view class="star {{(comment_item.mark.mark_star>1)?'active':''}}">
+                                 <text>★</text>
+                                 <text>☆</text>
+                             </view>
+                             <view class="star {{(comment_item.mark.mark_star>2)?'active':''}}">
+                                 <text>★</text>
+                                 <text>☆</text>
+                             </view>
+                             <view class="star {{(comment_item.mark.mark_star>3)?'active':''}}">
+                                 <text>★</text>
+                                 <text>☆</text>
+                             </view>
+                             <view class="star {{(comment_item.mark.mark_star>4)?'active':''}}">
+                                 <text>★</text>
+                                 <text>☆</text>
+                             </view>
+                         </view>
+                     </view>
+                      <!-- <view class="comment-time comment-cell">{{comment_item.createtime}}</view> -->
+                 </view>
+                 <view class="weui-media-box__desc">
+                     <view class="comment-content">{{comment_item.content}}</view>
+                     <view class="images-wrap mini">
+                         <block s-for="{{comment_item.images}}" s-for-item="ext_commentimage">
+                             <image class="selected-image" bindload="load_image" src="{{images[ext_commentimage.image_id]?images[ext_commentimage.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{ext_commentimage.image_id}}"   mode="aspectFit" bindtap="evt_previewimage"/>
+                         </block>
+                     </view>
+                 </view>
+             </view>
+         </view>
+         <view class="weui-panel__ft">
+             <navigator open-type="navigate" class="weui-cell weui-cell_access weui-cell_link" s-if="{{comment.comment_count>0}}" url="/pages/product/comment/index?goods_id={{data_detail.goods_id}}">
+                 <view class="weui-cell__bd">共{{comment.comment_count}}条评论</view>
+                 <view class="weui-cell__ft">查看更多</view>
+             </navigator>
+         </view>
+    </view>
+    <view class="weui-panel product-brand" s-if="{{data_detail.brand && data_detail.brand.brand_logo}}">
+        <view class="weui-panel__bd">
+                <view bindtap="evt_goto" data-url="/pages/gallery/gallery?brand_id={{data_detail.brand.brand_id}}" class="weui-media-box weui-media-box_appmsg">
+                    <image class="weui-media-box__hd" mode="aspectFit" src="{{images[data_detail.brand.brand_logo]?images[data_detail.brand.brand_logo]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{data_detail.brand.brand_logo}}"  bindload="load_image"/>
+                    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                        <view class="weui-media-box__title" >
+                            {{data_detail.brand.brand_name}}
+                        </view>
+                    </view>
+                </view>
+        </view>
+    </view>
+    <view class="product-desc-loader" bindtouchstart="evt_loaddesc" s-if="{{desc_loaded=='NO'}}">
+        <icon type="download" size="32" color="#999" />
+        <view>加载商品详情</view>
+    </view>
+    <view class="weui-panel product-desc" s-if="{{desc_loaded=='YES'}}">
+            <view class="weui-panel__hd" style="color:{{themecolor.text_primary}};">
+                <view style="border-left:2px solid {{themecolor.price_text}};padding-left:10px;font-size:14px;">商品详情</view>
+            </view>
+            <view class="weui-panel__bd" style="padding:0 15px;">
+                <view class="product-params" s-if="{{data_detail.params}}">
+                    <view class="weui-form-preview" s-for="{{data_detail.params}}" s-for-item="p_group" >
+                        <view class="weui-form-preview__hd"  style="color:{{themecolor.text_primary}}">
+                                {{index}}
+                        </view>
+                        <view class="weui-form-preview__bd" s-for="{{p_group}}">
+                            <view class="weui-form-preview__item">
+                                <label class="weui-form-preview__label">{{index}}</label>
+                                <text class="weui-form-preview__value">{{item}}</text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <import src="/utils/wxParse/wxParse.swan"/>
+                <view class="wxParse">
+                    <template is="wxParse" data="{{wxParseData:product_desc.nodes}}"/>
+                </view>
+            </view>
+    </view>
+    <view class="goTop" bindtap="goTop"></view>
+<!--foot bar begin-->
+<!-- footer tips -->
+<view class="footer-tips">
+    支付即开团,{{activity.people_number}}人成团,人数不足自动退款
+</view>
+<view class="fix-foot-bar" style="background-color:{{themecolor.foot_bar_bg}}">
+    <view class="foot-left">
+        <navigator open-type="switchTab" url="/pages/index/index" >
+            <image  mode="aspectFit" src="{{img_url}}/public/wechat/tabbar/home.png" />
+        </navigator>
+    </view>
+
+    <view class="foot-left">
+        <contact-button type="default-dark"  size="25" session-from="vmcwapp-product" />
+    </view>
+    <view class="foot-right buy-area">
+        <button class="weui-btn make-group" type="warn" bindtap="addcart" disabled="{{activity.surplus_number<=0}}" style="background-color:{{themecolor.opengroup_color}};color:{{themecolor.opengroup_text_color}}">
+            <view class="handle-line-price"  style="color:{{themecolor.opengroup_text_color}}">￥{{fmt.price(current_product.price)}}</view>
+            <view class="handle-line"   style="color:{{themecolor.opengroup_text_color}}">一键开团</view>
+        </button>
+        <navigator url="/pages/product/product?product_id={{current_product.product_id}}" hover-class="" redirect class="buyalone" type="primary" style="background-color:{{themecolor.buysingle_color}};color:{{themecolor.buysingle_text_color}}">
+            <view class="handle-line-price"  style="color:{{themecolor.buysingle_text_color}}">￥{{fmt.price(data_detail.product.price)}}</view>
+            <view class="handle-line"  style="color:{{themecolor.buysingle_text_color}}">单独购买</view>
+        </navigator>
+    </view>
+</view>
+</block>

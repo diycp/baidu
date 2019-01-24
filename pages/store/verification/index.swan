@@ -1,0 +1,95 @@
+<filter src="../../../utils/fmt.js" module='fmt'></filter>
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{hideLoading}}">
+    <view class="subject">
+        <view class="image-box">
+            <image s-if="{{subject.default_image_id}}" data-ident="{{subject.default_image_id}}" src="{{images[subject.default_image_id]?images[subject.default_image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" mode="aspectFill" bindload="load_image" style="width:100%;height:{{win_width*0.4}}px;"/>
+            <view class="schedule-code">{{schedule.code}}</view>
+        </view>
+        <view class="weui-panel wp-first">
+                <!-- <view class="weui-panel__hd" >
+                    {{store.name}}
+                </view> -->
+                <view class="weui-panel__bd">
+                    <view class="weui-media-box no-before">
+                        <view class="weui-media-box__bd">
+                            <view class="weui-media-box__title" style="color:{{themecolor.text_primary}}">
+                                {{subject.title}}
+                            </view>
+                            <view class="weui-media-box__desc" style="color:{{themecolor.text_info}}">{{subject.intro}}</view>
+                            <view class="weui-media-box__desc time-desc" style="color:{{themecolor.text_info}}">开始时间：
+                                {{schedule.from_time_fmt}}
+                            </view>
+                            <view class="weui-media-box__desc time-desc" style="color:{{themecolor.text_info}}">结束时间：
+                                {{schedule.to_time_fmt}}
+                            </view>
+                        </view>
+                    </view>
+                    <view class="weui-media-box no-before no-top"  bindtap="evt_navstart">
+                        <view class="weui-media-box__bd">
+                            <view class="weui-media-box__title">
+                                {{store.name}}
+                            </view>
+                            <view class="weui-media-box__desc">
+                                <view class="icon icon-location icon-sm"></view>  {{fmt.region(store.region)}}<text s-if="{{store.address}}">,{{store.address}}</text>
+                        </view>
+                        </view>
+                    </view>
+                </view>
+        </view>
+    </view>
+    <view class="scan" bindtap="evt_scan">
+        <view class="icon icon-scan"></view>
+    </view>
+    <view class="weui-footer">
+            <view class="weui-footer__text">
+                扫客户二维码完成活动入场核销
+            </view>
+            <view class="weui-footer__links">
+                <navigator url="/pages/store/verification/log?schedule_id={{schedule.id}}" class="weui-footer__link">核销记录</navigator>
+            </view>
+    </view>
+    <view class="quick-modal {{order?'active':''}}" bindtap="evt_cancel" data-cancelel="true">
+        <view class="modal-section">
+            <view class="modal-hd">
+                <text>预约单确认</text>
+                <icon type="cancel" size="16" color="blcak" bindtap="evt_cancel" data-cancelel="true"/>
+            </view>
+            <view class="modal-bd">
+                <view class="weui-cells">
+                    <view class="weui-cell">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">姓名</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            {{order.name}}
+                        </view>
+                    </view>
+                    <view class="weui-cell">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">电话</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            {{order.phone}}
+                        </view>
+                    </view>
+                    <view class="weui-cell" s-if="{{order.need_ticket == 'true'}}">
+                        <view class="weui-cell__hd">
+                            <view class="weui-label">票券</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <view class="ticket-name">{{order.ticket_name}}</view>
+                            <view class="ticket-batch-no">{{order.ticket_batch_no}}</view>
+                        </view>
+                        <view class="weui-cell__ft ticket-price" s-if="{{order.ticket_price>0}}">
+                            <text>¥</text>{{fmt.price(order.ticket_price)}}
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-btn-area">
+                    <button type="primary" bindtap="evt_confirm">确认</button>
+                </view>
+            </view>
+        </view>
+    </view>
+</block>

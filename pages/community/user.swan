@@ -1,0 +1,43 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{hideLoading}}">
+    <view class="user-top">
+        <image class="avatar-bg" src="{{images[user_data.avatar]?images[user_data.avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{user_data.avatar}}" bindload="load_image" mode="aspectFill"/>
+        <view class="user-info">
+            <image class="avatar" src="{{images[user_data.avatar]?images[user_data.avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{user_data.avatar}}" bindload="load_image" mode="aspectFill"/>
+            <view class="nickname">{{user_data.nickname}}</view>
+            <view class="user-lv">
+                <view class="user-lv-name">
+                    <view class="user-lv-name-label">{{user_lv_data.name}}</view>
+                </view>
+                <view class="user-lv-logo" s-if="{{user_lv_data.lv_logo}}">
+                    <image src="{{user_lv_data.lv_logo_url}}" mode="widthFix"/>
+                </view>
+            </view>
+            <view class="sign">
+                {{user_data.sign}}
+            </view>
+            <view class="relation" catchtap="evt_taprelation" data-authorid="{{user_data.user_id}}" data-isrelation="{{my_relation_map['_'+user_data.user_id]}}">
+                <view class="icon icon-sm icon-like{{my_relation_map['_'+user_data.user_id]?'-fill':''}}"></view>
+            </view>
+            <navigator url="/pages/community/my/follow" class="user-opt">
+                <view class="label">被关注:</view>
+                <view class="val">{{user_data.follow_count}}</view>
+            </navigator>
+        </view>
+
+    </view>
+    <view class="my-case">
+        <import src="/pages/community/tpl/blog.swan"/>
+        <template is="widget-bloglist" data="{{data:blog_data,audio_playing:audio_playing,audio_play_time:audio_play_time,images:images,current_play_video_id:current_play_video_id,media_image_size:media_image_size,in_user_page:in_user_page,in_my_page:in_my_page,win_width:win_width,my_follow_map:my_follow_map}}"/>
+    </view>
+</block>
+<view class="comment-panel" s-if="{{show_comment_bar}}" bindtap="evt_tapcommentpanel">
+    <view class="weui-search-bar comment-bar" >
+        <view class="weui-search-bar__form">
+            <view class="weui-search-bar__box">
+                <view class="icon icon-sm icon-comment-fill"></view>
+                <input type="text" maxlength="255" class="weui-search-bar__input" placeholder="评论" bindconfirm="evt_comment_confirm" cursor-spacing="10"  confirm-type="send" focus="{{show_comment_bar}}"/>
+            </view>
+        </view>
+    </view>
+</view>

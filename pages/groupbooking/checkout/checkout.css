@@ -1,0 +1,159 @@
+page{
+    padding-bottom: 45px;
+    background:#efefef;
+}
+.container{
+    min-height: 100%;
+}
+.location-box{
+    width: 20px;
+
+}
+.location-box image{
+    width: 20px;
+    height: 20px;
+}
+.name-and-mobile{
+    display: flex;
+}
+.name-and-mobile .mobile{
+    margin-left: 10px;
+}
+.name-and-mobile .name text{
+    color: #666;
+}
+.co-item{
+    padding-right: 25px;
+}
+.co-name{
+    color: #333;
+}
+.co-price{
+    line-height: 22px;
+    color: #f60;
+    font-weight: lighter;
+    font-stretch: ultra-condensed;
+}
+.co-price text{
+    color: #999;
+}
+
+.co-inline{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+.goods-promotion{
+    line-height: 25px;
+}
+.order-promotion .weui-cell_link{
+    color: #666;
+}
+.cart-total{
+    font-size: 12px;
+    text-align: right;
+    display: block;
+}
+.cart-total .price{
+    color: #f60;
+    font-size: 14px;
+    font-weight:lighter;
+}
+
+
+.checkout-footer{
+    z-index: 10;
+    font-size: 12px;
+    height: 45px;
+    background-color: #fff;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.checkout-total{
+    padding-left: 15px;
+    color:#000;
+}
+.checkout-total text{
+    font-weight: lighter;
+    font-stretch: ultra-condensed;
+    color: #F83D38;
+}
+.submit-order{
+    margin: 0;
+    border-radius: 0;
+    background-color: #F83D38;
+    color: #fff;
+}
+.submit-order::after{
+    border-radius: 0;
+}
+
+.cost-freight{
+    font-size: 12px;
+    text-align: right;
+}
+
+/*.modal-bd .weui-cell__bd{
+    padding-left: 0;
+}*/
+.integral-opt-cell .weui-cell__bd{
+    width: 35%;
+}
+.integral-opt-cell input{
+    border-bottom: 1px #ccc solid;
+}
+.integral-opt-cell .weui-cell__ft,.integral-opt-cell .weui-cell__hd{
+    white-space: nowrap;
+}
+.weui-cell__desc{
+    color: #999;
+}
+
+.coupon-scroll-view{
+    height: 250px;
+    padding: 0;
+    background: #fff;
+}
+.coupon-checkbox{
+    display: block;
+}
+
+.plist-mini{
+    display: flex;
+    justify-content:flex-start;
+}
+
+.plist-mini .p-tag{
+    color: #999;
+    border-color:#999;
+}
+.scan-icon{
+    width: 25px;
+    height: 25px;
+}
+.coupon-desc{
+    font-size: 12px;
+}
+
+.icon-clear2plus{
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+}
+.product-buycount{
+    padding: 15px 15px 0 0;
+}
+.default-panel{
+    margin-top: 0;
+}
+.default-panel::before{
+    border-top: none;
+}
+.product-buycount::before{
+    border:none;
+}

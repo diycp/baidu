@@ -1,0 +1,196 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{hideLoading}}">
+    <view class="" s-if="{{vshop && vshop.status =='active' }}">
+        <view class="warpper-content">
+            <image class="warpper-image" bindtap="evt_goindex" src="{{img_url}}/public/wechat/vshop/Oval.png" mode="widthFix"></image>
+            <image class="right-icon" bindtap="evt_goindex" src="{{img_url}}/public/wechat/vshop/right.png" mode="widthFix"></image>
+            <view class="shop-info">
+                <view class="flex-row">
+                    <image class="vshop-logo" mode="aspectFit" src="{{vshop.logo_url?vshop.logo_url:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}"></image>
+                    <view class="flex-column">
+                        <view class="flex-row">
+                            <view class="shop-name">{{vshop.name}}</view>
+                            <view class="shop-lv" >
+                                {{vshop.lv_info.name}}
+                            </view>
+                        </view>
+                        <view class="shop-id">
+                            ID:{{vshop.shop_id}}
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="award-info">
+                <view class="benefit">
+                    <navigator url="/pages/vshop/statement/index?from={{date_month_first}}&status=noconfirm" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                        <view class="val f-red">{{amount_voucher_subprice}}</view>
+                        <view class="label">可结算收益 (元)</view>
+                    </navigator>
+                    <navigator url="/pages/vshop/order/index" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                        <view class="val">{{count_tody_order}}</view>
+                        <view class="label">今日订单</view>
+                    </navigator>
+                    <navigator url="/pages/vshop/voucher/index?from={{date_month_first}}" class="weui-media-box weui-media-box_appmsg last" hover-class="weui-cell_active">
+                        <view class="val">{{count_voucher_subprice}}</view>
+                        <view class="label">每月收益 (元)</view>
+                    </navigator>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view class="weui-grids" s-if="{{vshop && vshop.status =='active' }}">
+        <navigator class="weui-grid" url="/pages/vshop/team/index" s-if="{{open_second === 'true'}}">
+            <view class="weui-grid__icon">
+                <image mode="aspectFit" src="{{img_url}}/public/wechat/vshop/1.png" />
+            </view>
+            <view class="weui-grid__label">
+                 我的团队
+            </view>
+        </navigator>
+        <navigator class="weui-grid" url="/pages/vshop/order/index">
+            <view class="weui-grid__icon">
+                <image mode="aspectFit" src="{{img_url}}/public/wechat/vshop/2.png" />
+            </view>
+            <view class="weui-grid__label">
+                 订单管理
+            </view>
+        </navigator>
+        <view class="weui-grid" bindtap="evt_getqrcode">
+            <view class="weui-grid__icon">
+                <image mode="aspectFit" src="{{img_url}}/public/wechat/vshop/3.png" />
+            </view>
+            <view class="weui-grid__label">
+                 店铺二维码
+            </view>
+        </view>
+        <navigator class="weui-grid" url="/pages/vshop/voucher/index">
+            <view class="weui-grid__icon">
+                <image mode="aspectFit" src="{{img_url}}/public/wechat/vshop/4.png" />
+            </view>
+            <view class="weui-grid__label">
+                 结算凭证
+            </view>
+        </navigator>
+        <navigator class="weui-grid" url="/pages/vshop/statement/index">
+            <view class="weui-grid__icon">
+                <image mode="aspectFit" src="{{img_url}}/public/wechat/vshop/5.png" />
+            </view>
+            <view class="weui-grid__label">
+                 财务结算
+            </view>
+        </navigator>
+        <navigator class="weui-grid" url="/pages/vshop/notice/index">
+            <view class="weui-grid__icon">
+                <image mode="aspectFit" src="{{img_url}}/public/wechat/vshop/6.png" />
+            </view>
+            <view class="weui-grid__label">
+                 推广课堂
+            </view>
+        </navigator>
+    </view>
+    <view s-if="{{!vshop}}">
+        <view class="">
+            <view class="warpper-content">
+                <image class="warpper-image" src="{{img_url}}/public/wechat/vshop/Oval.png" mode="widthFix"></image>
+                <view class="tips">一键开店，轻松赚钱</view>
+                <view class="line"></view>
+                <image class="rules" src="{{img_url}}/public/wechat/vshop/rules.png" mode="widthFix"></image>
+                <text class="rules-text" bindtap="showRules">开通规则</text>
+                <view class="content">
+                    <view class="content-inner">
+                        <view class="item">
+                            <image class="icon" src="{{img_url}}/public/wechat/vshop/shop.png" mode="widthFix"></image>
+                            <view class="text">
+                                <view class="title">独立微店</view>
+                                <view class="brief">拥有自己的微店及推广二维码</view>
+                            </view>
+                        </view>
+                        <view class="item">
+                            <image class="icon" src="{{img_url}}/public/wechat/vshop/reward.png" mode="widthFix"></image>
+                            <view class="text">
+                                <view class="title">销售拿奖励</view>
+                                <view class="brief">微店卖出商品，您可以获得奖励</view>
+                            </view>
+                        </view>
+                        <view class="tips-2">微店内所有商品由平台直接发货、收款，并提供产品的售后服务</view>
+                    </view>
+                </view>
+            </view>
+            <button class="join-vshop" open-type="getPhoneNumber" bindgetphonenumber="evt_getphonenumber" type="primary" s-if="{{!bind_mobile}}">立即加入</button>
+            <button class="join-vshop" bindtap="evt_joinvshop" type="primary" s-else>立即加入</button>
+            <view class="modal" hidden="{{!modal_status}}" catchtouchmove="myCatchTouch">
+                <!-- 微店开通成功 start -->
+                <view class="modal-success" hidden="{{!show_success}}">
+                    <view class="modal-head">
+                        <image class="icon-cancel" src="{{img_url}}/public/wechat/vshop/cancel.png" mode="widthFix" bindtap="cancelModal"></image>
+                    </view>
+                    <view class="modal-content">
+                        <image class="icon-status" src="{{img_url}}/public/wechat/vshop/success.png" mode="widthFix"></image>
+                        <view class="tips-success">微店开通成功！</view>
+                    </view>
+                </view>
+                <!-- 微店开通成功 end -->
+                <!-- 微店开通失败 start -->
+                <view class="modal-failure" hidden="{{!show_error}}">
+                    <view class="modal-head">
+                        <image class="icon-cancel" src="{{img_url}}/public/wechat/vshop/cancel.png" mode="widthFix" bindtap="cancelModal"></image>
+                    </view>
+                    <view class="modal-content">
+                        <image class="icon-status" src="{{img_url}}/public/wechat/vshop/failure.png" mode="widthFix"></image>
+                        <view class="tips-failure">微店开通失败</view>
+                        <view class="tips-why">
+                            消费满
+                            <text class="money">{{open_shop_money}}</text>
+                            元,才能开通
+                        </view>
+                        <view class="back" bindtap="goToIndex">返回</view>
+                    </view>
+                </view>
+                <!-- 微店开通失败 end -->
+                <!-- 微店开通规则 start -->
+                <view class="rules-show" hidden="{{!show_rules}}">
+                    <view class="modal-head">
+                        <view class="modal-title">微店开通规则</view>
+                        <image class="icon-cancel" src="{{img_url}}/public/wechat/vshop/cancel.png" mode="widthFix" bindtap="cancelModal"></image>
+                    </view>
+                    <view class="modal-content modal-content-rules">
+                        <view class="rules-content">
+                            {{open_rule}}
+                        </view>
+                    </view>
+                </view>
+                <!-- 微店开通规则 end -->
+            </view>
+        </view>
+    </view>
+    <!-- 审核中 -->
+    <view s-if="{{vshop && vshop.status == 'validate'}}">
+        <view class="weui-msg">
+            <view class="weui-msg__icon-area">
+                <image class="validate-shop-logo" mode="widthFix" src="{{img_url}}/public/wechat/vshop/status_success.png"/>
+            </view>
+            <view class="weui-msg__text-area">
+                <view class="weui-msg__title">
+                    正在审核中，请耐心等待……
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- 暂停合作 -->
+    <view s-if="{{vshop && vshop.status == 'pause'}}">
+        <view class="weui-msg">
+            <view class="weui-msg__icon-area">
+                <image class="validate-shop-logo" mode="widthFix" src="{{img_url}}/public/wechat/vshop/status_error.png"/>
+            </view>
+            <view class="weui-msg__text-area">
+                <view class="weui-msg__title">
+                    您的店铺"{{vshop.name}}"被暂停营业
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- <contact-button type="default-light" size="20" session-from="vmcwapp-vshop" class="contact-button">
+        <view>咨询</view>
+    </contact-button> -->
+</block>

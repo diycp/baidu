@@ -1,0 +1,38 @@
+<filter src="../../../utils/fmt.js" module="fmt"></filter>
+<template name="goods-checkout">
+    
+    <block s-for="{{data_list.objects.goods}}" s-for-item="cart_object_goods" s-key="index">
+        <view  class="weui-media-box weui-media-box_appmsg co-item" s-if="{{cart_object_goods.quantity && cart_object_goods.disabled!='true'}}">
+            <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                <image mode="aspectFit" class="weui-media-box__thumb" bindload="load_image" src="{{images[cart_object_goods.item.product.image_id]?images[cart_object_goods.item.product.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{cart_object_goods.item.product.image_id}}" />
+            </view>
+            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                <view class="weui-media-box__desc co-name">{{cart_object_goods.item.product.name}}</view>
+                <view class="weui-media-box__desc co-inline">
+                    <view class="co-spec">{{cart_object_goods.item.product.spec_info?cart_object_goods.item.product.spec_info:''}}</view>
+                    <view class="co-price" style="color:{{themecolor.price_text}}">
+                        ￥{{cart_object_goods.item.product.buy_price}}
+                        <text>x {{cart_object_goods.quantity}} </text>
+                    </view>
+                </view>
+                <view class="promotion-list goods-promotion" s-for="{{data_list.promotions.goods}}" s-for-item="promotion" s-key="ident" s-for-index="ident">
+                    <block s-if="{{ident == cart_object_goods.obj_ident}}">
+                        <view class="p-item" s-for="{{promotion}}" s-for-item="item" s-key="index">
+                            <view class="p-tag" s-if="{{item.tag!='送赠品'}}">{{item.tag}}</view>
+                            <view class="p-desc">
+                                <view s-if="{{item.tag=='送赠品'}}">
+                                    <view class="git-item" s-for="{{item.solution}}">
+                                        <block s-if="{{item}}">[赠品] {{item}}</block>
+                                    </view>
+                                </view>
+                                <block s-else>
+                                {{item.name}}<block s-if="{{item.save&&item.save>0}}">,省 <text>¥</text>{{item.save}}</block>
+                                </block>
+                            </view>
+                        </view>
+                    </block>
+                </view>
+            </view>
+        </view>
+    </block>
+</template>

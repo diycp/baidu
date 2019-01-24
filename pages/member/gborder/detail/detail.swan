@@ -1,0 +1,117 @@
+<filter src="../../../../utils/fmt.js" module="fmt"></filter>
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{hideLoading}}">
+    <view class="weui-panel" style="font-size:14px;">
+            <view class="weui-panel__bd">
+                <view class="weui-cell">
+                    <view class="weui-cell__hd">
+                        团单号：{{order.gb_id}}
+                    </view>
+                    <view class="weui-cell__bd">
+
+                    </view>
+                    <view class="weui-cell__ft" s-if="{{order.is_failure == 0}}">
+                        <text> {{order_pay_status[order.pay_status]}} </text>        
+                        <text s-if="{{order.status == 0}}"> 待成团 </text>
+                        <text s-elif="{{order.status == 1}}"> 已成团 </text> 
+                    </view>
+                    <view class="weui-cell__ft" s-if="{{order.is_failure == 1}}">
+                        <text s-if="{{order.pay_status == 1}}"> 退款中 </text>
+                        <text s-if="{{order.pay_status == 5}}"> 退款完成 </text>
+                    </view>
+                </view>
+            </view>
+    </view>
+    <view class="weui-panel">
+            <view class="weui-panel__bd">
+                    <view class="weui-media-box weui-media-box_appmsg member-addr">
+                        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg location-box">
+                            <image  mode="aspectFit" src="{{img_url}}/public/wechat/statics/image/xcxicon/location.png"/>
+                        </view>
+                        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                            <view class="weui-media-box__title name-and-mobile" >
+                                <view class="name">{{order.consignee.name}}</view>
+                                <view class="mobile" >
+                                    {{order.consignee.mobile}}
+                                </view>
+                            </view>
+                            <view class="weui-media-box__desc area">{{order.consignee.area}}</view>
+                            <view class="weui-media-box__desc address">{{order.consignee.addr}}</view>
+                        </view>
+                </view>
+            </view>
+    </view>
+
+    <view class="weui-panel">
+            <!-- 自营 //TODO 多商户-->
+            <view class="weui-panel__bd">
+                <block>
+                    <view bindtap="evt_goto" data-url="/pages/product/product?product_id={{order.product_id}}" class="weui-media-box weui-media-box_appmsg co-item">
+                        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                            <image mode="aspectFit" class="weui-media-box__thumb" bindload="load_image" src="{{images[order.image_id]?images[order.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{order.image_id}}" />
+                        </view>
+                        <view class="weui-media-box__bd">
+                            <view class="weui-media-box__desc co-name">{{order.name}}</view>
+                            <view class="weui-media-box__desc co-inline">
+                                <view class="co-spec">{{order.spec_info?order.spec_info:''}}</view>
+                                <view class="co-price" style="color:{{themecolor.price_text}};">
+                                       {{order.buy_price>0?fmt.price(order.buy_price):''}}
+                                    <text>x {{order.nums}} </text>
+                                </view>
+                            </view>
+                            <view class="weui-media-box__desc co-inline">￥{{fmt.price(order.amount)}}</view>
+                        </view>
+                    </view>
+
+                </block>
+            </view>
+
+    </view>
+    <view class="weui-panel">
+        <view class="weui-panel__bd">
+            <view class="weui-cell payapp-cell">
+                <view class="weui-cell__hd">
+                    配送方式
+                </view>
+                <view class="weui-cell__bd">
+                        {{dlytype.dt_name}}
+                </view>
+            </view>
+            <view class="weui-cell payapp-cell">
+                <view class="weui-cell__hd">
+                    支付方式
+                </view>
+                <view class="weui-cell__bd">
+                        {{payapp.display_name?payapp.display_name:payapp.name}}
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="weui-panel">
+        <view class="weui-panel__bd">
+            <view class="weui-cell payapp-cell">
+                <view class="weui-cell__hd">
+                    运费
+                </view>
+                <view class="weui-cell__bd">
+
+                </view>
+                <view class="weui-cell__ft">
+                    ￥{{fmt.price(order.cost_freight)}}
+                </view>
+            </view>
+            <view class="weui-cell">
+                <view class="weui-cell__hd">
+                    团单应付金额
+                </view>
+                <view class="weui-cell__bd">
+
+                </view>
+                <view class="weui-cell__ft">
+                    ￥{{fmt.price(order.order_total)}}
+                </view>
+            </view>
+        </view>
+    </view>
+    <button type="warn" class="button-pay" s-if="{{ order.pay_status=='0' && order.status=='0' && order.is_failure == '0'}}" bindtap="evt_navigator" data-url="/pages/order/payment/payment?is_gb=true&order_id={{order.gb_id}}" style="background-color:{{themecolor.sure_submit_color}};color:{{themecolor.sure_submittext_color}};">立即付款</button>
+</block>

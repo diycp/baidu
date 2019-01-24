@@ -1,0 +1,7 @@
+{
+    "enablePullDownRefresh":true,
+    "backgroundColor":"#ffffff",
+    "backgroundTextStyle":"black",
+    "navigationBarTitleText":"核销"
+
+}

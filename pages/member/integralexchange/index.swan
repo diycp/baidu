@@ -1,0 +1,22 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block  s-if="{{hideLoading}}">
+<view class="coupons">
+    <view bindtap="evt_exchange" data-couponid="{{coupon.cpns_id}}" class="coupon" s-for="{{coupon_list}}" s-for-item="coupon" s-key="index">
+        <view class="time-limit">优惠券有效期：{{coupon.from_time}} 至 {{coupon.to_time}}</view>
+        <view class="coupon-box">
+            <view class="b-left">
+                <view class="name">{{coupon.cpns_name}}</view>
+                <view class="description">{{coupon.rule_description}}</view>
+            </view>
+            <view class="point">
+                <view class="p-val">{{coupon.cpns_point}}</view>
+                <view class="btn">积分兑换</view>
+            </view>
+        </view>
+        <view class="transform"></view>
+    </view>
+</view>
+<view class="weui-loadmore weui-loadmore_line">
+    <view class="weui-loadmore__tips">积分余额: {{member.integral?member.integral:0}}</view>
+</view>
+</block>

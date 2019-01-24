@@ -1,0 +1,56 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<filter src="../../utils/fmt.js" module="fmt"></filter>
+<block s-if="{{hideLoading}}">
+    <view class="setp">
+        <view class="icon icon-sm icon-giftcard"> </view>
+         已选择卡面：{{style_list['cid_'+cstyle_selected].title}}
+    </view>
+    <scroll-view scroll-with-animation="true" scroll-into-view="{{cstyle_into_view}}" scroll-x="true" style="height:{{win_width*0.7*0.6+30}}px;width:{{win_width-15}}px;margin-left:15px;" s-if="{{style_list}}">
+        <view class="cstyle-gallery" style="width:{{(win_width*0.7+21)*style_list_count}}px">
+            <view id="cstyle_{{item.id}}" bindtap="evt_select_cstyle" data-cstyleid="{{item.id}}" class="cs-item {{cstyle_selected == item.id?'selected':''}}" s-for="{{style_list}}" style="width:{{win_width*0.7}}px;height:{{win_width*0.7*0.6}}px;">
+                <image mode="aspectFill" src="{{images[item.image]?images[item.image]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{item.image}}" bindload="load_image_m" />
+                <!-- <view class="title">{{item.title}}</view> -->
+                <icon type="success" size="20" color="#FFC140"/>
+            </view>
+            <!-- <view class="cs-item-blank" style="width:15px;height:{{win_width*0.7*0.6}}px;"><text>.</text></view> -->
+        </view>
+    </scroll-view>
+    <view class="scroll-map">
+        <view class="sm-item {{cstyle_selected == item.id?'selected':''}}" s-for="{{style_list}}"></view>
+    </view>
+    <view class="setp">
+        <view class="icon icon-sm icon-like"> </view>
+        选择礼品
+    </view>
+    <view class="gift-item-panel">
+        <view class="gift-item {{cart[item.product_id] && cart[item.product_id].quantity>0?'selected':''}}" s-for="{{items}}" style="width:{{win_width-36}}px;">
+            <view class="col-left" style="width:{{win_width*0.3-17}}px;">
+                <image src="{{images[product_data[item.product_id].image_id]?images[product_data[item.product_id].image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" mode="aspectFit" data-ident="{{product_data[item.product_id].image_id}}" bindload="load_image_m" style="width:{{win_width*0.3-17}}px;height:{{win_width*0.3-17}}px"></image></view>
+            <view class="col-right" style="width:{{win_width*0.7-17}}px;">
+                <view class="p-title">
+                    {{product_data[item.product_id].name}}
+                    <text class="p-spec">{{product_data[item.product_id].spec_info||''}}</text>
+                </view>
+                <view class="col-option">
+                    <view class="price"><text>￥</text>{{fmt.price(item.price)}}</view>
+                    <view class="quantity-set">
+                        <view class="minus" data-type='minus' data-productid="{{item.product_id}}" bindtap="evt_setquantity">-</view>
+                        <view class="plus" data-type='plus' data-productid="{{item.product_id}}" bindtap="evt_setquantity">+</view>
+                    </view>
+                </view>
+            </view>
+            <view class="weui-badge" s-if="{{cart[item.product_id].quantity>0}}">{{cart[item.product_id].quantity}}</view>
+        </view>
+    </view>
+    <view class="checkout-footer">
+        <view class="checkout-inner">
+            <view class="total-tip">
+                <view>共{{checkout_quantity||0}}件</view>
+                <view class="price"><text>¥</text>{{fmt.price(checkout_total||0)}}</view>
+            </view>
+            <view class="checkout-btn">
+                <button type="button" bindtap="evt_submit_order" disabled="{{(checkout_quantity>0&&!wxpaying)?false:true}}" type="warn">购买</button>
+            </view>
+        </view>
+    </view>
+</block>

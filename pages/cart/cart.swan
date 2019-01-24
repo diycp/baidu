@@ -1,0 +1,85 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<filter src="../../utils/fmt.js" module="fmt"></filter>
+<view class="cart-objects" s-if="{{cart_empty=='false'}}">
+    <!-- 自营 //TODO 多商户 循环weui-panel -->
+    <view class="weui-panel">
+            <view class="weui-panel__bd" s-if="{{!is_merchant}}">
+                <import src="tpl.swan"/>
+                <template is="goods-cart" data="{{{data_list:objects.goods,themecolor:themecolor,coitem_transform_dis:coitem_transform_dis,images:images}}}"/>
+                <view class="weui-panel__ft order-promotion" s-if="{{promotions.order}}">
+                <view class="weui-cell weui-cell_link">
+
+                        <view class="promotion-list">
+                                <view class="p-item" s-for="{{promotions.order}}" s-for-item="item" s-key="index">
+                                    <view class="p-tag" s-if="{{item.tag!='送赠品'}}">{{item.tag}}<block s-if="{{item.rule_type=='coupon'}}">券</block></view>
+                                    <view class="p-desc">
+                                        <view s-if="{{item.tag=='送赠品'}}">
+                                            <view class="git-item" s-for="{{item.solution}}">
+                                                <block s-if="{{item}}">[赠品] {{item}}</block>
+                                            </view>
+                                        </view>
+                                        <block s-else>
+                                        {{item.name}}<block s-if="{{item.save&&item.save>0}}">,优惠 <text>¥</text>{{fmt.price(item.save)}}</block>
+                                        </block>
+                                    </view>
+                                </view>
+                        </view>
+
+                </view>
+            </view>
+            </view>
+            <view class="weui-panel__bd"  s-if="{{is_merchant}}">
+                <block s-for="{{objects}}" s-for-item="object_cart" s-for-index="object_index">
+                    <view>
+                        <view class="co-check" style="float:left;">
+                            <icon type="radioUnselect" size="18" color="#ccc" s-if="{{object_cart.object_count!=object_cart.objects.goods.length}}" bindtap="check_all" data-index="{{object_index}}" data-status="enabled"/>
+                            <icon type="success" size="18" s-if="{{object_cart.object_count==object_cart.objects.goods.length}}" data-index="{{object_index}}" bindtap="check_all" data-status="disabled" color="{{themecolor.cart_checkouticon_color}}"/>
+                        </view>
+                        <text>{{object_cart.merchant.show_name}}</text>
+                    </view>
+                    <import src="tpl.swan"/>
+                    <template is="goods-cart" data="{{{data_list:object_cart.objects.goods,themecolor:themecolor,coitem_transform_dis:coitem_transform_dis,images:images}}}"/>
+                    <view class="weui-panel__ft order-promotion" s-if="{{object_cart.promotions.order}}">
+                <view class="weui-cell weui-cell_link">
+
+                        <view class="promotion-list">
+                                <view class="p-item" s-for="{{object_cart.promotions.order}}" s-for-item="item" s-key="index">
+                                    <view class="p-tag" s-if="{{item.tag!='送赠品'}}">{{item.tag}}<block s-if="{{item.rule_type=='coupon'}}">券</block></view>
+                                    <view class="p-desc">
+                                        <view s-if="{{item.tag=='送赠品'}}">
+                                            <view class="git-item" s-for="{{item.solution}}">
+                                                <block s-if="{{item}}">[赠品] {{item}}</block>
+                                            </view>
+                                        </view>
+                                        <block s-else>
+                                        {{item.name}}<block s-if="{{item.save&&item.save>0}}">,优惠 <text>¥</text>{{fmt.price(item.save)}}</block>
+                                        </block>
+                                    </view>
+                                </view>
+                        </view>
+
+                </view>
+            </view>
+                </block>
+            </view>
+            
+    </view>
+</view>
+<view class="cart-footer" s-if="{{objects && goods_count>0 && cart_empty=='false'}}" style="background-color:{{themecolor.cart_footbg_color}}">
+
+    <view class="cart-total" style="color:{{themecolor.cart_foottext_color}}">
+        <view class="count">{{goods_count}}件商品(不含运费)</view>
+        <view class="total">
+            合计：<text style="color:{{themecolor.cart_footprice_color}}">¥ {{fmt.price(finally_cart_amount)}}</text>
+        </view>
+    </view>
+    <navigator class="go-checkout" hover-class="go-checkout-active" url="/pages/checkout/checkout" style="background-color:{{themecolor.cart_checkout_color}};color:{{themecolor.cart_checkouttext_color}}">
+        立即结算
+    </navigator>
+</view>
+
+<view class="prompt-panel" s-if="{{cart_empty=='true'}}">
+    <image mode="widthFix" src="{{img_url}}/public/wechat/statics/image/xcxicon/cart_empty.png" />
+    <view class="text">购物车为空～</view>
+    <navigator class="navigator" open-type="switchTab" url="/pages/index/index">去选购商品</navigator>
+</view>

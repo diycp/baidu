@@ -1,0 +1,62 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{hideLoading && data_list}}">
+	<view class="banner">
+		<image style="height:200px;width:100%" mode="aspectFill" src="{{images[data_list.activity.image_id]?images[data_list.activity.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{data_list.activity.image_id}}" bindload="load_image" />
+		<view class="banner-actions">
+            <view catchtap="evt_showshare" class="action-item">
+                <view class="icon icon-sm icon-qrcode"></view>
+            </view>
+        </view>
+	</view>
+	<view class="coupon-item {{coupon.is_buy != 'true'?'disabled-coupons':''}}" s-for="{{data_list.cpns_list}}" s-for-item="coupon" s-key="coupon_id" bindtap="getcoupon" data-cpnurl="a/{{data_list.activity.activity_id}}/c/{{coupon.cpns_id}}/k/{{coupon.cpns_key}}">
+		<view class="coupon-detail" style="width:{{sv_width}}px">
+			<view class="cpnname">{{coupon.cpns_name}}</view>
+			<view class="cpnrule">{{coupon.description}}</view>
+			<view class="cpntime">有效期:{{coupon.from_time}}至{{coupon.to_time}}</view>
+		</view>
+		<view class="line-block">
+			<view class="top-cricle"></view>
+			<view class="line-through"></view>
+			<view class="bottom-cricle"></view>
+		</view>
+		<view class="get-coupon">
+			<view class="progress-text">
+				<text> 已抢{{coupon.bought>100?100:coupon.bought|ceil}}% </text>
+			</view>
+			<view class="weui-progress">
+				<view class="weui-progress__bar">
+				    <view class="weui-progress__inner-bar js_progress" style="width: {{coupon.bought>100?100:coupon.bought|ceil}}%;"></view>
+				</view>
+			</view>
+			<view class="get-btn" s-if="{{coupon.is_buy == 'true'}}">
+				领取
+			</view>
+		</view>
+	</view>
+	<view class="weui-footer">
+			<view class="weui-footer__text">
+				{{data_list.activity.brief}}
+			</view>
+			<view class="weui-footer__links">
+				<navigator url="/pages/member/coupons/index" class="weui-footer__link">查看我的优惠券</navigator>
+				<navigator url="/pages/couponactivity/index" class="weui-footer__link">查看全部领券活动</navigator>
+			</view>
+	</view>
+	<view class="countdown-wrap" s-if="{{countdown&&(countdown.days>0 || countdown.hours>0 || countdown.minutes>0 || countdown.seconds>0)}}">
+		<view class="countdown">
+			<view class="countdown-tip">距活动结束仅剩</view>
+			<view class="countdown-timer">
+				<view s-if="{{countdown.days>0}}"> <text>{{ countdown.days }}</text>天</view>
+				<view><text>{{ countdown.hours }}</text>:</view>
+				<view><text>{{ countdown.minutes }}</text>:</view>
+				<view><text>{{ countdown.seconds }}</text></view>
+			</view>
+		</view>
+	</view>
+	<view class="poster-canvas-mask" data-hideposter="true" bindtap="evt_hideposter" style="top:0;left:0;width:{{windowWidth}}px;height:{{windowHeight}}px;display:{{canvas_poster_show?'flex':'none'}}">
+	    <view class="poster-canvas-box" style="width:{{ctx_img_rect_w}}px;height:{{ctx_img_rect_h+150}}px;">
+	        <canvas canvas-id="poster_canvas" bindtap="evt_previewposter" class="poster-canvas" style="width:{{ctx_img_rect_w}}px;height:{{ctx_img_rect_h+150}}px;"></canvas>
+	        <button type="primary" bindtap="evt_downloadposter">保存到手机</button>
+	    </view>
+	</view>
+</block>

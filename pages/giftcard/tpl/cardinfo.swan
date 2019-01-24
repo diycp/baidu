@@ -1,0 +1,37 @@
+<filter src="../../../utils/fmt.js" module="fmt"></filter>
+<template name="card-info-tpl">
+    <view class="card-style" style="width:{{win_width-30}}px;height:{{(win_width-30)*3/5}}px;">
+        <image  mode="aspectFill" src="{{images[crecord.card_image]?images[crecord.card_image]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{crecord.card_image}}" bindload="load_image_l" />
+    </view>
+    <view class="crecord-info" s-if="{{!mini}}" style="width:{{win_width-50}}px">
+        <view class="c-title">{{crecord.card_title}}</view>
+        <view class="c-memo">{{crecord.card_memo}}</view>
+        <view class="c-price"><text>¥</text>{{crecord.order_total}}</view>
+        <view class="c-paytime"><text>购买时间: </text>{{crecord.createtime_fmt}}</view>
+        <view class="c-cid"><text>礼品卡单号: </text>{{crecord.crecord_id}}</view>
+        <view class="c-recipient" s-if="{{crecord.recipient_member_id}}">
+            <image class="avatar" mode="aspectFill" src="{{images[crecord.recipient_member.avatar]?images[crecord.recipient_member.avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{crecord.recipient_member.avatar}}" bindload="load_image_s" /> <view class="cr-name">{{crecord.recipient_member.name}}</view>
+            <view>已领取</view>
+        </view>
+        <view class="c-use" s-if="{{crecord.use_status=='1'}}">
+            已于{{crecord.use_time_fmt}}使用,最终订单:{{crecord.use_order}}
+        </view>
+        <view class="c-items" s-if="{{!mini}}">
+            <view class="weui-cells__title">礼品明细</view>
+            <view class="weui-cells">
+                <view class="weui-cell" s-for="{{crecord.items}}">
+                    <view class="weui-cell__hd">
+                        <image style="width:40px;height:40px;" mode="aspectFill" src="{{images[item.image_id]?images[item.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{item.image_id}}" bindload="load_image_xs" />
+                    </view>
+                    <view class="weui-cell__bd">
+                        {{item.name}}<text>{{item.spec_info}}</text>
+                    </view>
+                    <view class="weui-cell__ft">
+                        {{item.buy_price}} x {{item.nums}}
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+
+</template>

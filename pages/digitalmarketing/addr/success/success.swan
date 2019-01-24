@@ -1,0 +1,58 @@
+<!-- <view class="weui-panel" s-for="{{list}}" s-for-item="item" s-key="i">
+    <view class="weui-panel__bd">
+        <view class="weui-media-box weui-media-box_appmsg member-addr" bindtap="{{select?'evt_navigateback':'evt_empty'}}" data-addrid="{{item.addr_id}}">
+            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                <view class="weui-media-box__title name-and-mobile" >
+                    <view class="name">{{item.name}}</view>
+                    <view class="mobile" >
+                        {{item.mobile}}
+                    </view>
+                </view>
+                <view class="weui-media-box__desc area">{{item.area_format}}</view>
+                <view class="weui-media-box__desc address">{{item.addr}}</view>
+            </view>
+            <block s-if="{{select}}">
+                <view class="weui-media-box__ft">
+                    <icon s-if="{{select == item.addr_id}}" type="success" size="20"  color="{{themecolor.checkbox_checked_color}}"/>
+                    <icon s-if="{{select != item.addr_id}}" type="circle" size="20" />
+                </view>
+            </block>
+            <block s-else="{{1}}">
+            </block>
+        </view>
+    </view>
+    <view class="weui-panel__ft addr-options">
+        <view class="is-default" bindtap="selectAddr">
+            <block>
+                <view class="set-default" bindtap="evt_setdefault" data-addrid="{{item.addr_id}}">
+                    <icon type="success_no_circle" color="#e9e9e9" size="20" /> 选择地址
+                </view>
+            </block>
+        </view>
+    </view>
+</view>
+<button type="warn" form-type="button" class="new-addr-btn" bindtap="evt_editaddr"  style="background-color:{{themecolor.sure_submit_color}};color:{{themecolor.sure_submittext_color}}">添加收货地址</button> -->
+
+<view class='top'>
+  <icon type='success' size='70' ></icon>
+</view>
+<text class='toptext'>恭喜您获得{{productname}}</text>
+<view class='orderform'>
+  <text class='orderformtext'>订单号</text>
+  <text class='orderformtext'>{{orderid}}</text>
+</view>
+<view class='addresstext'>
+  <image class='addressimage' src='/statics/image/tabbar/location.png'></image>
+  <view class='addressinfo'>
+    <text class='addressinfo_p'>收货人：{{userinfo.name}}  {{userinfo.mobile}}</text>
+    <text class='addressinfo_a'>收货地址：{{addr}} {{userinfo.addr}}</text>
+  </view>
+</view>
+<view class='footer'>
+  <navigator class='footer_text' url='/pages/member/order/index'>
+    订单详情
+  </navigator>
+  <view class='footer_text' bindtap='getback'>
+    返回首页
+  </view>
+</view>

@@ -1,0 +1,13 @@
+<!--pages/groupbooking/payment/paysuccess/paysuccess.swan-->
+<view class='successtop'>
+  <icon type='success' class='success_icon'></icon>
+  <text class='success_text'>拼单成功</text>
+</view>
+<view class='invite_friends'>
+  <button class='friends_text' open-type='share'>邀请好友</button>
+</view>
+<view class='viewdetails'>
+  <navigator class='details_text'  url='/pages/member/gborder/index'>查看我的团单
+    <text class='details_icon'>></text>
+  </navigator>
+</view>

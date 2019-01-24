@@ -1,0 +1,116 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<view class="weui-form-preview">
+    <view class="weui-form-preview__hd">
+        <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">结算金额</label>
+            <text class="weui-form-preview__value">¥{{statement.money}}</text>
+        </view>
+    </view>
+    <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">结算单状态</label>
+            <view class="status-icon status-{{statement.status}}">{{status_kvmap[statement.status]}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">最后更新时间</label>
+            <text class="weui-form-preview__value">{{statement.last_modify}}</text>
+        </view>
+        <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">结算单号</label>
+            <text class="weui-form-preview__value">{{statement.statement_id}}</text>
+        </view>
+    </view>
+    <view class="weui-form-preview__bd" s-if="{{statement.status!='noconfirm'}}">
+        <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">收款人</label>
+            <text class="weui-form-preview__value">{{statement.payee}}</text>
+        </view>
+        <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">收款银行</label>
+            <text class="weui-form-preview__value">{{statement.payee_bank}}</text>
+        </view>
+        <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">收款账号</label>
+            <text class="weui-form-preview__value">{{statement.payee_account}}</text>
+        </view>
+    </view>
+    <view class="weui-form-preview__bd" s-if="{{statement.status!='noconfirm'}}">
+        <view class="weui-form-preview__item" s-if="{{statement.payer}}">
+            <label class="weui-form-preview__label">付款人</label>
+            <text class="weui-form-preview__value">{{statement.payee}}</text>
+        </view>
+        <view class="weui-form-preview__item" s-if="{{statement.payer_bank}}">
+            <label class="weui-form-preview__label">付款银行</label>
+            <text class="weui-form-preview__value">{{statement.payee_bank}}</text>
+        </view>
+        <view class="weui-form-preview__item" s-if="{{statement.payer_account}}">
+            <label class="weui-form-preview__label">付款账号</label>
+            <text class="weui-form-preview__value">{{statement.payer_account}}</text>
+        </view>
+        <view class="weui-form-preview__item" s-if="{{statement.out_trade_no}}">
+            <label class="weui-form-preview__label">支付流水号</label>
+            <text class="weui-form-preview__value">{{statement.out_trade_no}}</text>
+        </view>
+    </view>
+    <form bindsubmit="evt_update" s-if="{{statement.status=='noconfirm'}}">
+        <view class="weui-cells weui-cells_form">
+            <view class="weui-cell">
+                    <view class="weui-cell__hd"><label class="weui-label">收款姓名</label></view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" name="statement_payee_info[payee]" type="text"  placeholder="收款人姓名"/>
+                    </view>
+            </view>
+            <view class="weui-cell">
+                    <view class="weui-cell__hd"><label class="weui-label">收款银行</label></view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" name="statement_payee_info[payee_bank]" type="text"  placeholder="收款银行" />
+                    </view>
+            </view>
+            <view class="weui-cell">
+                    <view class="weui-cell__hd"><label class="weui-label">收款账号</label></view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" name="statement_payee_info[payee_account]" type="text"  placeholder="收款账号"/>
+                    </view>
+            </view>
+        </view>
+        <view class="weui-form-preview__ft no-top-border">
+            <button form-type="submit"  class="weui-form-preview__btn weui-form-preview__btn_primary">
+                确认收款信息
+            </button>
+        </view>
+    </form>
+</view>
+<view class="weui-loadmore weui-loadmore_line">
+    <view class="weui-loadmore__tips">以下为凭证</view>
+</view>
+
+<view class="weui-form-preview" s-for="{{achieve_list}}" s-for-item="voucher" s-key="voucher_id">
+    <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">凭证号</label>
+            <text class="weui-form-preview__value">{{voucher.achieve_id}}</text>
+        </view>
+        <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">应结算金额</label>
+            <text class="weui-form-preview__value">¥{{voucher.achieve_fund}}</text>
+        </view>
+        <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">发货单号</label>
+            <text class="weui-form-preview__value">{{voucher.delivery_id}}</text>
+        </view>
+        <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">订单号</label>
+            <text class="weui-form-preview__value">{{voucher.order_id}}</text>
+        </view>
+    </view>
+    <view class="weui-cells">
+        <view class="weui-cell" s-for="{{achieve_items[voucher.orderlog_id]}}" s-for-item="item" s-key="index">
+            <view class="weui-cell__bd">{{item.name}} {{item.spec_info?item.spec_info:''}}
+            </view>
+            <text class="weui-cell__ft">{{item.o2ocds_items[type]}}</text>
+        </view>
+    </view>
+</view>
+<view class="weui-loadmore weui-loadmore_line">
+    <view class="weui-loadmore__tips">以下无凭证</view>
+</view>

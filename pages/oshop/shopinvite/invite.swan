@@ -1,0 +1,43 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<view class="shopinvite-codelist" s-if="{{hideLoading && invitation_list}}">
+        <view class="invitation {{item.status=='1'?'used':''}}" s-for="{{invitation_list}}" s-for-item="item" s-key="index" bindtap="evt_tabinvitation" data-index="{{index}}">
+            <view class="create-time">发行时间:{{item.createtime}}</view>
+            <view class="code-body">
+                <view class="code">{{item.invitation_code}}</view>
+                <view class="status">{{item.status=='1'?'已使用':'未使用'}}</view>
+            </view>
+            <view class="used" s-if="{{item.store_id && store_list[item.store_id]}}">
+                <view class="used-shop">{{store_list[item.store_id].name}}</view>
+                <view class="used-time">{{item.usetime}} 使用该码激活了店铺</view>
+            </view>
+            <view class="transform"></view>
+        </view>
+</view>
+<button s-if="{{!error && hideLoading}}" type="primary" form-type="button" class="new-invitecode-btn" bindtap="evt_newinvitation">生成新的店铺邀请码</button>
+<view class="full-screen" s-if="{{show_full_screen}}" bindtap="evt_tabfullscreen">
+    <view class="invitation-code">
+        {{current_invitation.invitation_code}}
+    </view>
+    <view class="weui-msg">
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">
+                该邀请码有什么用途？
+            </view>
+            <view class="weui-msg__desc">
+                分销店铺注册流程中必须填写邀请码。
+            </view>
+        </view>
+    </view>
+</view>
+<block s-if="{{error && hideLoading}}">
+    <view class="weui-msg">
+        <view class="weui-msg__icon-area">
+            <icon type="warn" class="weui-icon_msg" color="red" size="64"/>
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">
+                {{error}}
+            </view>
+        </view>
+    </view>
+</block>

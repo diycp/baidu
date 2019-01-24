@@ -1,0 +1,47 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{(!trace && hideLoading) || (error && hideLoading)}}">
+    <view class="weui-msg">
+        <view class="weui-msg__icon-area">
+            <icon type="warn" size="64" color="#ff0700"/>
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">
+                验证失败
+            </view>
+            <view class="weui-msg__desc" s-if="{{error}}">
+                {{error}}
+            </view>
+        </view>
+    </view>
+    <view class="weui-msg__opr-area">
+        <view class="weui-btn-area">
+            <button type="default" bindtap="evGotoIndex">返回首页</button>
+        </view>
+    </view>
+</block>
+<block s-if="{{trace && hideLoading}}">
+    <view class="weui-msg">
+        <view class="weui-msg__icon-area">
+            <image class="image" mode="widthFix" src="{{trace.detail.object.image?trace.detail.object.image:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" />
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title" s-if="{{trace.detail.object.name}}">
+                {{trace.detail.object.name}}
+            </view>
+            <view class="weui-msg__title trace-success" s-if="{{!trace.item.msg}}">
+                验证正品成功
+            </view>
+            <view class="weui-msg__title item-msg" s-if="{{trace.item.msg}}">
+                {{trace.item.msg}}
+            </view>
+            <view class="weui-msg__desc goods-desc" s-if="{{trace.detail.object.goods.brief}}">
+                {{trace.detail.object.goods.brief}}
+            </view>
+        </view>
+    </view>
+    <view class="weui-msg__opr-area">
+        <view class="weui-btn-area">
+            <button type="default" bindtap="evGotoIndex">返回首页</button>
+        </view>
+    </view>
+</block>

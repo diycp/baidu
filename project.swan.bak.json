@@ -1,0 +1,51 @@
+{
+    "libVersion": "2.0.23",
+    "appid": "14867465",
+    "setting": {
+        "urlCheck": false
+    },
+    "condition": {
+        "swan": {
+            "current": -1,
+            "list": []
+        }
+    },
+    "appInfo": {
+        "app_name": "VMCSHOP",
+        "app_key": "ZVhnFUa2SunyirdkY0smK6OTHv3oOTTf",
+        "app_photo": "https://b.bdstatic.com/searchbox/mappconsole/image/20181120/1542677764848603.png",
+        "domains": {
+            "request": [
+                "https://demo.vmcshop.com",
+                "https://develop.vmcshop.com"
+            ],
+            "socket": [
+                "wss://demo.vmcshop.com",
+                "wss://develop.vmcshop.com"
+            ],
+            "uploadFile": [
+                "https://demo.vmcshop.com",
+                "https://develop.vmcshop.com"
+            ],
+            "downloadFile": [
+                "https://demo.vmcshop.com",
+                "https://develop.vmcshop.com"
+            ]
+        },
+        "isExistsPackage": false,
+        "webview_domains": [],
+        "webAction": [
+            "swan/navigateTo",
+            "swan/navigateBack",
+            "swan/switchTab",
+            "swan/reLaunch",
+            "swan/redirectTo",
+            "swan/postMessage",
+            "swan/previewImage",
+            "swan/getLocation"
+        ],
+        "isTp": false,
+        "needWeb": false
+    },
+    "appkey": "ZVhnFUa2SunyirdkY0smK6OTHv3oOTTf"
+}

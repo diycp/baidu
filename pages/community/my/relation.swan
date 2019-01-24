@@ -1,0 +1,35 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{hideLoading}}">
+    <view s-if="{{!my_relation_user}}">
+        <view class="weui-msg">
+            <view class="weui-msg__icon-area">
+                <icon type="info" size="64"/>
+            </view>
+            <view class="weui-msg__text-area">
+                <view class="weui-msg__title">
+                    暂无关注的人
+                </view>
+            </view>
+            <view class="weui-msg__opr-area">
+                <view class="weui-btn-area">
+                    <button type="default" bindtap="evt_gocommunity">访问社区</button>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="weui-panel" s-else>
+        <view class="weui-panel__bd">
+            <view bindtap="evt_navuserpage" data-userid="{{item.user_id}}" class="weui-media-box weui-media-box_appmsg {{unrelationed[item.user_id]?'unrelationed':''}}" s-for="{{my_relation_user}}">
+                <view class="weui-media-box__hd">
+                    <image class="avatar" src="{{images[item.avatar]?images[item.avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{item.avatar}}" bindload="load_image" mode="aspectFill"/>
+                </view>
+                <view class="weui-media-box__bd">
+                    <view class="weui-media-box__title">{{item.nickname}}</view>
+                    <view class="weui-media-box__desc">{{item.sign}}</view>
+                </view>
+                <button s-if="{{!unrelationed[item.user_id]}}" size="mini" data-userid="{{item.user_id}}" data-nickname="{{item.nickname}}" plain="true" catchtap="evt_unrelation">取消</button>
+                <button s-else size="mini" data-userid="{{item.user_id}}" data-nickname="{{item.nickname}}" plain="true" catchtap="evt_relation">关注</button>
+            </view>
+        </view>
+    </view>
+</block>

@@ -1,0 +1,159 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{hideLoading && user_lv.allow_publish == 'true' && !publish_success}}">
+    <view class="indicator" bindtap="evt_swiperhandle" s-if="{{user_lv.allow_audio == 'true'||user_lv.allow_image == 'true'||user_lv.allow_shortvideo == 'true'}}">
+        <view s-if="{{user_lv.allow_image == 'true'}}" data-swiper="2" class="item {{swiper_current==2?'active':''}}">
+            <view data-swiper="2" class="icon icon-sm icon-image{{swiper_current!=2?'-white':''}}"></view>
+        </view>
+        <view s-if="{{user_lv.allow_shortvideo == 'true'}}" data-swiper="1" class="item {{swiper_current==1?'active':''}}">
+            <view data-swiper="1" class="icon icon-sm icon-video{{swiper_current!=1?'-white':''}}"></view>
+        </view>
+        <view s-if="{{user_lv.allow_audio == 'true'}}" data-swiper="0" class="item {{swiper_current==0?'active':''}}">
+            <view data-swiper="0" class="icon icon-sm icon-mic{{swiper_current!=0?'-white':''}}"></view>
+        </view>
+    </view>
+    <view class="mediapub-swiper" s-if="{{user_lv.allow_audio == 'true'||user_lv.allow_image == 'true'||user_lv.allow_shortvideo == 'true'}}">
+        <view class="mediapub-panel" s-if="{{swiper_current==0 && user_lv.allow_audio == 'true'}}">
+            <view class="record-tmp-list" s-if="{{media.audio_tmpfile}}">
+                <view  bindtap="evt_audiotmpcontrol" size="mini" s-if="{{media.audio_tmpfile}}" class="icon {{audio_playing?'icon-playing':'icon-play'}}"></view>
+            </view>
+            <view s-if="{{media.audio_tmpfile && media.audio_duration}}" class="audio-play-percent">
+                <view class="audio-duration">
+                    {{media.audio_duration/1000}}秒
+                </view>
+                <progress  percent="{{audio_play_time_percent||0}}" stroke-width="5" color="#333333"/>
+            </view>
+            <view class="remove-audio" s-if="{{media.audio_tmpfile}}">
+                <button  bindtap="evt_clearaudiotmp" size="mini" s-if="{{media.audio_tmpfile}}" plain="true">重新录制</button>
+            </view>
+            <view s-if="{{!media.audio_tmpfile}}" class="record-controls" bindtap="{{audio_recording?'evt_stoprecord':'evt_startrecord'}}">
+                <view class="record {{audio_recording?'stop':'start'}}">
+                    <view class="sr-inner"></view>
+                </view>
+            </view>
+            <view class="tips" s-if="{{media.audio_duration<1 && !media.audio_tmpfile}}">每次最长录制60秒</view>
+            <view s-if="{{media.audio_duration>1 && !media.audio_tmpfile}}" class="audio-record-percent">
+                <view class="audio-duration">
+                    已录制{{record_progress_percent.fmt(media.audio_duration/1000)}}秒
+                </view>
+                <progress  percent="{{media.audio_duration/60000*100||0}}" stroke-width="5" color="#333333"/>
+            </view>
+        </view>
+        <view class="mediapub-panel" s-if="{{swiper_current==1 && user_lv.allow_shortvideo == 'true'}}">
+            <view class="video-box" s-if="{{media.video_tmpfile}}">
+                <video class="tmp-video"  id="tmp_video" src="{{media.video_tmpfile}}" controls objectFit="cover"></video>
+            </view>
+            <view class="remove-video" s-if="{{media.video_tmpfile}}">
+                <button  bindtap="evt_clearvideotmp" size="mini" s-if="{{media.video_tmpfile}}" plain="true">取消</button>
+            </view>
+            <view s-if="{{!media.video_tmpfile}}" class="choose-controls" bindtap="evt_choosevideo">
+                <icon type="cancel" size="96" color="#777777"/>
+            </view>
+        </view>
+        <view class="mediapub-panel" s-if="{{swiper_current==2 && user_lv.allow_image == 'true'}}">
+            <view class="image-tmpfiles" s-if="{{media.image_tmpfile.length>0}}">
+                <view class="img-wrap" s-for="{{media.image_tmpfile}}" s-key="index">
+                    <image src="{{item.tmp_path}}" bindtap="evt_previewimage" mode="aspectFit" data-idx="{{index}}"/>
+                    <icon type="clear" bindtap="evt_removeimage" size="16" data-idx="{{index}}" color="#ccc"/>
+                </view>
+                <view class="img-plus" bindtap="evt_chooseimage" s-if="{{media.image_tmpfile.length<12}}">
+                    <icon type="cancel" size="54"  color="#777777"/>
+                </view>
+            </view>
+            <view class="choose-controls" bindtap="evt_chooseimage" s-if="{{media.image_tmpfile.length<1}}">
+                <icon type="cancel" size="96" color="#777777"/>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells weui-cells_form" s-if="{{user_lv.allow_content=='true'}}">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <input class="weui-input" bindinput="evt_setpagedata" data-key="title" type="text" placeholder="标题" confirm-type="next"/>
+                </view>
+            </view>
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <textarea maxlength="255" bindinput="evt_setpagedata" data-key="content" class="weui-textarea" auto-height="true" placeholder="描述"/>
+                    <view class="weui-textarea-counter"><text>{{content.length}}</text>/255</view>
+                </view>
+            </view>
+            <view class="weui-cell" hidden="true">
+                <view class="weui-cell__bd">
+                    <input bindinput="evt_setpagedata" data-key="tag" class="weui-input" placeholder="标签(多个用,分割)" />
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_access" bindtap="evt_chooselocation">
+                    <view class="weui-cell__hd">
+                        <view class="icon icon-sm icon-location"></view>
+                    </view>
+                    <view class="weui-cell__bd weui-cell_primary">
+                        <block s-if="{{!location.name}}">所在位置</block>
+                        <block s-if="{{location.name}}">{{location.name}}</block>
+                    </view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </view>
+    </view>
+    <view class="weui-btn-area">
+        <button disabled="{{(content=='' && !media.audio_tmpfile && !media.video_tmpfile && !media.image_tmpfile.length) || audio_recording}}" type="warn" form-type="button"  bindtap="evt_publish">确认发布</button>
+    </view>
+    <!-- <view class="weui-footer">
+                <view class="weui-footer__links">
+                    <navigator url="/pages/community/publish/pc/index" class="weui-footer__link">从电脑发布作品</navigator>
+                </view>
+                <view class="weui-footer__text">我们提供了便捷的电脑上传方式</view>
+    </view> -->
+    <filter module="record_progress_percent">
+        module.exports.fmt = function(val){
+            return (parseInt(val) != val)?val:(val+'.0');
+        }
+    </filter>
+</block>
+<block s-if="{{hideLoading && !user_lv.allow_publish || user_lv.allow_publish == 'false'}}">
+    <view class="weui-msg">
+        <view class="weui-msg__icon-area">
+            <icon type="warn" size="64" color="red"/>
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">
+                暂无权限
+            </view>
+            <view class="weui-msg__desc">
+                您暂无发布内容的权限!
+            </view>
+        </view>
+        <view class="weui-msg__opr-area">
+            <view class="weui-btn-area">
+                <button bindtap="evt_gotoback">返回</button>
+            </view>
+        </view>
+    </view>
+</block>
+<block s-if="{{publish_success}}">
+    <view class="weui-msg">
+        <view class="weui-msg__icon-area">
+            <icon type="success" size="64"/>
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">
+                发布成功
+            </view>
+            <view class="weui-msg__desc">
+                您的内容已经成功发布!
+            </view>
+        </view>
+        <view class="weui-msg__opr-area">
+            <view class="weui-btn-area">
+                <button bindtap="evt_gotoback">返回</button>
+            </view>
+        </view>
+        <view class="weui-msg__extra-area">
+            <view class="weui-footer">
+                <view class="weui-footer__links">
+                    <view bindtap="evt_gotomypublish" class="weui-footer__link">管理我的发布</view>
+                </view>
+                <view class="weui-footer__text">
+                    可以在 “我的发布” 管理已发布发布的内容
+                </view>
+            </view>
+        </view>
+    </view>
+</block>

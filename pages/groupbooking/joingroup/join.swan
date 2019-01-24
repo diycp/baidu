@@ -1,0 +1,46 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<filter src="../../../utils/fmt.js" module="fmt"></filter>
+<view class="weui-panel">
+  <view class="weui-panel__bd">
+    <view  class="weui-media-box weui-media-box_appmsg co-item">
+        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg" s-for="{{showimg}}" s-for-item="data_detail" s-key="{{index}}">
+            <image mode="aspectFit" class="weui-media-box__thumb" src="{{images[data_detail.image_id]?images[data_detail.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{data_detail.image_id}}" bindload="load_image"></image>
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+            <view class="weui-media-box__desc co-name">{{data_detail.name}}</view>
+            <view class="weui-media-box__desc co-inline">
+                <view class="co-spec">{{activity.people_number}}人团</view>
+                <view class="co-price">
+                    <text class="text-danger">￥{{fmt.price(activity.current_product.price)}}</text>
+                </view>
+            </view>
+        </view>
+    </view>
+  </view>
+</view>
+<view class="weui-panel">
+    <view class="gbblock">
+        <view s-for="{{members}}" s-for-item="member" s-key="{{index}}" class="avator">
+          <image mode="aspectFit" class="weui-media-box__thumb" src="{{images[member.avatar]?images[member.avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{member.avatar}}" bindload="load_image"></image>
+          <view class="identity" s-if="{{main_order.member_id == member.member_id}}">团长</view>
+          <view class="identity" s-else></view>
+        </view>
+        <view class="remaining" s-if="{{activity.surplus_people_number > 0}}">
+          仅剩 <text class="text-danger surplus-number"> {{activity.surplus_people_number}} </text>个名额
+        </view>
+        <view class="countdown-block" s-if="{{activity.surplus_people_number > 0}}">
+          <text class="count-down"> {{ countdown.days }}天 </text>
+          <text class="count-down"> {{ countdown.hours }} : </text>
+          <text class="count-down"> {{ countdown.minutes }} : </text>
+          <text class="count-down"> {{ countdown.seconds }} </text>
+          <text> 后结束 </text>
+        </view>
+        <view class="text-center" s-if="{{activity.surplus_people_number <= 0}}">
+          很抱歉,此团人数已满
+        </view>
+    </view>
+</view>
+<view class="btn-area">
+  <navigator url="/pages/groupbooking/checkout/checkout?activity_id={{main_order.activity_id}}&main_id={{main_order.gb_id}}&product_id={{main_order.product_id}}&quantity=1" redirect="true" class="weui-btn weui-btn_mini weui-btn_default go_regimental" open-type="navigate" s-if="{{activity.surplus_people_number > 0}}">一键参团</navigator>
+  <navigator url="pages/groupbooking/product/product?activity_id={{main_order.activity_id}}&product_id={{main_order.product_id}}" class="weui-btn weui-btn_mini weui-btn_default go_regimental" open-type="navigateBack" s-else>去其他团看看</navigator>
+</view>

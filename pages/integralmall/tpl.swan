@@ -1,0 +1,45 @@
+<filter src="../../utils/fmt.js" module="fmt"></filter>
+<template name="goods-grid">
+    <view class="goods-list grid">
+        <view class="gl-item flex-item"  s-for="{{data_list}}" s-for-item="item" s-key="product.product_id">
+            <navigator class="gl-item-nav" hover-class="gl-item-nav-active" url="/pages/integralmall/detail/detail?product_id={{item.product.product_id}}">
+                <text class="g-name" style="color:{{themecolor.text_primary}}">{{item.name}}</text>
+                <view class="g-price" style="color:{{themecolor.text_info}}">
+                    <view style="color:{{themecolor.price_text}}">{{item.deduction}}</view>
+                    <view class="jf-label">积分</view>
+                </view>
+                <image src="{{item.image}}" mode="aspectFit"></image>
+                <view class="g-price-del" style="color:{{themecolor.text_info}}">{{fmt.price(item.product.price)}}</view>
+            </navigator>
+        </view>
+    </view>
+</template>
+
+<template name="goods-list">
+    <view class="weui-panel">
+        <view class="weui-panel__bd" >
+            <block s-for="{{data_list}}" s-for-item="item" s-key="product.product_id">
+            <navigator class="weui-media-box weui-media-box_appmsg co-item"  url="/pages/integralmall/detail/detail?product_id={{item.product.product_id}}">
+                <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                    <image src="{{item.image}}" mode="aspectFit"></image>
+                </view>
+                <view class="weui-media-box__bd">
+                    <view class="weui-media-box__desc co-name" style="color:{{themecolor.text_primary}}">{{item.name}}</view>
+                    <view class="weui-media-box__desc co-inline co-brief" style="color:{{themecolor.text_info}}">
+                        {{item.brief}}
+                    </view>
+                    <view class="weui-media-box__desc co-inline">
+                        <view class="g-price-del"style="color:{{themecolor.text_info}}">{{fmt.price(item.product.price)}}</view>
+                        <view class="co-price g-price" style="color:{{themecolor.text_info}}">
+                            <view style="color:{{themecolor.price_text}}">{{item.deduction}}</view>
+                            <view class="jf-label">积分</view>
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-media-box__desc media-box-actions">
+                </view>
+            </navigator>
+            </block>
+        </view>
+    </view>
+</template>

@@ -1,0 +1,48 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<view class="page-sgj" style="background: #f94545 url({{static_path}}/sgj/pg-bg.png) no-repeat 50% -55px;background-size: cover;">
+	<view class="view-sgj main" id="app-main">
+	    <view class="main-top">
+	        <view class="a" href="javascript:;" bindtap="viewRule"><image mode="widthFix" src="{{static_path}}/sgj/rule-btn.png"></image></view>
+	    </view>
+	    <view class="shuiguoji">
+	        <view class="item-container" style="background: transparent url({{static_path}}/sgj/sgj-bg.png) no-repeat center top;background-size: cover;">
+	            <view class="list-items" id="elActivity">
+	                <view class="item-box">
+	                    <view class="h-item">
+	                        <view class="{{detail.target_item == 1 ? 'span target' : 'span'}}"><view class="i"><image mode="widthFix" src="{{static_path}}/sgj/{{data.prize_items[0]}}"></image></view></view>
+	                        <view class="{{detail.target_item == 2 ? 'span target' : 'span'}}"><view class="i"><image mode="widthFix" src="{{static_path}}/sgj/{{data.prize_items[1]}}"></image></view></view>
+	                        <view class="{{detail.target_item == 3 ? 'span target' : 'span'}}"><view class="i"><image mode="widthFix" src="{{static_path}}/sgj/{{data.prize_items[2]}}"></image></view></view>
+	                        <view class="{{detail.target_item == 4 ? 'span target' : 'span'}}"><view class="i"><image mode="widthFix" src="{{static_path}}/sgj/{{data.prize_items[3]}}"></image></view></view>
+	                    </view>
+	                </view>
+	                <view class="item-box">
+	                    <view class="v-item">
+	                        <view class="{{detail.target_item == 12 ? 'span target' : 'span'}}"><view class="i"><image mode="widthFix" src="{{static_path}}/sgj/{{data.prize_items[11]}}"></image></view></view>
+	                        <view class="{{detail.target_item == 11 ? 'span target' : 'span'}}"><view class="i"><image mode="widthFix" src="{{static_path}}/sgj/{{data.prize_items[10]}}"></image></view></view>
+	                    </view>
+	                    <view class="v-item">
+	                        <view class="span" data-btn="run" bindtap="doRun"><view class="i"><image mode="widthFix" src="{{static_path}}/sgj/kscj-btn.png"></image></view></view>
+	                    </view>
+	                    <view class="v-item">
+	                        <view class="{{detail.target_item == 5 ? 'span target' : 'span'}}"><view class="i"><image mode="widthFix" src="{{static_path}}/sgj/{{data.prize_items[4]}}"></image></view></view>
+	                        <view class="{{detail.target_item == 6 ? 'span target' : 'span'}}"><view class="i"><image mode="widthFix" src="{{static_path}}/sgj/{{data.prize_items[5]}}"></image></view></view>
+	                    </view>
+	                </view>
+	                <view class="item-box">
+	                    <view class="h-item">
+	                        <view class="{{detail.target_item == 10 ? 'span target' : 'span'}}"><view class="i"><image mode="widthFix" src="{{static_path}}/sgj/{{data.prize_items[9]}}"></image></view></view>
+	                        <view class="{{detail.target_item == 9 ? 'span target' : 'span'}}"><view class="i"><image mode="widthFix" src="{{static_path}}/sgj/{{data.prize_items[8]}}"></image></view></view>
+	                        <view class="{{detail.target_item == 8 ? 'span target' : 'span'}}"><view class="i"><image mode="widthFix" src="{{static_path}}/sgj/{{data.prize_items[7]}}"></image></view></view>
+	                        <view class="{{detail.target_item == 7 ? 'span target' : 'span'}}"><view class="i"><image mode="widthFix" src="{{static_path}}/sgj/{{data.prize_items[6]}}"></image></view></view>
+	                    </view>
+	                </view>
+	            </view>
+	            <!-- <audio style="display: none;" id="el-audio" controls=""></audio> -->
+	        </view>    
+	    </view>
+	    <view class="view-desc">
+	        <view class="p"><view class="span" hidden="{{limit}}">可抽奖次数：<text class="var" data-num="true">{{detail.num}}</text>次</view></view>
+	    </view>
+	</view>
+	<include src="../widgets/widgets_modal.swan"/>
+</view>

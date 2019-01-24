@@ -1,0 +1,127 @@
+page{
+ background:#efefef;
+ padding-bottom: 70px;
+}
+.logo{
+    border-radius: 5px;
+}
+.avatar{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+
+}
+.shop-name{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.shop-lv{
+    font-size: 11px;
+    margin-left: 10px;
+    border: 1px #f90 solid;
+    border-radius: 4px;
+    color: #f90;
+    padding: 0 3px;
+}
+.text-right{
+    text-align: right;
+}
+.benefit{
+    display:flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    border-top: 1px #e5e5e5 solid;
+    padding: 0;
+    margin: 0;
+}
+.benefit navigator{
+    width: auto;
+    color: #444;
+    display: block;
+    text-align: center;
+    width: 50%;
+}
+
+.benefit navigator .val{
+    font-weight: lighter;
+    font-size: 18px;
+    line-height: 35px;
+    display: block;
+}
+.benefit .weui-media-box::before{
+    display: none;
+}
+
+.weui-grids{
+    margin-top: 10px;
+}
+.f-red{
+    color: #f00;
+}
+.weui-grid{
+    background: #fff;
+}
+.weui-grid__icon image{
+    width: 32px;
+    height: 32px;
+}
+
+.icon-tip{
+    position: absolute;
+    right: 40px;
+    top:20px;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background: #f00;
+    border:1px #fff solid;
+}
+.empty-oshop-tip{
+    text-align: center;
+    padding: 50px;
+
+}
+.evt-title{
+    line-height: 50px;
+}
+.evt-desc{
+    padding: 20px 0;
+    font-size: 14px;
+    color: #777;
+}
+
+
+.go-home{
+    position: fixed;
+    right:80px;
+    bottom:10px;
+    color: #333;
+    background: rgba(255,255,255,0.8);
+    width: 50px;
+    height: 45px;
+    padding-top: 5px;
+    font-size: 12px;
+    line-height: 10px;
+    border: 1px #fff solid;
+    text-align: center;
+    border-radius: 100%;
+    font-size: 12px;
+}
+.go-home image{
+    width: 22px;
+    height: 22px;
+
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 3px;
+}
+.top-panel .weui-cell__ft{
+    display: flex;
+    align-items: center;
+}
+.avatar{
+    display: inline-block;
+    vertical-align: middle;
+}

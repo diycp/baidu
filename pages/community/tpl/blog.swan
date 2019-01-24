@@ -1,0 +1,166 @@
+<template name="widget-bloglist">
+    <view class="weui-panel media-list media-{{item.mode}}-panel {{item.disabled!='false'?'disabled':''}}"  s-for="{{data.blog_list}}" s-for-item="item" s-key="*this" id="blog_panel_{{item.blog_id}}">
+        <view class="weui-panel__hd author-info" s-if="{{item.mode!='audio'}}">
+            <block s-if="{{!in_user_page && !in_my_page}}">
+                <image src="{{images[data.author_list[item.author].avatar]?images[data.author_list[item.author].avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}"  mode="aspectFit"  data-ident="{{data.author_list[item.author].avatar}}" bindload="load_image" class="avatar" catchtap="evt_navuserpage" data-userid="{{item.author}}"/>
+                <view class="nickname" catchtap="evt_navuserpage" data-userid="{{item.author}}">{{data.author_list[item.author].nickname}}</view>
+                <view class="relation" catchtap="evt_taprelation" data-authorid="{{item.author}}" data-isrelation="{{my_relation_map['_'+item.author]}}">
+                    <view class="icon icon-sm icon-like{{my_relation_map['_'+item.author]?'-fill':''}}"></view>
+                </view>
+            </block>
+            <view class="timeago">
+                {{item.timeago}}
+            </view>
+            <view class="status" s-if="{{in_my_page}}">
+                {{status_map[item.status]}}
+            </view>
+            <view class="distance" s-if="{{item.distance}}">
+                <block s-if="{{item.distance<10}}">
+                     0~50m
+                </block>
+                <block s-else>
+                    {{item.distance < 1000?item.distance+'m':item.distance/1000+'km'}}
+                </block>
+            </view>
+        </view>
+        <view class="weui-panel__bd">
+            <view class="media-video"  s-if="{{item.mode == 'video'||item.mode == 'short_video'}}" style="height:{{win_width*(3/4)}}px">
+                <video s-if="{{current_play_video_id == data.media_video[item.blog_id].video_id}}" id="video_{{data.media_video[item.blog_id].video_id}}" src="{{data.media_video[item.blog_id].host_mirror+'/'+data.media_video[item.blog_id].url_path+'.f30.mp4'}}" autoplay="false" objectFit="contain" style="height:{{win_width*(3/4)}}px" ></video>
+                <view data-blogid="{{item.blog_id}}" data-videoid="{{data.media_video[item.blog_id].video_id}}" s-if="{{current_play_video_id != data.media_video[item.blog_id].video_id}}" class="media-video-play-handle" catchtap="evt_videoplay" style="height:{{win_width*(3/4)}}px;line-height:{{win_width*(3/4)}}px">
+                    <image src="{{data.media_video[item.blog_id].host_mirror+'/'+data.media_video[item.blog_id].url_path+'.0_0.p0.jpg'}}" style="height:{{win_width*(3/4)}}px" mode="aspectFill" lazy-load="true"/>
+                    <view class="icon icon-videoplay"></view>
+                </view>
+            </view>
+            <view class="media-audio"  s-if="{{item.mode == 'audio'}}">
+                <image src="{{images[data.author_list[item.author].avatar]?images[data.author_list[item.author].avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}"  mode="aspectFit"  data-ident="{{data.author_list[item.author].avatar}}" bindload="load_image" class="avatar"/>
+                <view class="audiovoice-box">
+                    <view class="box-top">
+                        <view class="nickname">{{data.author_list[item.author].nickname}}</view>
+
+                        <view class="timeago">
+                            {{item.timeago}}
+                        </view>
+                        <view class="distance" s-if="{{item.distance}}">
+                            <block s-if="{{item.distance<10}}">
+                                 0~50m
+                            </block>
+                            <block s-else>
+                                {{item.distance < 1000?item.distance+'m':item.distance/1000+'km'}}
+                            </block>
+                        </view>
+                        <view class="relation" catchtap="evt_taprelation" data-authorid="{{item.author}}" data-isrelation="{{my_relation_map['_'+item.author]}}">
+                            <view class="icon icon-sm icon-like{{my_relation_map['_'+item.author]?'-fill':''}}"></view>
+                        </view>
+                    </view>
+                    <view data-audioid="{{data.media_audio[item.blog_id].audio_id}}" class="icon icon-audiovoice {{(audio_playing == data.media_audio[item.blog_id].audio_id)?'playing':''}}" data-audiosrc="{{data.media_audio[item.blog_id].host_mirror+'/'+data.media_audio[item.blog_id].url_path}}" data-blogid="{{item.blog_id}}" bindtap="evt_audiocontrol">
+                        <view class="process">
+                            <view class="audio-duration">{{data.media_audio[item.blog_id].duration/1000}}"</view>
+                            <progress s-if="{{audio_playing == data.media_audio[item.blog_id].audio_id}}"  percent="{{audio_play_time/data.media_audio[item.blog_id].duration*100||0}}" stroke-width="1" activeColor="#28BB9A" backgroundColor="#FFFFFF"/>
+                            <view class="weui-loading" s-if="{{audio_waiting == data.media_audio[item.blog_id].audio_id}}"></view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="media-images" s-if="{{item.mode == 'image'}}">
+                <view class="media-images-box">
+                    <block s-if="{{data.media_images[item.blog_id].length<3}}">
+                        <image src="{{images[image_item.image_id]?images[image_item.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}"  mode="aspectFill"  data-ident="{{image_item.image_id}}" bindload="load_image" s-for="{{data.media_images[item.blog_id]}}" style="width:{{(win_width-21)/2-4}}px;height:{{win_width*0.3}}px;" lazy-load="true" data-idx="{{index}}" s-for-item="image_item" bindtap="evt_previewimage" data-imageid="{{image_item.image_id}}" data-blogid="{{item.blog_id}}"/>
+                    </block>
+                    <block s-elif="{{data.media_images[item.blog_id].length%4<1}}">
+                        <image src="{{images[image_item.image_id]?images[image_item.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}"  mode="aspectFill"  data-ident="{{image_item.image_id}}" bindload="load_image" s-for="{{data.media_images[item.blog_id]}}" style="width:{{(win_width-21)/4-4}}px;height:{{(win_width-21)/4-4}}px;" lazy-load="true" data-idx="{{index}}" s-for-item="image_item" bindtap="evt_previewimage" data-imageid="{{image_item.image_id}}" data-blogid="{{item.blog_id}}"/>
+                    </block>
+                    <block s-elif="{{data.media_images[item.blog_id].length%3<1}}">
+                        <image src="{{images[image_item.image_id]?images[image_item.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}"  mode="aspectFill"  data-ident="{{image_item.image_id}}" bindload="load_image" s-for="{{data.media_images[item.blog_id]}}" style="width:{{(win_width-21)/3-4}}px;height:{{(win_width-21)/3-4}}px;" lazy-load="true" data-idx="{{index}}" s-for-item="image_item" bindtap="evt_previewimage" data-imageid="{{image_item.image_id}}" data-blogid="{{item.blog_id}}"/>
+                    </block>
+                    <block s-else>
+                        <image src="{{images[image_item.image_id]?images[image_item.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}"  mode="aspectFill"  data-ident="{{image_item.image_id}}" bindload="load_image" s-for="{{data.media_images[item.blog_id]}}" style="width:{{(win_width-21)/4-4}}px;height:{{(win_width-21)/4-4}}px;" lazy-load="true" data-idx="{{index}}" s-for-item="image_item" bindtap="evt_previewimage" data-imageid="{{image_item.image_id}}" data-blogid="{{item.blog_id}}"/>
+                    </block>
+                </view>
+            </view>
+            <view class="media-title" s-if="{{item.title && item.title!='undefined'}}">{{item.title}}</view>
+            <view class="media-content" s-if="{{item.content && item.content!='undefined'}}">
+                {{item.content}}
+            </view>
+        </view>
+        <view catchtap="evt_showlocation" data-locationname="{{item.location}}" data-locationaddress="{{item.address}}" class="media-location" s-if="{{item.location}}" data-lnandla="{{item.lnandla}}">
+            <view class="icon icon-sm icon-location"></view>
+            {{item.location}}
+        </view>
+        <view class="media-options">
+            <block s-if="{{in_my_page}}">
+                <view class="media-opt media-zan" s-if="{{item.zan_count>0}}">
+                    <view class="icon icon-zan-fill icon-sm"></view>
+                    <view>{{item.zan_count||''}}</view>
+                </view>
+                <!-- <view class="media-opt media-unzan" s-if="{{item.unzan_count>0}}">
+                    <view class="icon icon-zan-fill icon-unzan icon-sm"></view>
+                    <view>{{item.unzan_count||''}}</view>
+                </view> -->
+                <view class="media-opt media-comment" s-if="{{item.comment_count>0}}">
+                    <view class="icon icon-comment-fill icon-sm"></view>
+                    <view>{{item.comment_count||''}}</view>
+                </view>
+            </block>
+            <block s-else>
+                <view class="media-opt media-zan" catchtap="evt_tapzan" data-blogid="{{item.blog_id}}" data-blogidx="{{index}}" data-iszan="{{my_follow_map['_'+item.blog_id].zan}}">
+                    <view class="icon icon-zan{{my_follow_map['_'+item.blog_id].zan?'-fill':''}} icon-sm"></view>
+                    <view>{{item.zan_count||''}}</view>
+                </view>
+                <!-- <view class="media-opt media-unzan" catchtap="evt_tapunzan" data-blogid="{{item.blog_id}}" data-blogidx="{{index}}" data-isunzan="{{my_follow_map['_'+item.blog_id].unzan}}">
+                    <view class="icon icon-zan{{my_follow_map['_'+item.blog_id].unzan?'-fill':''}} icon-unzan icon-sm"></view>
+                    <view>{{item.unzan_count||''}}</view>
+                </view> -->
+                <view class="media-opt media-comment" catchtap="evt_tapcomment" data-blogid="{{item.blog_id}}" data-blogidx="{{index}}" data-iscomment="{{my_follow_map['_'+item.blog_id].comment}}">
+                    <view class="icon icon-comment{{my_follow_map['_'+item.blog_id].comment?'-fill':''}} icon-sm"></view>
+                    <view>{{item.comment_count||''}}</view>
+                </view>
+                <navigator url="/pages/community/reward?to_user_id={{item.author}}&blog_id={{item.blog_id}}" class="media-opt media-reward" s-if="{{!in_detail}}">
+                    <view class="icon icon-redpacket icon-sm"></view>
+                </navigator>
+            </block>
+            <view s-if="{{item.disabled=='false' && member && member.member_id == data.author_list[item.author].member_id}}" class="media-opt media-delete" catchtap="evt_tapdelete" data-blogid="{{item.blog_id}}" data-blogidx="{{index}}">
+                <view class="icon icon-delete icon-sm"></view>
+            </view>
+            <view s-if="{{in_detail}}" class="media-opt media-qrcode media-opt-last" data-blogid="{{item.blog_id}}" catchtap="evt_getmediaqrcode">
+                <view class="icon icon-qrcode icon-sm"></view>
+            </view>
+            <view s-if="{{in_detail}}" class="media-opt media-share media-opt-last" catchtap="evt_tapshare" data-blogid="{{item.blog_id}}" data-blogidx="{{index}}">
+                <view class="icon icon-share icon-sm"></view>
+                <view>{{item.share_count||'转发'}}</view>
+                <button class="share-btn" plain="true" open-type="share"></button>
+            </view>
+            <navigator s-else class="weui-cell__ft_in-access media-opt-last" hover-class="" url="/pages/community/detail?blog_id={{item.blog_id}}">
+                详情
+            </navigator>
+        </view>
+        <view class="weui-cells reward-cells" s-if="{{in_detail && !in_my_page}}">
+            <navigator class="weui-cell weui-cell_access"  url="/pages/community/reward?to_user_id={{item.author}}&blog_id={{item.blog_id}}">
+                <view class="weui-cell__hd">
+                    <view class="icon icon-redpacket icon-sm"></view>
+                </view>
+                <view class="weui-cell__bd weui-cell_primary">
+                    我要打赏
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+            <navigator class="weui-cell weui-cell_access reward-count-cell" s-if="{{reward_data_count>0}}" url="/pages/community/rewardlist?blog_id={{item.blog_id}}">
+                <view class="weui-cell__bd">
+                    已被打赏{{reward_data_count}}次
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">
+                    <view class="reward-uavatars">
+                        <image s-for="{{reward_user_data}}" class="avatar" src="{{images[item.avatar]?images[item.avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{item.avatar}}" bindload="load_reward_image" mode="aspectFill"/>
+                    </view>
+                </view>
+            </navigator>
+        </view>
+        <view class="weui-panel__disabled" s-if="{{item.disabled=='true' && member && member.member_id == data.author_list[item.author].member_id}}">
+            <view>
+                <view class="wpd-tip">已删除</view>
+                <button bindtap="evt_taprecovery" data-blogid="{{item.blog_id}}" data-blogidx="{{index}}" size="mini"  plain="true">恢复</button>
+            </view>
+        </view>
+
+    </view>
+
+</template>

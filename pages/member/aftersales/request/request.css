@@ -1,0 +1,104 @@
+@import "/utils/wxParse/wxParse.css";
+page{
+ background:#efefef;
+ padding-bottom: 50px;
+}
+.weui-media-box__thumb{
+    width: 50px;
+    height: 50px;
+}
+.swan-content{
+    font-size: 14px;
+    padding: 10px 15px;
+}
+.product-quantity{
+    margin-top: 5px;
+}
+.product-quantity .pq-minus,.product-quantity .pq-plus{
+    min-width: 25px;
+}
+.co-item{
+    padding-right: 25px;
+}
+.co-name{
+    color: #333;
+}
+.co-price{
+    line-height: 22px;
+    color: #f60;
+    font-weight: lighter;
+    font-stretch: ultra-condensed;
+}
+.co-price text{
+    color: #999;
+}
+
+.co-inline{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+
+.images-wrap{
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+button.select-image{
+    position: static;
+    border: none;
+    border-radius: 0;
+    font-size: 12px;
+    font-weight: bolder;
+    line-height: 70px;
+    padding: 0;
+    background: #efefef;
+    color: #ccc;
+    height: 70px;
+    width: 70px;
+    text-align: center;
+    margin: 0 5px 5px 0;
+}
+button.select-image:after{
+    border-radius: 0;
+    border-color:#efefef;
+}
+
+.selected-image{
+    width: 66px;
+    height: 66px;
+    padding: 1px;
+    border: 1px #ccc solid;
+    margin: 0 5px 5px 0;
+}
+
+.images-wrap.mini .selected-image{
+    width: 40px;
+    height: 40px;
+}
+.button-submit{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+}
+.button-submit:after{
+    border-radius: 0;
+}
+.selected-image-remove {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    font-size: 18px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+}
+.images-wrap-selected {
+    position: relative;
+}

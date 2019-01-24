@@ -1,0 +1,78 @@
+@import "/pages/community/style/media.css";
+page{
+    background-color: #e9e9e9;
+}
+.user-top{
+    background: #fff;
+    text-align: center;
+    padding: 10px 0 0 0;
+    position: relative;
+}
+.user-lv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    padding: 5px 0 0 0;
+}
+.user-lv-name{
+    background: #efefef;
+    color: #555;
+    padding: 2px 5px 2px 5px;
+    line-height: 20px;
+    border-radius: 2px;
+    border: 1px #fff solid;
+    font-size: 12px;
+}
+.user-lv-logo image{
+    max-width: 32px;
+}
+.user-info{
+    position: relative;
+    z-index: 10;
+    color: #FFF;
+}
+.user-info .nickname{
+    font-size: 14px;
+    font-weight: bold;
+}
+.user-opt{
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    background: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.3));
+    padding: 10px 0;
+    margin: 0;
+    color:#fff;
+
+}
+.user-info .sign input{
+    font-size: 12px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    padding: 5px 0;
+}
+
+.avatar-bg{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left: 0;
+    -webkit-filter: blur(14px); /* Chrome, Opera */
+       -moz-filter: blur(14px);
+        -ms-filter: blur(14px);
+            filter: blur(14px);
+}
+.avatar{
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    border: 1px #efefef solid;
+}
+.author-info .timeago{
+    position: static;
+
+}

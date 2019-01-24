@@ -1,0 +1,22 @@
+<template name="payapp-use-panel">
+    <view class="weui-panel">
+        <view class="weui-panel__bd">
+                <block  s-for="{{payapps}}" s-for-item="payapp" s-key="index">
+                    <view bindtap="evt_payappchange" data-appid="{{payapp.app_id}}" class="weui-cell">
+                        <view class="weui-cell__hd">
+                            <block s-if="{{payapp.selected == 'true'}}">
+                                <icon type="success" size="20" color="{{themecolor.checkbox_checked_color}}"/>
+                            </block>
+                            <block s-else>
+                                <icon type="radioUnselect" size="20" />
+                            </block>
+                        </view>
+                        <view class="weui-cell__bd">
+                            {{payapp.display_name?payapp.display_name:payapp.name}}
+                            <view class="weui-cell__desc">{{payapp.description?payapp.description:''}}</view>
+                        </view>
+                    </view>
+                </block>
+        </view>
+    </view>
+</template>

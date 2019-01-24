@@ -1,0 +1,74 @@
+@import "/pages/community/style/media.css";
+@import "/pages/community/style/mediafollow.css";
+page{
+    background-color: #e9e9e9;
+    margin-bottom: 48px;
+}
+.weui-panel{
+    margin-top: 0;
+}
+.avatar{
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    border: 1px #efefef solid;
+}
+.weui-navbar{
+    position: fixed;
+    width: 100%;
+    top:0;
+    left: 0;
+    background: #333;
+    color:#fff;
+    font-size: 12px;
+    border-bottom: none;
+    justify-content: flex-start;
+    display: flex;
+
+}
+.weui-navbar__title{
+    font-size: 14px;
+}
+.weui-navbar__item{
+    width: 100%;
+    flex:initial;
+}
+.weui-bar__item_on .weui-navbar__title{
+    color: #fff;
+}
+.weui-navbar__item.publish-btn{
+    /*background:linear-gradient(to bottom,#333,#222,#000);*/
+    text-align: right;
+    padding-right: 15px;
+    width: auto;
+}
+.publish-btn .icon{
+    width: 16px;
+    height: 16px;
+}
+
+.comment-bar .weui-search-bar__box .icon{
+    position: absolute;
+    left: 10px;
+    top:6px;
+    width: 16px;
+    height: 16px;
+}
+.comment-bar button{
+    border-radius: 5px;
+    margin-left: 5px;
+}
+.comment-panel{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.2);
+    position: fixed;
+    top:0;
+    left: 0;
+}
+.comment-bar{
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}

@@ -1,0 +1,28 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<scroll-view scroll-y="true" style="height:{{sv_height}}px;" bindscrolltolower="evt_scrolltolower" s-if="{{data_list}}">
+    <!-- <template is="goods-{{gallery_tpl_type}}" data="{{data_list:data_list,pickout_data:pickout}}"/> -->
+    <view class="weui-panel">
+        <view class="weui-panel__bd" >
+            <block s-for="{{data_list}}" s-for-item="item" s-key="product.product_id">
+            <navigator class="weui-media-box weui-media-box_appmsg co-item"  url="/pages/preselling/product/product?activity_id={{item.activity_id}}&product_id={{item.product_id}}">
+                <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                    <image bindload="load_image" src="{{images[item.product.image_id]?images[item.product.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" mode="aspectFit" data-ident="{{item.product.image_id}}"/>
+                </view>
+                <view class="weui-media-box__bd">
+                    <view class="weui-media-box__desc co-name" style="color:{{themecolor.text_primary}}">{{item.product.name}}</view>
+                    <view class="weui-media-box__desc co-inline co-brief" style="color:{{themecolor.text_info}}">
+                        {{item.product.spec_info?item.product.spec_info:''}}
+                    </view>
+                    <view class="weui-media-box__desc co-inline">
+                        <view class="co-price g-price"style="color:{{themecolor.price_text}}">￥{{item.presell_price}}</view>
+                    </view>
+                </view>
+            </navigator>
+            </block>
+        </view>
+    </view>
+    <view class="weui-loadmore" s-if="{{pager.current && pager.total>pager.current}}">正在加载</view>
+    <view class="weui-loadmore weui-loadmore_line" s-if="{{pager.total>1 && pager.total == pager.current}}">
+        <view class="weui-loadmore__tips">共{{all_count}}个商品</view>
+    </view>
+</scroll-view>

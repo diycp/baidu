@@ -1,0 +1,10 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{hideLoading}}">
+    <import src="/pages/giftcard/tpl/cardinfo.swan"/>
+    <template is="card-info-tpl" data="{{crecord:crecord,win_width:win_width,images:images}}"/>
+    <view class="actions-footer" style="width:{{win_width-30}}px" s-if="{{crecord.pay_status=='1'}}">
+        <navigator s-if="{{!crecord.use_order && crecord.recipient_member_id && crecord.recipient_member_id == member.member_id}}" class="weui-btn" url="../use?crecord_id={{crecord.crecord_id}}">立即使用礼品卡</navigator>
+        <navigator s-if="{{!crecord.recipient_member_id && crecord.member_id == member.member_id}}" class="weui-btn" url="../give?crecord_id={{crecord.crecord_id}}">赠送礼品卡</navigator>
+        <navigator s-if="{{crecord.use_order && crecord.recipient_member_id == member.member_id}}" class="weui-btn" url="/pages/member/order/detail/detail?order_id={{crecord.use_order}}">查看订单</navigator>
+    </view>
+</block>

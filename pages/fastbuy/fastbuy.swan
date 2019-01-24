@@ -1,0 +1,145 @@
+<filter src="../../utils/fmt.js" module="fmt"></filter>
+<block>
+    <view class="category-row" style="height:{{WinHeight-45}}px">
+        <scroll-view scroll-y="true" class="layout-left" style="height:{{WinHeight-45}}px;">
+            <view class="c-root col-left">
+                <view class="c-item {{tabIndex == '-1'?'active':''}}" bindtap="tabChange" data-tabindex="-1">
+                    {{setting.rec_text}}
+                    <view class="weui-badge cat-cartcount" s-if="{{selectData['-1'] && selectData['-1'].count > 0}}">{{selectData['-1'].count}}</view>
+                </view>
+                <block>
+                    <view s-for="{{category}}" s-for-item="cat" s-key="{{cat.cat_id}}" bindtap="tabChange" data-tabindex="{{cat.cat_id}}" class="c-item {{tabIndex == cat.cat_id?'active':''}}">{{cat.cat_name}}
+                    <view class="weui-badge cat-cartcount" s-if="{{selectData[index] && selectData[index].count > 0}}">{{selectData[index].count}}</view>
+                    </view>
+                </block>
+            </view>
+        </scroll-view>
+        <scroll-view scroll-y="true" class="layout-right"  style="height:{{WinHeight-45}}px;width:{{WinWidth-90}}px;" lower-threshold="{{(WinHeight-45)/2}}" scroll-with-animation="true" enable-back-to-top="true" scroll-into-view="scroll{{tabIndex}}">
+            <view class="weui-panel">
+                <view class="weui-panel__bd">
+                    <swiper class="slider" style="height:{{(WinWidth-90)*9/16}}px" indicator-dots="{{slide_images.length>1}}" autoplay="true" interval="5000" duration="1000" circular="true" current="{{swiperCurrent}}" s-if="{{tabIndex == '-1'}}">
+                      <block s-for="{{setting.images}}" s-for-item="item" s-key="*this">
+                        <swiper-item>
+                          <image lazy-load="{{true}}" bindtap="tapslide" class="slide" src="{{item.url}}" mode="widthFix" />
+                        </swiper-item>
+                      </block>
+                    </swiper>
+                    <view class="cat-headbar" s-if="{{tabIndex == '-1'}}" id="scroll{{tabIndex}}">{{setting.rec_text}}</view>
+                    <!-- 热门推荐商品 start -->
+                    <block s-for="{{rec_goods}}" s-for-item="item" s-key="{{item.goods_id}}" s-if="{{rec_goods}}">
+                        <view class="weui-media-box weui-media-box_appmsg co-item">
+                            <view class="weui-media-box__hd weui-media-box__hd_in-appmsg" catchtap="showProduct" data-tabindex="-1" data-goods_id="{{item.goods_id}}">
+                                <image src="{{item.image_url_m}}" lazy-load="{{true}}" mode="aspectFit"></image>
+                            </view>
+                            <view class="weui-media-box__bd">
+                                <view class="weui-media-box__desc co-name" catchtap="showProduct" data-tabindex="-1" data-goods_id="{{item.goods_id}}">{{item.name}}</view>
+                                <view class="weui-media-box__desc co-brief" catchtap="showProduct" data-tabindex="-1" data-goods_id="{{item.goods_id}}">{{item.desc?item.desc:item.brief}}</view>
+                                <view class="weui-media-box__desc co-inline">
+                                    <view class="co-price g-price" catchtap="showProduct" data-tabindex="-1" data-goods_id="{{item.goods_id}}">￥{{fmt.price(item.product.price)}}</view>
+                                </view>
+                            </view>
+                            <view class="addcart-block">
+                                <view class="product-quantity">
+                                    <view class="pq-minus" catchtap="tappqminus" data-goods_id="{{item.goods_id}}" data-idx="-1" hidden="{{!selectData['-1'][item.goods_id] || (selectData['-1'][item.goods_id] < 0)}}" data-product_id="{{item.product.product_id}}">-</view>
+                                    <view class="input" hidden="{{!selectData['-1'][item.goods_id] || (selectData['-1'][item.goods_id] < 0)}}">{{selectData['-1'][item.goods_id]}}</view>
+                                    <view class="pq-minus" catchtap="tapp_plus" data-goods_id="{{item.goods_id}}" data-idx="-1" data-product_id="{{item.product.product_id}}" data-bn="{{item.product.bn}}">+</view>
+                                </view>
+                            </view>
+                        </view>
+                    </block>
+                    <!-- 热门推荐商品 end -->
+                    <!-- 其他分类商品 start -->
+                    <block s-for="{{cat_goods}}" s-for-item="cat" s-if="{{cat_goods}}" s-key="index" s-for-index="index">
+                        <view class="cat-headbar" id="scroll{{index}}">{{category[index].cat_name}}</view>
+                        <view s-if="{{category[index].image_url_m}}">
+                            <image class="topBanner" mode="widthFix" lazy-load="{{true}}" src="{{category[index].image_url_m}}"></image>
+                        </view>
+                        <block s-for="{{cat}}" s-for-item="item" s-key="{{item.goods_id}}" s-for-index="idx">
+                            <view class="weui-media-box weui-media-box_appmsg co-item">
+                                <view class="weui-media-box__hd weui-media-box__hd_in-appmsg" catchtap="showProduct" data-tabindex="{{index}}" data-goods_id="{{item.goods_id}}">
+                                    <image src="{{item.image_url_m}}" mode="aspectFit"></image>
+                                </view>
+                                <view class="weui-media-box__bd">
+                                    <view class="weui-media-box__desc co-name" catchtap="showProduct" data-tabindex="{{index}}" data-goods_id="{{item.goods_id}}">{{goods_info[item.goods_id].product.name}}</view>
+                                    <view class="weui-media-box__desc co-brief" catchtap="showProduct" data-tabindex="{{index}}" data-goods_id="{{item.goods_id}}">{{goods_info[item.goods_id].desc?goods_info[item.goods_id].desc:goods_info[item.goods_id].brief}}</view>
+                                    <view class="weui-media-box__desc co-inline">
+                                        <view class="co-price g-price" catchtap="showProduct" data-tabindex="{{index}}" data-goods_id="{{item.goods_id}}">￥{{fmt.price(goods_info[item.goods_id].product.buy_price)}}</view>
+                                    </view>
+                                </view>
+                                <view class="addcart-block">
+                                    <view class="product-quantity">
+                                        <view class="pq-minus" catchtap="tappqminus" data-goods_id="{{item.goods_id}}" data-idx="{{index}}" hidden="{{!selectData[index][item.goods_id] || (selectData[index][item.goods_id] < 0)}}" data-product_id="{{goods_info[item.goods_id].product.product_id}}">-</view>
+                                        <view class="input" hidden="{{!selectData[index][item.goods_id] || (selectData[index][item.goods_id] < 0)}}">{{selectData[index][item.goods_id]}}</view>
+                                        <view class="pq-minus" catchtap="tapp_plus" data-goods_id="{{item.goods_id}}" data-idx="{{index}}" data-product_id="{{goods_info[item.goods_id].product.product_id}}" data-bn="{{goods_info[item.goods_id].product.bn}}">+</view>
+                                    </view>
+                                </view>
+                            </view>
+                        </block>
+                    </block>
+                    <!-- 其他分类商品 end -->
+                </view>
+            </view>
+        </scroll-view>
+    </view>
+    <view class="fix-foot-bar" style="background-color:{{themecolor.foot_bar_bg}}">
+        <view class="foot-left">
+            <navigator class="cart-quick-view" hover-class="cart-quick-view-active" open-type="switchTab" url="/pages/cart/cart" >
+                <view class="icon icon-sm icon-cart-fill _icon-cart-empty"></view>
+                <!-- <view class="weui-badge cartcount" s-if="{{cart.goods_count}}">{{cart.goods_count}}</view> -->
+                <view class="icon-tip">购物车</view>
+            </navigator>
+        </view>
+        <view class="foot-right buy-area">
+            <button class="weui-btn" type="warn" data-fastbuy="true" catchtap="evt_checkout">立即购买</button>
+            <view class="cartamount" s-if="{{cart.finally_cart_amount}}">￥{{cart.finally_cart_amount}}</view>
+        </view>
+    </view>
+    <!-- 商品详情 start -->
+    <view class="goods-product-warrper" style="height: {{WinHeight}}px" hidden="{{!showProduct}}">
+        <view class="warpper-background" catchtap="hideProduct" style="height: {{WinHeight}}px"></view>
+        <view class="goods-product-content" style="width:{{WinWidth-50}}px">
+            <block>
+                <view class="goods-image-warpper">
+                    <image class="goods-image" mode="aspectFit" style="width:100%;height:{{(WinHeight-180)/3*2}}px" src="{{product.image_url}}"></image>
+                </view>
+                <view class="goods-name">{{product.name}}</view>
+                <view class="goods-brief">{{product.desc?product.desc:product.brief}}</view>
+                <view class="handle-block">
+                    <view class="goods-price">￥{{product.product.buy_price}}</view>
+                    <view class="product-quantity">
+                        <view class="pq-minus" catchtap="tappqminus" data-goods_id="{{product.goods_id}}" data-idx="{{product.tabindex}}" hidden="{{!selectData[product.tabindex][product.goods_id] || (selectData[product.tabindex][product.goods_id] < 0)}}" data-product_id="{{product.product.product_id}}">-</view>
+                        <view class="input" hidden="{{!selectData[product.tabindex][product.goods_id] || (selectData[product.tabindex][product.goods_id] < 0)}}">{{selectData[product.tabindex][product.goods_id]}}</view>
+                        <view class="pq-minus" catchtap="tapp_plus" data-goods_id="{{product.goods_id}}" data-idx="{{product.tabindex}}" data-product_id="{{product.product.product_id}}" data-bn="{{product.product.bn}}">+</view>
+                    </view>
+                </view>
+            </block>
+        </view>
+    </view>
+    <!-- 商品详情 end -->
+    <!-- 选择规格 start -->
+    <view class="goods-product-warrper" style="height: {{WinHeight}}px" hidden="{{!showSpec}}">
+        <view class="warpper-background" catchtap="hideSpec" style="height: {{WinHeight}}px"></view>
+        <view class="goods-product-content" style="width:{{WinWidth-50}}px;">
+            <view class="spec-head">
+                 {{product.name}}
+            </view>
+            <view class="weui-media-box product-spec" style="height: {{WinHeight-299}}px">
+                <view class="spec-select" s-for="{{product.spec_desc.t}}" s-for-index="idx"  s-for-item="item" s-key="idx">
+                    <view class="spec-title">{{item}}</view>
+                    <view class="spec-options">
+                        <block s-for="{{product.spec_desc.v[idx]}}"  s-for-item="option"  s-key="index">
+                                <view class="spec-item {{option.current?' active':''}}" data-productid="{{option.product_id}}" s-if="{{option.marketable == 'true'}}" catchtap="tapspecitem" data-idx="{{product.tabindex}}">
+                                    <text>{{option.label}}</text>
+                                </view>
+                        </block>
+                    </view>
+                </view>
+            </view>
+            <view class="spec-footer">
+                <view class="goods-buyprice"><text>￥</text>{{product.product.buy_price}}</view>
+                <view class="confirm-btn" catchtap="addGoods" data-goods_id="{{product.goods_id}}" data-idx="{{product.tabindex}}" data-product_id="{{product.product.product_id}}" data-bn="{{product.product.bn}}">选好了</view>
+            </view>
+        </view>
+    </view>
+    <!-- 选择规格 end -->
+</block>

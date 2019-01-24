@@ -1,0 +1,41 @@
+<filter src="../../../utils/fmt.js" module="fmt"></filter>
+<template name="integral-use-panel">
+    <view class="weui-panel" style="margin-top:0;">
+        <view class="weui-panel__bd">
+            <view class="weui-cell">
+                <view class="weui-cell__hd">
+                    是否启用积分抵扣
+                </view>
+                <view class="weui-cell__bd">
+
+                </view>
+                <view class="weui-cell__ft">
+                    <switch  bindchange="evt_integral_switch" checked s-if="{{integral}}"></switch>
+                    <switch  bindchange="evt_integral_switch" s-else></switch>
+                </view>
+            </view>
+            <view class="weui-cell" s-if="{{integral}}">
+                <view class="weui-cell__hd">
+                    积分余额
+                </view>
+                <view class="weui-cell__bd">
+                    {{integral.position}}
+                </view>
+                <view class="weui-cell__ft" s-if="{{integral.max<integral.position}}" >
+                    <icon type="info_circle" size="16" color="#555"/> 最多可用 {{integral.max}}
+                </view>
+            </view>
+            <view class="weui-cell integral-opt-cell" s-if="{{integral}}">
+                <view class="weui-cell__hd">
+                    使用积分
+                </view>
+                <view class="weui-cell__bd">
+                    <input type="number" s-if="{{integral.score_u}}" bindblur="evt_blur_scoreu" bindconfirm="evt_blur_scoreu" class="weui-input" value="{{integral.score_u}}" />
+                </view>
+                <view class="weui-cell__ft" s-if="{{integral.score_u}}">
+                    抵扣 ¥{{integral.deduction}}
+                </view>
+            </view>
+        </view>
+    </view>
+</template>

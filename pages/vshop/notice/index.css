@@ -1,0 +1,37 @@
+page{
+    background: #ffffff;
+}
+.weui-cell_access{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: initial;
+}
+.weui-cells{
+	margin-top: 0;
+}
+.weui-cells:before{
+	border:none;
+}
+.weui-cells:after{
+	border-bottom: 1px solid #D8D8D8;
+}
+.weui-cell{
+	padding: 30rpx 20rpx;
+}
+.weui-media-box__thumb{
+	width: 250rpx;
+	height: 152rpx;
+	margin-right: 20rpx;
+}
+.title{
+	font-size: 32rpx;
+	color: #333333;
+	height: 45px;
+}
+.pubtime{
+    font-size: 22rpx;
+    line-height: 20px;
+    color: #AAAAAA;
+    margin-top: 27rpx;
+}

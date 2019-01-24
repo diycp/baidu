@@ -1,0 +1,47 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{share_success}}">
+    <view class="weui-msg">
+        <view class="weui-msg__icon-area">
+            <icon type="success" size="64" color="{{themecolor.success_icon_color}}"/>
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">
+                礼品卡赠送成功
+            </view>
+            <view class="weui-msg__desc">
+                您已成功将礼品卡送出
+            </view>
+        </view>
+    </view>
+    <view class="weui-msg__opr-area">
+        <view class="weui-btn-area">
+            <button type="default" bindtap="evt_gohome">返回首页</button>
+        </view>
+        <!-- <view class="weui-btn-area">
+            <button bindtap="evt_gohome" type="dedault">返回首页</button>
+        </view> -->
+    </view>
+</block>
+<block s-if="{{!share_success && hideLoading}}">
+    <view class="card-box" style="height:{{win_width*8/10}}px;">
+        <import src="/pages/giftcard/tpl/cardinfo.swan"/>
+        <template is="card-info-tpl" data="{{crecord:crecord,win_width:win_width,images:images,mini:'1'}}"/>
+    </view>
+    <view class="memo">
+        <view class="weui-cells__title">礼品卡附言:</view>
+        <view class="weui-cells weui-cells_form">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <textarea maxlength="255" cursor-spacing="2" auto-height="true" bindinput="evt_textareainput"  value="{{crecord.card_memo}}" placeholder="请输入附言"></textarea>
+
+                </view>
+            </view>
+        </view>
+        <view style="padding-left:15px;">
+            <text class="weui-textarea-counter" >附言可自定义</text>
+        </view>
+    </view>
+    <view class="weui-btn-area">
+        <button type="primary" open-type="share">选择好友</button>
+    </view>
+</block>

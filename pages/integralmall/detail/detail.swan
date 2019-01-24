@@ -1,0 +1,115 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<filter src="../../../utils/fmt.js" module="fmt"></filter>
+<block s-if="{{hideLoading}}">
+    <view class="product-container">
+        <swiper class="slider" style="{{slider_height_style?slider_height_style:''}}" indicator-dots="{{slide_images.length>1}}" autoplay="true" interval="5000" duration="1000">
+          <block s-for="{{slide_images}}" s-for-item="item" s-key="*this">
+            <swiper-item>
+              <image bindtap="tapslide" data-src="{{item}}" class="slide" src="{{item}}" mode="aspectFit" />
+            </swiper-item>
+          </block>
+        </swiper>
+        <view class="product-actions" style="top:{{windowWidth-45}}px">
+            <view catchtap="evt_showqrcode" class="action-item">
+                <view class="icon icon-sm icon-qrcode"></view>
+            </view>
+        </view>
+        <view class="weui-panel">
+                <view class="weui-panel__hd weui-cell">
+                        <view class="weui-cell__bd">
+                            <view class="product-name" style="color:{{themecolor.text_primary}}">
+                                {{data_detail.product.name}}
+                                <text class="product-sepc-info" s-if="{{data_detail.product.spec_info}}">
+                                    {{data_detail.product.spec_info}}
+                                </text>
+                            </view>
+                            <view class="intro" style="color:{{themecolor.text_info}}">{{data_detail.brief}}</view>
+                            <view class="price-area">
+                                <view class="g-price-del" style="color:{{themecolor.text_info}}">{{fmt.price(data_detail.product.price)}}</view>
+                                <view class="g-price" style="color:{{themecolor.text_info}}">
+                                    <view style="color:{{themecolor.price_text}}">{{relgoods.deduction}}</view>
+                                    <view class="jf-label">积分</view>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="weui-cell__ft">
+                        </view>
+                </view>
+               <view class="weui-panel_bd">
+                  <view class="weui-media-box product-spec" s-if="{{data_detail.spec_desc.t}}">
+                      <view class="spec-select" s-for="{{data_detail.spec_desc.t}}" s-for-index="idx"  s-for-item="item" s-key="idx">
+                          <view class="spec-title" style="color:{{themecolor.text_primary}}">{{item}}</view>
+                          <view class="spec-options">
+                              <block s-for="{{data_detail.spec_desc.v[idx]}}"  s-for-item="option"  s-key="index">
+                                      <view class="spec-item disabled" s-if="{{option.marketable == 'false'}}">
+                                          <image mode="aspectFit" src="{{images[option.p_image_id]?images[option.p_image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" s-if="{{option.p_image_id}}" data-ident="{{option.p_image_id}}"  bindload="load_image"/>
+                                          <text>{{option.label}}</text>
+                                      </view>
+                                      <view bindtap="tapspecitem" data-productid="{{option.product_id}}" s-if="{{option.marketable == 'true'}}" class="spec-item {{option.current?' active':''}}">
+                                          <image src="{{images[option.p_image_id]?images[option.p_image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}"  mode="aspectFit" s-if="{{option.p_image_id}}" data-ident="{{option.p_image_id}}" bindload="load_image"/>
+                                          <text>{{option.label}}</text>
+                                      </view>
+                              </block>
+                          </view>
+                      </view>
+                      <!-- <view class="weui-media-box__info">请选择规格</view> -->
+                  </view>
+                  <view class="weui-media-box product-buycount">
+                      <view class="pb-label">兑换数量</view>
+                      <view class="product-quantity">
+                          <button class="pq-minus" plain="true" disabled="{{quantityVal<2}}" bindtap="tappqminus">-</button>
+                          <input type="number" value="{{quantityVal}}" class="pq-ipt"/>
+                          <button class="pq-minus" plain="true" bindtap="tappqplus">+</button>
+                      </view>
+                  </view>
+               </view>
+        </view>
+    </view>
+    <view class="weui-panel product-brand" s-if="{{data_detail.brand && data_detail.brand.brand_logo}}">
+        <view class="weui-panel__bd">
+                <view bindtap="evt_goto" data-url="/pages/integralmall/gallery?brand_id={{data_detail.brand.brand_id}}" class="weui-media-box weui-media-box_appmsg">
+                    <image class="weui-media-box__hd" mode="aspectFit" src="{{images[data_detail.brand.brand_logo]?images[data_detail.brand.brand_logo]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{data_detail.brand.brand_logo}}"  bindload="load_image"/>
+                    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                        <view class="weui-media-box__title" >
+                            {{data_detail.brand.brand_name}}
+                        </view>
+                    </view>
+                </view>
+        </view>
+    </view>
+    <view class="product-desc-loader" bindtouchstart="evt_loaddesc" s-if="{{desc_loaded=='NO'}}">
+        <icon type="download" size="32" color="#999" />
+        <view>加载商品详情</view>
+    </view>
+    <view class="weui-panel product-desc" s-if="{{desc_loaded=='YES'}}">
+            <view class="weui-panel__hd">
+                商品详情
+            </view>
+            <view class="weui-panel__bd">
+                <view class="product-params" s-if="{{data_detail.params}}">
+                    <view class="weui-form-preview" s-for="{{data_detail.params}}" s-for-item="p_group" >
+                        <view class="weui-form-preview__hd">
+                                {{index}}
+                        </view>
+                        <view class="weui-form-preview__bd" s-for="{{p_group}}">
+                            <view class="weui-form-preview__item">
+                                <label class="weui-form-preview__label">{{index}}</label>
+                                <text class="weui-form-preview__value">{{item}}</text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <import src="/utils/wxParse/wxParse.swan"/>
+                <view class="wxParse">
+                    <template is="wxParse" data="{{wxParseData:product_desc.nodes}}"/>
+                </view>
+            </view>
+    </view>
+    <view class="goHome" bindtap="goHome"></view>
+    <view class="goTop" bindtap="goTop"></view>
+<!--foot bar begin-->
+<view class="fix-foot-bar">
+    <view class="btn-redirect btn-disabled" s-if="{{member_info.integral<(relgoods.deduction*quantityVal)}}">积分不足,当前积分余额:{{member_info.integral}}</view>
+    <navigator s-else class="btn-redirect" open-type="redirect" url="/pages/integralmall/exchange/exchange?product_id={{data_detail.product.product_id}}&quantity={{quantityVal}}" style="background-color:{{themecolor.sure_submit_color}};color:{{themecolor.sure_submittext_color}}">立即兑换</navigator>
+</view>
+</block>

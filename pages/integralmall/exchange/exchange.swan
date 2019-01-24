@@ -1,0 +1,76 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<filter src="../../../utils/fmt.js" module="fmt"></filter>
+<form bindsubmit="evt_submit_order" s-if="{{relgoods}}" report-submit="true">
+<view class="weui-panel">
+        <!-- <view class="weui-panel__hd">收货人</view> -->
+        <view class="weui-panel__bd">
+            <block s-if="{{member_addrs}}">
+            <navigator url="/pages/member/addr/addr?select={{addr.addr_id}}" s-for="{{member_addrs}}" s-for-item="addr" s-key="index">
+                <view class="weui-media-box weui-media-box_appmsg member-addr" s-if="{{addr.selected == 'true'}}">
+                    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg location-box">
+                        <view class="icon icon-location icon-sm"></view>
+                    </view>
+                    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                        <view class="weui-media-box__title name-and-mobile" >
+                            <view class="name">{{addr.name}}</view>
+                            <view class="mobile" >
+                                {{addr.mobile}}
+                            </view>
+                        </view>
+                        <view class="weui-media-box__desc area">{{fmt.region(addr.area_format)}}</view>
+                        <view class="weui-media-box__desc address">{{addr.addr}}</view>
+                    </view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </view>
+            </navigator>
+            </block>
+            <block s-else>
+                <navigator url="/pages/member/addr/edit/edit?fromcheckout=true">
+                    <view class="weui-media-box weui-media-box_appmsg member-addr">
+                        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg location-box">
+                            <icon type="clear" class="icon-clear2plus" color="red" size="16"/>
+                        </view>
+                        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                            <view class="weui-media-box__title" >
+                                新增收货地址
+                            </view>
+                            <view class="weui-media-box__desc">立即新增收货地址</view>
+                        </view>
+                        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                    </view>
+                </navigator>
+            </block>
+        </view>
+</view>
+<view class="weui-panel">
+        <view class="weui-panel__bd">
+            <view  class="weui-media-box weui-media-box_appmsg co-item">
+                <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                    <image mode="aspectFit" class="weui-media-box__thumb" bindload="load_image" src="{{images[goods.image_default_id]?images[goods.image_default_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{goods.image_default_id}}" />
+                </view>
+                <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                    <view class="weui-media-box__desc co-name">{{goods.product.name}}</view>
+                    <view class="weui-media-box__desc co-inline">
+                        <view class="co-spec">{{goods.product.spec_info?goods.product.spec_info:''}}</view>
+                        <view class="co-price" style="color:{{themecolor.price_text}}">
+                            {{relgoods.deduction}} 积分
+                            <text> x {{options.quantity}} </text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+</view>
+<view class="weui-footer">
+    <view class="weui-footer__text">当前积分余额:{{member_info.integral}}</view>
+    <!-- <view class="weui-footer__text">包邮</view> -->
+</view>
+<view class="checkout-footer" style="background-color:{{themecolor.cart_footbg_color}}">
+    <view class="checkout-total" style="color:{{themecolor.cart_foottext_color}}">
+            积分消耗：<text  style="color:{{themecolor.cart_footprice_color}}">{{relgoods.deduction * options.quantity}}</text>
+    </view>
+    <button form-type="submit" type="warn" class="submit-order" style="background-color:{{themecolor.cart_checkout_color}};color:{{themecolor.cart_checkouttext_color}}">
+        确认兑换
+    </button>
+</view>
+</form>

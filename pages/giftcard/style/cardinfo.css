@@ -1,0 +1,56 @@
+.card-style{
+    background: #fff;
+
+    margin: 15px 15px 5px 15px;
+    box-shadow: 0 0 2px 1px #ccc;
+    border-radius: 5px;
+    position: relative;
+    z-index: 10;
+}
+
+.card-style image{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+.crecord-info{
+    position: relative;
+    background: #fff;
+    margin: -15px 15px 0 15px;
+    border-radius: 5px;
+    padding: 15px 10px 10px 10px;
+
+}
+.crecord-info .c-memo{
+    color: #777;
+    font-size: 12px;
+}
+.crecord-info .c-paytime,.crecord-info .c-cid,.crecord-info .c-use{
+    font-size: 12px;
+    color: #999;
+}
+.c-recipient .avatar{
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+}
+.c-recipient{
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    color: #999;
+    padding: 5px 0 5px 0;
+}
+.c-recipient .cr-name{
+    color: #000;
+    margin-left: 5px;
+}
+.crecord-info .weui-cells__title{
+    padding: 0;
+}
+.crecord-info .weui-cells{
+    margin: 0;
+}
+.crecord-info .weui-cells:after{
+    display: none;
+}

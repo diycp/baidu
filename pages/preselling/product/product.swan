@@ -1,0 +1,201 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+    <view class="product-container">
+        <swiper class="slider" style="{{slider_height_style?slider_height_style:''}}" indicator-dots="{{slide_images.length>1}}" autoplay="true" interval="5000" duration="1000">
+          <block s-for="{{slide_images}}" s-for-item="item" s-key="*this">
+            <swiper-item>
+              <image bindtap="tapslide" data-src="{{item}}" class="slide" src="{{item}}" mode="aspectFit" />
+            </swiper-item>
+          </block>
+        </swiper>
+        <view class="product-actions" style="top:{{windowWidth-45}}px">
+            <view catchtap="evt_showqrcode" class="action-item">
+                <view class="icon icon-sm icon-qrcode"></view>
+            </view>
+        </view>
+        <view class="weui-panel">
+            <view class="weui-panel__hd weui-cell goods-product">
+                    <view class="weui-cell__bd">
+                        <view class="product-name" style="color:{{themecolor.text_primary}}">
+                           {{data_detail.product.name}}
+                        </view>
+                        <view>
+                            <text class="price" style="color:{{themecolor.text_primary}}"> 预售价￥{{current_product.presell_price}} </text> <text class="mktprice"> ￥{{data_detail.product.price}} </text>
+                            <text  style="color:{{themecolor.text_info}}"> 已售{{data_detail.buy_count}}件 </text>
+                        </view>
+                        <view>
+                            <text class="deposit-price" style="color:{{themecolor.price_text}}"> ￥{{current_product.deposit}}  </text>
+                            <text class="deposit-deduction" style="color:{{themecolor.price_text}}">订金可抵扣￥{{current_product.deposit_deduction}}</text>
+                            <navigator url="/pages/preselling/rules/rules?activity_id={{activity.activity_id}}&product_id={{activity.product_id}}" hover-class="" class="rules">
+                                预售规则
+                            </navigator>
+                        </view>
+                    </view>
+            </view>
+            <view class="weui-panel__bd tips" s-if="{{activity.is_refund !='true'}}">
+                如果在规定时间内未支付尾款,订金则不予退还!
+            </view>
+        </view>
+    </view>
+    <view class="weui-panel step">
+        <view class="auto-position clearfix">
+            <view class="weui-cells weui-cells_in-small-appmsg step-block">
+                <view class="weui-cell weui-cell_access outer">
+                    <view class="weui-cell__bd weui-cell_primary" s-if="{{current_time>=activity.deposit_starttime}}">付订金
+                          <view class="inner">
+                              <block s-if="{{ countdown.days != 00 || countdown.hours != 00 || countdown.minutes != 00 || countdown.seconds != 00 }}">
+                                剩余:<text class="inner-text text-danger">{{ countdown.days }}天{{ countdown.hours }}:{{ countdown.minutes }}:{{ countdown.seconds }} </text>
+                              </block>
+                              <block s-else>
+                                  订金支付时间已结束
+                              </block>
+                          </view>
+                    </view>
+                    <view class="weui-cell__bd weui-cell_primary" s-else>付订金(暂未开始)
+                        <view class="inner-text">
+                            {{deposit_starttime}}~{{deposit_endtime}}
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_access outer">
+                    <view class="weui-cell__bd weui-cell_primary">付尾款
+                        <view class="inner-text">
+                            {{balance_starttime}}~{{balance_endtime}}
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_access outer">
+                    <view class="weui-cell__bd weui-cell_primary">预计发货时间
+                        <view class="inner"><text class="inner-text">{{send_time}}</text></view>
+                    </view>
+                </view>
+            </view>
+            <view class="step-img-block">
+                <view class="line"></view>
+                <view class="image-block img-one">
+                    <image style="" mode="aspectFit" src="{{img_url}}/public/wechat/preselling/deposit_active.png" class="step-img" s-if="{{current_time>=activity.deposit_starttime}}"></image>
+                    <image style="" mode="aspectFit" src="{{img_url}}/public/wechat/preselling/deposit.png" class="step-img" s-else></image>
+                </view>
+                <view class="image-block img-two">
+                    <image style="" mode="aspectFit" src="{{img_url}}/public/wechat/preselling/wallet_active.png" class="step-img" s-if="{{current_time>=activity.balance_starttime}}"></image>
+                    <image style="" mode="aspectFit" src="{{img_url}}/public/wechat/preselling/wallet.png" class="step-img" s-else></image>
+                </view>
+                <view class="image-block img-three">
+                    <image style="" mode="aspectFit" src="{{img_url}}/public/wechat/preselling/ship_active.png" class="step-img" s-if="{{current_time>=activity.send_time}}"></image>
+                    <image style="" mode="aspectFit" src="{{img_url}}/public/wechat/preselling/ship.png" class="step-img" s-else></image>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="weui-panel">
+        <view class="weui-panel_hd">
+           <view class="weui-media-box product-spec" s-if="{{data_detail.spec_desc.t}}">
+               <view class="spec-select" s-for="{{data_detail.spec_desc.t}}" s-for-index="idx"  s-for-item="item" s-key="idx">
+                   <view class="spec-title">{{item}}</view>
+                   <view class="spec-options">
+                       <block s-for="{{data_detail.spec_desc.v[idx]}}"  s-for-item="option"  s-key="index">
+                               <view class="spec-item disabled" s-if="{{option.marketable == 'false'}}">
+                                   <image mode="aspectFit" src="{{images[option.p_image_id]?images[option.p_image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" s-if="{{option.p_image_id}}" data-ident="{{option.p_image_id}}"  bindload="load_image"/>
+                                   <text>{{option.label}}</text>
+                               </view>
+                               <view bindtap="tapspecitem" data-productid="{{option.product_id}}" s-if="{{option.marketable == 'true'}}" class="spec-item {{option.current?' active':''}}">
+                                   <image src="{{images[option.p_image_id]?images[option.p_image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}"  mode="aspectFit" s-if="{{option.p_image_id}}" data-ident="{{option.p_image_id}}" bindload="load_image"/>
+                                   <text>{{option.label}}</text>
+                               </view>
+                       </block>
+                   </view>
+               </view>
+               <view class="spec-select">
+                   <view class="spec-title"  style="color:{{themecolor.text_primary}}">数量</view>
+                   <view class="spec-options product-quantity">
+                        <button class="pq-minus" plain="true" disabled="{{quantityVal<2}}" bindtap="tappqminus">-</button>
+                          <input type="number" value="{{quantityVal}}" class="pq-ipt" />
+                          <button class="pq-minus" plain="true" bindtap="tappqplus" disabled="{{quantityVal>=current_product.restrict_number}}">+</button>
+                   </view>
+                   <view class="prushase">
+                       (限购{{current_product.restrict_number}}件)
+                   </view>
+               </view>
+           </view>
+           <view class="weui-media-box product-spec" s-else>
+                <view class="spec-select">
+                    <view class="spec-title"   style="color:{{themecolor.text_primary}}">数量</view>
+                    <view class="spec-options product-quantity">
+                         <button class="pq-minus" plain="true" disabled="{{quantityVal<2}}" bindtap="tappqminus">-</button>
+                           <input type="number" value="{{quantityVal}}" class="pq-ipt" />
+                           <button class="pq-minus" plain="true" bindtap="tappqplus" disabled="{{quantityVal>=current_product.restrict_number}}">+</button>
+                    </view>
+                    <view class="prushase">
+                        (限购{{current_product.restrict_number}}件)
+                    </view>
+                </view>
+           </view>
+        </view>
+    </view>
+    <view class="weui-panel product-brand" s-if="{{data_detail.brand && data_detail.brand.brand_logo}}">
+        <view class="weui-panel__bd">
+                <view bindtap="evt_goto" data-url="/pages/gallery/gallery?brand_id={{data_detail.brand.brand_id}}" class="weui-media-box weui-media-box_appmsg">
+                    <image class="weui-media-box__hd" mode="aspectFit" src="{{images[data_detail.brand.brand_logo]?images[data_detail.brand.brand_logo]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{data_detail.brand.brand_logo}}"  bindload="load_image"/>
+                    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                        <view class="weui-media-box__title" >
+                            {{data_detail.brand.brand_name}}
+                        </view>
+                    </view>
+                </view>
+        </view>
+    </view>
+    <view class="product-desc-loader" bindtouchstart="evt_loaddesc" s-if="{{desc_loaded=='NO'}}">
+        <icon type="download" size="32" color="#999" />
+        <view>加载商品详情</view>
+    </view>
+    <view class="weui-panel product-desc" s-if="{{desc_loaded=='YES'}}">
+            <view class="weui-panel__hd" style="color:{{themecolor.text_primary}};">
+                <view style="border-left:2px solid {{themecolor.price_text}};padding-left:10px;font-size:14px;">商品详情</view>
+            </view>
+            <view class="weui-panel__bd" style="padding:0 15px;">
+                <view class="product-params" s-if="{{data_detail.params}}">
+                    <view class="weui-form-preview" s-for="{{data_detail.params}}" s-for-item="p_group" >
+                        <view class="weui-form-preview__hd"  style="color:{{themecolor.text_primary}}">
+                                {{index}}
+                        </view>
+                        <view class="weui-form-preview__bd" s-for="{{p_group}}">
+                            <view class="weui-form-preview__item">
+                                <label class="weui-form-preview__label">{{index}}</label>
+                                <text class="weui-form-preview__value">{{item}}</text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <import src="/utils/wxParse/wxParse.swan"/>
+                <view class="wxParse">
+                    <template is="wxParse" data="{{wxParseData:product_desc.nodes}}"/>
+                </view>
+            </view>
+    </view>
+    <view class="goTop" bindtap="goTop"></view>
+<!--foot bar begin-->
+<view class="fix-foot-bar" style="background-color:{{themecolor.foot_bar_bg}}">
+    <view class="foot-left">
+        <navigator open-type="switchTab" url="/pages/index/index" >
+            <image  mode="aspectFit" src="{{img_url}}/public/wechat/tabbar/home.png" />
+        </navigator>
+    </view>
+    <view class="foot-left">
+        <contact-button type="default-dark"  size="25" session-from="vmcwapp-product" />
+    </view>
+    <view class="foot-right buy-area" s-if="{{data_detail.marketable=='true' && data_detail.product.marketable == 'true'}}">
+        <button class="weui-btn pay-deposit" type="warn" bindtap="paydeposit" style="background-color:{{themecolor.ordercash_color}};color:{{themecolor.ordercash_text_color}}">
+            <view class="handle-line-price"  style="color:{{themecolor.ordercash_text_color}}">￥{{current_product.deposit}}</view>
+            <view class="handle-line"  style="color:{{themecolor.ordercash_text_color}}">支付订金</view>
+        </button>
+        <navigator url="/pages/product/product?product_id={{current_product.product_id}}" hover-class="" redirect class="buyalone" type="primary"  style="background-color:{{themecolor.buysingle_color}};color:{{themecolor.buysingle_text_color}}">
+            <view class="handle-line-price" style="color:{{themecolor.buysingle_text_color}}">￥{{data_detail.product.price}}</view>
+            <view class="handle-line" style="color:{{themecolor.buysingle_text_color}}">单独购买</view>
+        </navigator>
+    </view>
+    <view class="foot-right buy-area" s-else>
+        <button class="weui-btn pay-deposit-only" type="warn" bindtap="paydeposit" style="background-color:{{themecolor.ordercash_color}};color:{{themecolor.ordercash_text_color}}">
+            <view class="handle-line-price" style="color:{{themecolor.ordercash_text_color}}">￥{{current_product.deposit}}</view>
+            <view class="handle-line" style="color:{{themecolor.ordercash_text_color}}">支付订金</view>
+        </button>
+    </view>
+</view>

@@ -1,0 +1,34 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<view class="page-xydzp" style="background: #f94545 url({{static_path}}/dzp/pg-bg.png) no-repeat center top;background-size: cover;">
+    <view class="view-xydzp main" id="app-main">
+        <view class="main-top">
+            <view class="rule-block" data-view-rule="true" url="" bindtap="viewRule"><image src="{{static_path}}/dzp/rule-btn.png" mode="widthFix"></image></view>
+            <view class="h1"><image src="{{static_path}}/dzp/xydzp-text.png" mode="widthFix"></image></view>
+        </view>
+        <view class="zhuanpan" id="zhuanpan">
+            <image id="zp-bg-empty" mode="widthFix" src="{{static_path}}/dzp/zp-bg-emp.png"></image>
+            <text id="zp-ring" style="width:{{stylesheets.ring.width}}px;height:{{stylesheets.ring.height}}px;left:{{stylesheets.ring.left}}px;top:{{stylesheets.ring.top}}px;borderWidth:{{stylesheets.ring.borderWidth}}px;"></text> 
+            <view id='zp-text' style="width:{{stylesheets.text.width}}px;height:{{stylesheets.text.height}}px;left:{{stylesheets.text.left}}px;top:{{stylesheets.text.top}}px;">
+                <view id="elActivity" style="transform: rotate({{stylesheets.whirldeg?stylesheets.whirldeg:'0'}}deg);height:{{stylesheets.text.height}}px;">
+                    <view class="actitem" s-for="{{data.prize_items}}" s-for-item="dzp" s-key="index">
+                        <view class="a">
+                            <text class="span">{{dzp}}</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view id="zp-arrow" data-btn="whirl" bindtap="onWhirl" style="width:{{stylesheets.arrow.width}}px;height:{{stylesheets.arrow.height}}px;left:{{stylesheets.arrow.left}}px;top:{{stylesheets.arrow.top}}px;"><image src="{{static_path}}/dzp/cj-arrow.png" mode="widthFix"></image></view>
+        </view>
+        <audio style="display: none;" id="el-audio" controls=""></audio>
+    </view>
+
+    <view class="view-xydzp footer" id="app-footer">
+        <view class="p" style="background: url({{static_path}}/dzp/bg-cloud-b.png) no-repeat top center;background-size:100% 100%;">
+            <view class="span">
+                剩余可抽奖次数: <text class="var">{{detail.num}}</text>次
+            </view>
+        </view>
+        <view class="navigator" bindtap="onWhirl"><image src="{{static_path}}/dzp/act-btn.png" mode="widthFix"></image></view>
+    </view>
+    <include src="../widgets/widgets_modal.swan"/>
+</view>

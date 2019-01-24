@@ -1,0 +1,45 @@
+<filter src="../../../../utils/fmt.js" module='fmt'></filter>
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{hideLoading}}">
+    <view class="prompt-panel" s-if="{{empty_list == 'YES'}}">
+        <view class="icon-empty-list"></view>
+    </view>
+    <view class="order-list">
+        <view class="order-item weui-panel"  s-for="{{schedule_order_list}}" s-for-item="order" s-key="id" s-if="{{schedule_list[order.schedule_id]}}">
+            <navigator url="/pages/store/my/order/detail?order_id={{order.id}}" class="{{order.status}}">
+                <view class="weui-panel__hd">
+                    <view class="icon icon-sm icon-qrcode"></view> {{order.id}}
+                    <label class="activity_status">
+                        已报名<block s-if="{{order.need_ticket && order.ticket_price>0}}">
+                            <block s-if="{{order.payed<order.ticket_price}}">,未付款</block>
+                            <block s-else>,已付款</block>
+                        </block>
+                    </label>
+                </view>
+                <view class="weui-panel__bd">
+                    <view  class="weui-media-box weui-media-box_appmsg subject-box" >
+                        <view class="weui-media-box__hd">
+                            <image class="weui-media-box__thumb" mode="aspectFill" src="{{images[subject_list[order.subject_id].default_image_id]?images[subject_list[order.subject_id].default_image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{subject_list[order.subject_id].default_image_id}}" bindload="load_image"/>
+                        </view>
+                        <view class="weui-media-box__bd">
+                            <view class="weui-media-box__title" style="color:{{themecolor.text_primary}}">
+                                {{subject_list[order.subject_id].title}}
+                            </view>
+                            <view class="weui-media-box__desc" style="color:{{themecolor.text_info}}">
+                                <view class="icon icon-sm icon-time" style="background-image:url({{img_url}}/public/wechat/statics/image/template/time.png)"></view>
+                                {{schedule_list[order.schedule_id].from_time_fmt}}~{{schedule_list[order.schedule_id].to_time_fmt}}
+                            </view>
+                            <view class="weui-media-box__desc" style="color:{{themecolor.text_info}}">
+                                <view class="icon icon-sm icon-location"></view>
+                                {{store_list[order.schedule_id].city}},{{store_list[order.schedule_id].address}}
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-panel__ft">
+
+                </view>
+            </navigator>
+        </view>
+    </view>
+</block>

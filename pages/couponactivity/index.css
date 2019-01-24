@@ -1,0 +1,37 @@
+page{
+    background: #EFEFF4;
+}
+
+.coupon-list{
+    padding-top: 10px;
+}
+.act-name{
+	font-size: 16px;
+	color: #000;
+	height: 16px;
+	line-height: 16px;
+	padding:8px 10px 0 10px;
+}
+.act-brief{
+	font-size: 13px;
+	color: #909090;
+	/* height: 13px; */
+	line-height: 13px;
+	padding:8px 10px;
+}
+.weui-panel{
+    margin: 10px 10px 0 10px;
+    border-radius: 5px;
+}
+
+.weui-panel__hd:after{
+    display: none;
+}
+image{
+    width: 100%;
+    height: 200px;
+    display: block;
+}
+.weui-footer{
+    margin: 10px 0;
+}

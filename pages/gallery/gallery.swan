@@ -1,0 +1,84 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<!--gallery.swan-->
+<block s-if="{{hideLoading}}">
+    <filter src="../../utils/fmt.js" module="fmt"></filter>
+<view class="weui-search-bar" style="z-index: 998;height:48px;">
+    <view class="weui-search-bar__form">
+        <view class="weui-search-bar__box">
+            <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+            <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}"  bindinput="inputTyping" bindconfirm="confirmInput"/>
+            <view class="weui-icon-clear" s-if="{{inputVal.length > 0}}" bindtap="clearInput">
+                <icon type="clear" size="14"></icon>
+            </view>
+        </view>
+    </view>
+    <view class="filter" bindtap="evt_tapscreen" data-currenttap="1">
+        <view class="filter-icon" style="background-image:url({{img_url}}/public/wechat/statics/image/xcxicon/filter.png)"></view>
+        <icon type="info" size="10" color="{{themecolor.popup_color}}" s-if="{{filtering == 'YES'}}"/>
+    </view>
+    <view class="filter" bindtap="evt_chgview" data-currenttap="1">
+        <view class="tpl-icon {{gallery_tpl_type == 'list'?'ti-list':'ti-grid'}}"  style="background-image:url({{img_url}}{{gallery_tpl_type == 'list'?'/public/wechat/statics/image/xcxicon/gallery_list.png':'/public/wechat/statics/image/xcxicon/gallery_grid.png'}})"></view>
+    </view>
+</view>
+
+<view class="prompt-panel" s-if="{{empty_list == 'YES'}}">
+    <view class="icon-empty-list"></view>
+    <view class="text">暂无筛选结果</view>
+    <view class="navigator" bindtap="evt_tapscreen" data-currenttap="1" >重新筛选</view>
+</view>
+<import src="tpl.swan"/>
+<scroll-view scroll-y="true" style="height:{{sv_height}}px;" bindscrolltolower="evt_scrolltolower" s-if="{{data_list}}">
+    <block s-if="{{gallery_tpl_type=='grid'}}">
+        <template is="goods-grid" data="{{{images:images,data_list:data_list,pickout_data:pickout,fromother:fromother,themecolor:themecolor}}}"/>
+    </block>
+    <block s-if="{{gallery_tpl_type=='list'}}">
+        <template is="goods-list" data="{{{images:images,data_list:data_list,pickout_data:pickout,fromother:fromother,themecolor:themecolor}}}"/>
+    </block>
+    
+    <view class="weui-loadmore" s-if="{{pager.current && pager.total>pager.current}}">正在加载</view>
+    <view class="weui-loadmore weui-loadmore_line" s-if="{{pager.total>1 && pager.total == pager.current}}">
+        <view class="weui-loadmore__tips">共{{all_count}}个商品</view>
+    </view>
+</scroll-view>
+
+<view class="screen-panel {{screen_active=='YES'?'active':''}}" bindtap="evt_tapscreen" data-currenttap="1" style="z-index: 999">
+    <view class="sp-wrap">
+        <view class="cat-path">
+            <view bindtap="evt_chgfilter" data-fkey="cat_id" data-val=" ">全部分类</view>
+            <block s-if="{{filter && filter.cat_id}}">
+                <block  s-for="{{cat_path}}">
+                    <view bindtap="evt_chgfilter" data-fkey="cat_id" data-val="{{item.ident}}" >
+                        {{item.title}}
+                    </view>
+                </block>
+            </block>
+        </view>
+        <scroll-view scroll-y="true" style="height:{{fp_height}}px">
+            <view class="screen-wrap">
+                <view class="weui-cells">
+                        <block s-for="data_screen" s-for-item="screen" s-for-index="fk" s-key="fk">
+                                <view class="weui-cell" s-if="fk=='cat_id'">
+                                    <view class="weui-cell__bd weui-cell_primary no-hd">
+                                        <block s-for="screen.options" s-for-index="cid" s-key="cid">
+                                            <view class="f-item {{filter[fk] == cid ?'active':''}}" bindtap="evt_chgfilter" data-fkey="{{fk}}" data-val="{{cid}}">
+                                                {{item}}
+                                            </view>
+                                        </block>
+                                    </view>
+                                </view>
+                                <view class="weui-cell" s-else>
+                                    <view class="weui-cell__hd" >{{screen.title}}</view>
+                                    <view class="weui-cell__bd weui-cell_primary">
+                                        <view class="f-item {{!filter[fk]?'active':''}}" bindtap="evt_chgfilter" data-fkey="{{fk}}"  data-val="" s-if="{{fk!='cat_id'}}">不限</view>
+                                        <block s-for="screen.options" s-for-index="propid" s-key="propid">
+                                            <view  class="f-item {{filter[fk] == propid ?'active':''}}" bindtap="evt_chgfilter" data-fkey="{{fk}}" data-val="{{propid}}">{{item}}</view>
+                                        </block>
+                                    </view>
+                                </view>
+                        </block>
+                </view>
+            </view>
+        </scroll-view>
+    </view>
+</view>
+</block>

@@ -1,0 +1,54 @@
+<view class="weui-msg">
+    <view class="weui-msg__icon-area">
+        <icon type="info" class="weui-icon_msg" size="64"/>
+    </view>
+    <view class="weui-msg__text-area">
+        <view class="weui-msg__title">
+            激活分销店铺二维码
+        </view>
+        <view class="weui-msg__desc">
+            激活后,您将默认成为店长,具备订单查看、分润查询、财务结算对账等权限。届时您可以轻松邀请其他店员加入。
+        </view>
+    </view>
+</view>
+<form bindsubmit="evt_submit" s-if="{{member}}">
+        <view class="weui-panel">
+            <view class="weui-panel__bd">
+                    <view class="weui-cell">
+                            <view class="weui-cell__hd">
+                                店铺名
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input  type="text" name="name" value="{{shop.name}}"  placeholder="店铺名称" />
+                            </view>
+                    </view>
+                    <view class="weui-cell">
+                            <view class="weui-cell__hd">
+                                负责人
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input type="text" name="director_name" value="{{shop.director_name}}"  placeholder="负责人姓名" />
+                            </view>
+                    </view>
+                    <view class="weui-cell">
+                            <view class="weui-cell__hd">
+                                手机号
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input type="number" name="mobile" value="{{shop.mobile}}"   placeholder="负责人手机号码" />
+                            </view>
+                    </view>
+                    <view class="weui-cell" s-if="{{!shop}}">
+                            <view class="weui-cell__hd">
+                                邀请码
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input type="idcard" name="invitation" value=""   placeholder="店铺邀请码" />
+                            </view>
+                    </view>
+            </view>
+        </view>
+        <view class="weui-btn-area">
+            <button form-type="submit" type="primary" >提交申请</button>
+        </view>
+</form>

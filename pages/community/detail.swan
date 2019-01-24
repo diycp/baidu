@@ -1,0 +1,15 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{hideLoading}}">
+    <import src="/pages/community/tpl/blog.swan"/>
+    <import src="/pages/community/tpl/follow.swan"/>
+    <template is="widget-bloglist" data="{{data:blog_data,audio_playing:audio_playing,audio_play_time:audio_play_time,images:images,current_play_video_id:current_play_video_id,media_image_size:media_image_size,my_follow_map:my_follow_map,win_width:win_width,in_detail:in_detail,my_relation_map:my_relation_map,reward_user_data:reward_user_data,reward_data_count:reward_data_count}}"/>
+    <template is="widget-blogfollow" data="{{data:blog_follow_data,images:images,my_follow_map:my_follow_map,win_width:win_width,in_detail:in_detail,my_relation_map:my_relation_map}}"/>
+</block>
+<view class="weui-search-bar comment-bar" >
+    <view class="weui-search-bar__form">
+        <view class="weui-search-bar__box">
+            <view class="icon icon-sm icon-comment-fill"></view>
+            <input type="text" maxlength="255" class="weui-search-bar__input" placeholder="发表评论" bindconfirm="evt_comment_confirm" cursor-spacing="10"  confirm-type="send" value="{{comment_input_val}}" focus="{{focus_comment_input}}"/>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,24 @@
+@import "../style/cardinfo.css";
+page{
+    background: #efefef;
+    padding-bottom: 65px;
+}
+.actions-footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin-left: 15px;
+    padding: 10px 0 10px 0;
+}
+.actions-footer .weui-btn{
+    height: 45px;
+    line-height: 45px;
+    font-size: 16px;
+    background: #ff0700;
+    color: #fff;
+    border-radius: 5px;
+    padding: 0 35px 0 35px;
+    text-align:center;
+    margin: 0 auto;
+    box-shadow: 0 0 1px 1px #bf3330;
+}

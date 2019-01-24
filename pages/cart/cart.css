@@ -1,0 +1,131 @@
+page{
+    padding-bottom: 45px;
+    background:#efefef;
+}
+
+.scroll-view{
+    width: 100%;
+}
+.trash-item{
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left:0;
+    right:0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background-image:url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNDgwOTk3NjIyODE4IiBjbGFzcz0iaWNvbiIgc3R5bGU9IiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjQ3NjYiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMzIiIGhlaWdodD0iMzIiPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PC9zdHlsZT48L2RlZnM+PHBhdGggZD0iTTYwOCA3NjhjLTE3LjY5NiAwLTMyLTE0LjMwNC0zMi0zMkw1NzYgMzg0YzAtMTcuNjk2IDE0LjMwNC0zMiAzMi0zMnMzMiAxNC4zMDQgMzIgMzJsMCAzNTJDNjQwIDc1My42OTYgNjI1LjY5NiA3NjggNjA4IDc2OHoiIHAtaWQ9IjQ3NjciIGZpbGw9IiNkODFlMDYiPjwvcGF0aD48cGF0aCBkPSJNNDE2IDc2OGMtMTcuNjk2IDAtMzItMTQuMzA0LTMyLTMyTDM4NCAzODRjMC0xNy42OTYgMTQuMzA0LTMyIDMyLTMyczMyIDE0LjMwNCAzMiAzMmwwIDM1MkM0NDggNzUzLjY5NiA0MzMuNjk2IDc2OCA0MTYgNzY4eiIgcC1pZD0iNDc2OCIgZmlsbD0iI2Q4MWUwNiI+PC9wYXRoPjxwYXRoIGQ9Ik05MjggMjI0bC0xNjAgMEw3NjggMTYwYzAtNTIuOTI4LTQyLjcyLTk2LTk1LjI2NC05NkwzNTIgNjRDMjk5LjA3MiA2NCAyNTYgMTA3LjA3MiAyNTYgMTYwbDAgNjRMOTYgMjI0Qzc4LjMwNCAyMjQgNjQgMjM4LjMwNCA2NCAyNTZzMTQuMzA0IDMyIDMyIDMybDgzMiAwYzE3LjY5NiAwIDMyLTE0LjMwNCAzMi0zMlM5NDUuNjk2IDIyNCA5MjggMjI0ek0zMjAgMTYwYzAtMTcuNjMyIDE0LjM2OC0zMiAzMi0zMmwzMjAuNzM2IDBDNjkwLjI3MiAxMjggNzA0IDE0Mi4wNDggNzA0IDE2MGwwIDY0TDMyMCAyMjQgMzIwIDE2MHoiIHAtaWQ9IjQ3NjkiIGZpbGw9IiNkODFlMDYiPjwvcGF0aD48cGF0aCBkPSJNNzM2LjEyOCA5NjAgMjg4LjA2NCA5NjBjLTUyLjkyOCAwLTk2LTQzLjA3Mi05Ni05NkwxOTIuMDY0IDM4My41MmMwLTE3LjY2NCAxNC4zMzYtMzIgMzItMzJzMzIgMTQuMzM2IDMyIDMyTDI1Ni4wNjQgODY0YzAgMTcuNjY0IDE0LjM2OCAzMiAzMiAzMmw0NDguMDY0IDBjMTcuNjY0IDAgMzItMTQuMzM2IDMyLTMyTDc2OC4xMjggMzg0LjgzMmMwLTE3LjY2NCAxNC4zMDQtMzIgMzItMzJzMzIgMTQuMzM2IDMyIDMyTDgzMi4xMjggODY0QzgzMi4xMjggOTE2LjkyOCA3ODkuMDU2IDk2MCA3MzYuMTI4IDk2MHoiIHAtaWQ9IjQ3NzAiIGZpbGw9IiNkODFlMDYiPjwvcGF0aD48L3N2Zz4=");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+}
+.goods-promotion{
+    line-height: 25px;
+}
+.order-promotion .weui-cell_link{
+    color: #666;
+}
+
+.product-quantity{
+    margin-top: 5px;
+}
+.co-check{
+    margin-right: 10px;
+}
+.co-item{
+
+}
+.co-name{
+    color: #333;
+}
+.co-price{
+    line-height: 22px;
+    color: #f60;
+    font-weight: lighter;
+    font-stretch: ultra-condensed;
+}
+.co-price text{
+    color: #999;
+}
+
+.co-inline{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+
+
+.cart-footer{
+    z-index: 10;
+    font-size: 12px;
+    height: 45px;
+    background-color: rgba(0,0,0,.8);
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.go-checkout{
+    background: rgb(227,69,69);
+    height: 45px;
+    line-height: 45px;
+    font-size: 18px;
+    width: 100px;
+    text-align: center;
+}
+.cart-total{
+    padding-left: 15px;
+}
+.cart-total .total text{
+    font-weight: lighter;
+    font-stretch: ultra-condensed;
+    color: #f90;
+}
+
+.co-warning{
+    color: #f90;
+    display: flex;
+    align-items: center;
+    padding: 3px 0 0 0;
+}
+.weui-media-box__hd image{
+    display: inline-block;
+}
+
+.weui-media-box{
+    padding: 0;
+}
+.weui-media-box_appmsg{
+    padding:15px 0;
+}
+.co-check{
+    padding-left: 15px;
+}
+.weui-media-box__bd{
+    padding-right: 15px;
+}
+.co-item{
+    width: 100%;
+    transition: margin-left 0.2s ease-in-out;
+}
+.weui-media-box-trash{
+    position: absolute;
+    top:0;
+    left: 100%;
+    font-size: 14px;
+    color: #fff;
+    background: rgb(227,69,69);
+    width: 75px;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: margin-left 0.2s ease-in-out;
+}

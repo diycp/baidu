@@ -1,0 +1,152 @@
+@import '/style/activity-common.css';
+page{
+    font-size: 62.5%;
+}
+/* --------- body --------- */
+.page-sgj{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+/*.main.view-sgj {
+    margin: 47px auto 0;
+}
+*/
+/* --- main-top --- */
+.view-sgj .main-top {
+    z-index: 200;
+}
+
+.view-sgj .main-top .a {
+    display: inline-block;
+    width: 3rem;
+    float: right;
+    margin-right: 5px;
+    margin-top: -1px;
+}
+
+.view-sgj .main-top .a image {
+    width: 100%;
+}
+
+
+.shuiguoji {
+    padding-top: 6rem;
+}
+
+.shuiguoji .item-container {
+    width: calc(80vmin);
+    height: calc(77vmin);
+    margin: 0 auto;
+    padding-top: 6%;
+    box-sizing: border-box;
+}
+
+.item-container .list-items {
+    display: block;
+    overflow: hidden;
+    width: 82%;
+    height: 90%;
+    box-sizing: border-box;
+    background: #6f0505;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.list-items .item-box {
+    display: block;
+    height: 25%;
+}
+
+.list-items .item-box:nth-child(2) {
+    height: 50%;
+}
+
+.item-box .h-item { 
+    height: 100%;
+}
+
+.item-box .span { 
+    display: block;
+    float: left;
+    width: 25%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 4px;
+}
+
+.item-box .span .i {
+    display: block;
+    background: #FFF;
+    border-radius: 8%;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    line-height: 100%;
+    box-sizing: border-box;
+}
+
+.item-box .span image {
+    width: 50%;
+    margin-top: 15%;
+}
+
+.item-box .v-item {
+    width: 25%;
+    height: 100%;
+    float: left;
+}
+
+.item-box .v-item:nth-child(2) {
+    width: 50%;
+}
+
+.v-item .span {
+    width: 100%;
+    height: 50%;
+}
+
+.item-box .v-item:nth-child(2) .span {
+    cursor: pointer;
+    height: 100%;
+    padding: 8%;
+}
+
+.item-box .v-item:nth-child(2) .span .i {
+    background: none;
+}
+
+.item-box .v-item:nth-child(2) .span .i image {
+    width: 100%;
+    margin: 0;
+}
+
+.item-box .span.target .i {
+    border: #ff722d 2px solid;
+    background: #ffffcc;
+}
+
+.item-box .span.target .i image {
+    width: 60%;
+}
+
+
+.view-desc {
+    margin-top: 20px;
+}
+
+.view-desc .p .span {
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    color: #b51604;
+}
+
+.view-desc .p .span .var {
+    font-size: 1.8rem;
+    font-weight: bold;
+    font-style: normal;
+    margin: 0 5px;
+}

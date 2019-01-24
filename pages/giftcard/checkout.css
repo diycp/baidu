@@ -1,0 +1,161 @@
+page{
+    background: #FFFFFF;
+    padding-bottom: 70px;
+}
+.cstyle-gallery{
+    display: flex;
+    flex-wrap: nowrap;
+}
+.cs-item{
+    position: relative;
+    margin: 15px 15px 15px 0;
+    border: 3px solid #FFFFFF;
+    border-radius: 8px;
+}
+
+.cs-item-blank{
+    position: relative;
+    color: #fff;
+}
+.cs-item icon{
+    position: absolute;
+    right: -5px;
+    top:-5px;
+    display: none;
+}
+.cs-item.selected{
+    border-color: #FFC140;
+}
+.cs-item.selected icon{
+    display: block;
+    background: #fff;
+    border-radius: 100%;
+    border: 1px #fff solid;
+}
+.cs-item image{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+.scroll-map{
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    margin-bottom: 10px;
+}
+.scroll-map .sm-item{
+    width: 7px;
+    height: 5px;
+    margin-left: 2px;
+    border: 1px #999 solid;
+    border-radius: 1px;
+}
+.scroll-map .sm-item.selected{
+    background: #999;
+}
+.setp{
+    font-size: 14px;
+    color: #777;
+    padding-left: 15px;
+    line-height: 30px;
+}
+.setp .icon{
+    width: 18px;
+    height: 18px;
+}
+.gift-item{
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+    border: 3px #fff solid;
+    box-shadow: 0 0 2px 1px #e9e9e9;
+    margin: 15px 0 15px 15px;
+    border-radius: 5px;
+}
+.gift-item.selected{
+    border-color: #FFC140;
+}
+.gift-item .weui-badge{
+    background-color: #ffc140;
+}
+.gift-item .col-left{
+
+}
+.gift-item .col-left image{
+    display: block;
+
+}
+.gift-item .col-right{
+
+}
+.col-option{
+    padding: 0 5px 5px 5px;
+    display: flex;
+    align-content: space-around;
+    align-items: center;
+}
+.p-title{
+    font-size: 14px;
+    color: #777;
+    padding: 5px;
+}
+.price{
+    color: #000;
+    width: 100%;
+    font-size: 14px;
+}
+.quantity-set{
+    display: flex;
+    flex-wrap: nowrap;
+
+}
+.quantity-set .minus,.quantity-set .plus{
+    font-size: 25px;
+    width: 35px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+.quantity-set .minus{
+    color: #ccc;
+}
+.quantity-set .plus{
+    color: #FFC140;
+}
+.checkout-footer{
+    border-top: 1px #efefef solid;
+    position:fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background: #fff;
+    height: 56px;
+}
+.checkout-inner{
+    display: flex;
+    align-content: space-around;
+    flex-wrap: nowrap;
+}
+.total-tip{
+    width: 100%;
+    color: #ccc;
+    font-size: 12px;
+}
+.total-tip .price{
+    color: #000;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.checkout-btn{
+    width: 150px;
+}
+.checkout-inner{
+    padding: 5px 15px 0 15px;
+}
+.weui-badge{
+    flex: none;
+    position: absolute;
+    right: -5px;
+    top:-10px;
+}

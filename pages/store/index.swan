@@ -1,0 +1,65 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{hideLoading}}">
+<view scroll-x="true" id="cat_select"  class="cat-select" style="width:{{win_width-20}}px;" s-if="{{store_cat_list}}">
+        <button plain="true" class="{{!cat_id?'current':''}}" size="mini" type="{{!cat_id?'primary':'default'}}" bindtap="evt_selcat">全部</button>
+        <button plain="true" size="mini" type="{{item.cat_id == cat_id?'primary':'default'}}" data-catid='{{item.cat_id}}' s-for="{{store_cat_list}}" bindtap="evt_selcat" class="{{item.cat_id == cat_id?'current':''}}">{{item.name}}</button>
+</view>
+<view class="store-list-panel" style="position:relative;margin-top:{{store_cat_list?-10:0}}px">
+    <view class="weui-panel" s-for="{{store_list}}" s-for-item="item" s-key="index">
+            <view class="weui-panel__bd">
+                <view bindtap="evt_godetail" data-ident="{{item.id}}">
+                    <image style="height:{{(win_width-30)*0.5}}px;"  mode="aspectFill" src="{{images[item.gallery_default_image_id]?images[item.gallery_default_image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{item.gallery_default_image_id}}" bindload="load_image" />
+                    <view class="weui-media-box no-before">
+                        <view class="weui-media-box__bd">
+                            <view class="weui-media-box__title"  style="color:{{themecolor.text_primary}}">
+                                {{item.name}}
+                            </view>
+                            <view class="weui-media-box__desc" style="color:{{themecolor.text_info}}">
+                                <view class="icon icon-sm icon-location"></view>{{item.city}},{{item.address}}<text class="gpsdistance" s-if="{{item.distance}}"><block s-if="{{item.distance>1000}}">{{item.distance/1000|round}} km</block><block s-else>{{item.distance}} m</block>
+                                </text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <navigator url="/pages/store/subject/index?store_id={{item.id}}&subject_id={{subject.id}}" class="weui-media-box weui-media-box_appmsg subject-box" s-for="{{item.subject}}" s-for-item="subject" hover-stop-propagation="true">
+                    <view class="weui-media-box__hd">
+                        <image class="weui-media-box__thumb" mode="aspectFill" src="{{images[subject.default_image_id]?images[subject.default_image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{subject.default_image_id}}" bindload="load_image"/>
+                    </view>
+                    <view class="weui-media-box__bd">
+                        <view class="weui-media-box__title"  style="color:{{themecolor.text_primary}}">
+                            {{subject.title}}
+                        </view>
+                        <view class="weui-media-box__desc" s-if="{{subject.desc}}" style="color:{{themecolor.text_info}}">
+                            {{subject.intro}}
+                        </view>
+                    </view>
+                </navigator>
+            </view>
+
+
+    </view>
+
+    <view class="weui-msg" s-if="{{empty_store_list}}">
+        <view class="weui-msg__icon-area">
+            <icon type="info" size="64"/>
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">
+                暂无活动
+            </view>
+            <view class="weui-msg__desc">
+                暂无在进行中的活动
+            </view>
+        </view>
+    </view>
+    <view class="weui-footer" s-else>
+            <view class="weui-footer__text">
+                共{{store_list_count}}个活动地点,{{subject_count}}个主题活动
+            </view>
+            <view class="weui-footer__links">
+                <navigator url="/pages/store/my/order/list" class="weui-footer__link">我的活动预约</navigator>
+            </view>
+    </view>
+</view>
+
+</block>

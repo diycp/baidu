@@ -1,0 +1,107 @@
+@import '/style/activity-common.css';
+page{
+    font-size: 62.5%;
+}
+/* --------- body --------- */
+.page-ggl{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.view-text {
+    margin-top: 23%;
+}
+
+.view-text .p {
+    width: 80%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.view-text .p image {
+    width: 100%;
+}
+
+.guaguale {
+    margin-top: 18%;
+}
+
+.guaguale .ggl-main-box {
+    width: 220px;
+    height: 110px;
+    background-color: #FFF;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 12px 15px 18px 15px;
+    position: relative;
+    vertical-align: middle;
+}
+
+.ggl-main-box .ggl-view {
+    position: absolute;
+    left: 60px;
+    top: 27px;
+    z-index:9;
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+    text-align:center;
+    font-size:26px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-indent: -999px;
+}
+.ggl-canvas {
+    width: 100%;
+    height: 100%;
+    z-index:99;
+    position: relative;
+}
+
+/*.ggl-main-box div .ggl-view {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #ffd3b6;
+}*/
+
+.view-desc {
+    margin-top: 20px;
+}
+
+.view-desc .p .span {
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    color: #FFF;
+}
+
+.view-desc .p .span .var {
+    font-size: 18px;
+    font-weight: bold;
+    font-style: normal;
+    margin: 0 5px;
+}
+
+/* --------- footer --------- */
+.footer.view-ggl {
+    position:fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer.view-ggl .view-rule {
+    display: block;
+    width: 100%;
+    box-sizing: content-box;
+    padding: 10px;
+    background: #f83d38;
+    color: #FFF;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 2px;
+}

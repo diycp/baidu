@@ -1,0 +1,22 @@
+page{
+	background-color: #ffffff;
+}
+.weui-article{
+	padding: 30rpx 20rpx;
+}
+.article-title{
+    font-size: 34rpx;
+    color: #333333;
+    margin-bottom: 31rpx;
+}
+
+.article-pubtime{
+    font-size: 24rpx;
+    color: #AAAAAA;
+    margin-bottom: 50rpx;
+}
+.article-content{
+	font-size: 28rpx;
+	color: #666666;
+	line-height: 50rpx;
+}

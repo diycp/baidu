@@ -1,0 +1,15 @@
+<form bindsubmit="evt_submit">
+    <view class="weui-cells__title">向顾客询问服务码,输入后确认核销将获得积分奖励</view>
+    <view class="weui-cells">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <input class="weui-input" name="service_code" type="idcard" auto-focus placeholder="请输入服务码" />
+            </view>
+        </view>
+    </view>
+    <view class="weui-btn-area">
+        <button form-type="submit" type="warn" >
+            确认
+        </button>
+    </view>
+</form>

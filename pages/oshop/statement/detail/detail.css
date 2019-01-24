@@ -1,0 +1,45 @@
+page{
+    background: #efefef;
+}
+.weui-form-preview{
+    margin-top: 10px;
+}
+.weui-form-preview__hd .weui-form-preview__value{
+    font-size: 22px;
+}
+.weui-cell__bd{
+    font-size: 14px;
+}
+.weui-cell__bd .s-num{
+    color: #ccc;
+}
+.status-icon{
+    display: inline-block;
+    color: #000;
+    border: 1px #999 solid;
+    border-radius: 2px;
+    font-size: 12px;
+    padding: 1px 4px;
+    margin-left: 10px;
+}
+.status-icon.status-noconfirm{
+    border-color: rgb(264,45,115);
+    color:rgb(264,45,115);
+}
+.status-icon.status-process,.status-icon.status-ready{
+    border-color: rgb(107,207,237);
+    color:rgb(107,207,237);
+}
+.status-icon.status-succ{
+    border-color: rgb(64,181,33);
+    color:rgb(64,181,33);
+}
+.no-top-border::before,.no-top-border::after{
+    border: none;
+}
+.no-top-border{
+    border-top: none;
+}
+.weui-cells_form{
+    margin-top: 0;
+}

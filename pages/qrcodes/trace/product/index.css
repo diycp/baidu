@@ -1,0 +1,20 @@
+image{
+  display:block;
+  margin: 0 auto;
+  width: 80%;
+}
+.weui-msg__icon-area{
+	margin-bottom: 15px;
+}
+.trace-success {
+    font-size: 16px;
+    color: #09BB07;
+}
+.item-msg {
+    font-size: 14px;
+    color: #F76260;
+}
+.goods-desc {
+    text-align: left;
+    font-size: 12px;
+}

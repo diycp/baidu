@@ -1,0 +1,46 @@
+page{
+    background: #efefef;
+}
+
+.weui-search-bar{
+    font-size: 14px;
+    line-height: 28px;
+}
+picker{
+    font-size: 14px;
+    margin-right: 5px;
+    line-height: 28px;
+    color: #666;
+    margin: 0 5px;
+}
+.price{
+    color: #f30;
+    font-weight: lighter;
+}
+.weui-form-preview{
+    margin-top: 10px;
+}
+.weui-form-preview__hd .weui-form-preview__value{
+    font-size: 22px;
+}
+.status-icon{
+    display: inline-block;
+    color: #000;
+    border: 1px #999 solid;
+    border-radius: 2px;
+    font-size: 12px;
+    padding: 1px 4px;
+    margin-left: 10px;
+}
+.status-icon.status-noconfirm{
+    border-color: rgb(264,45,115);
+    color:rgb(264,45,115);
+}
+.status-icon.status-process,.status-icon.status-ready{
+    border-color: rgb(107,207,237);
+    color:rgb(107,207,237);
+}
+.status-icon.status-succ{
+    border-color: rgb(64,181,33);
+    color:rgb(64,181,33);
+}

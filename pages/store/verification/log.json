@@ -1,0 +1,7 @@
+{
+    "enablePullDownRefresh":false,
+    "backgroundColor":"#efefef",
+    "backgroundTextStyle":"black",
+    "navigationBarTitleText":"核销记录"
+
+}

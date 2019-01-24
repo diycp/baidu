@@ -1,0 +1,63 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<filter src="../../utils/fmt.js" module="fmt"></filter>
+<block s-if="{{error}}">
+    <view class="weui-msg">
+        <view class="weui-msg__icon-area">
+            <icon type="warn" size="64" color="#ff0700"/>
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">
+                礼品卡已被领取,你来晚了哦~
+            </view>
+            <view class="weui-msg__desc">
+                {{error}}
+            </view>
+        </view>
+    </view>
+    <view class="weui-msg__opr-area">
+        <view class="weui-btn-area">
+            <button type="default" bindtap="evt_gohome">返回首页</button>
+        </view>
+        <!-- <view class="weui-btn-area">
+            <button bindtap="evt_gohome" type="dedault">返回首页</button>
+        </view> -->
+    </view>
+</block>
+<block s-if="{{!error && hideLoading}}">
+    <view class="card-box">
+        <import src="/pages/giftcard/tpl/cardinfo.swan"/>
+        <template is="card-info-tpl" data="{{crecord:crecord,win_width:win_width,images:images,mini:'1'}}"/>
+    </view>
+    <view class="c-memo" style="width:{{win_width-50}}px;">
+        <view class="member-info">
+            <image class="avatar" mode="aspectFill" src="{{images[crecord.give_member.avatar]?images[crecord.give_member.avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{crecord.give_member.avatar}}" bindload="load_image_s" /> <view>{{crecord.give_member.name}}</view>
+        </view>
+        <view class="c-info">
+            <view>{{crecord.card_title}}</view>
+            <view class="ci2">{{crecord.card_memo}}</view>
+            <view class="c-price"><text>¥</text>{{fmt.price(crecord.order_total)}}</view>
+        </view>
+    </view>
+    <view class="weui-msg">
+        <view class="weui-msg__icon-area">
+            <icon type="success" size="64" color="{{themecolor.success_icon_color}}"/>
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">
+                成功领取
+            </view>
+            <view class="weui-msg__desc">
+                您已成功领取一张礼品卡,已放入您的
+                <navigator url="/pages/giftcard/crecord/index?is_recipient=1">礼品卡包</navigator>
+            </view>
+        </view>
+    </view>
+    <view class="weui-msg__opr-area">
+        <view class="weui-btn-area">
+            <button type="default" bindtap="evt_godetail">查看礼品卡详情</button>
+        </view>
+        <!-- <view class="weui-btn-area">
+            <button bindtap="evt_gohome" type="dedault">返回首页</button>
+        </view> -->
+    </view>
+</block>

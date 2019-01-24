@@ -1,0 +1,21 @@
+page{
+    background-color: #e9e9e9;
+}
+.avatar{
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    border: 1px #efefef solid;
+}
+.unrelationed .avatar{
+    -webkit-filter: blur(2px); /* Chrome, Opera */
+            filter: blur(2px);
+}
+.weui-media-box__bd{
+    padding: 0 110px 0 10px;
+}
+.weui-panel button{
+    position: absolute;
+    right:10px;
+    top:30%;
+}

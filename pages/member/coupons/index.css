@@ -1,0 +1,61 @@
+page{
+ background:#efefef;
+
+}
+
+.weui-navbar{
+    background: #fff;
+}
+.coupons{
+    padding-top: 40px;
+}
+.coupon{
+    position: relative;
+    background: #f30;
+    margin: 10px 10px;
+    color: #fff;
+    font-size: 14px;
+    padding: 5px 15px;
+    border-left: 2px dashed #efefef;
+    border-right: 2px dashed #efefef;
+    overflow: hidden;
+}
+.coupon .time-limit{
+    font-size: 12px;
+    color: rgba(255,255,255,.5);
+
+}
+.coupon .name{
+    font-size: 16px;
+}
+.coupon .code{
+    font-size: 12px;
+    color: rgba(255,255,255,.7);
+    text-align: right;
+    text-transform:uppercase;
+}
+.coupon .transform{
+    position: absolute;
+    width: 100%;
+    left: 30%;
+    height: 130%;
+    right: 0;
+    top:0;
+    background: rgba(255,255,255,.11);
+    transform: rotate(-30deg);
+}
+.coupon .description{
+    font-size: 12px;
+}
+.coupons.logs .coupon{
+    background: #f90;
+}
+.prompt-panel .icon-empty-list{
+    width: 120px;
+    height: 120px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin: 10px 0;
+    margin-top:50px;
+}

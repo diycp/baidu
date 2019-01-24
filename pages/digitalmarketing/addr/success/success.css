@@ -1,0 +1,119 @@
+/* page{
+    padding-bottom: 46px;
+    background: #efefef;
+}
+.name-and-mobile{
+    display: flex;
+}
+.name-and-mobile .mobile{
+    margin-left: 10px;
+}
+.name-and-mobile .name text{
+    color: #666;
+}
+.addr-options{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px #e9e9e9 solid;
+    padding:5px 0;
+}
+.addr-options .is-default{
+    padding-left: 15px;
+    font-size: 12px;
+}
+.panel-ft-actions{
+    border-top: none;
+}
+.new-addr-btn{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+}
+.panel-ft-actions .btn{
+    font-size: 12px;
+    line-height: 30px;
+    margin-left: 15px;
+}
+.panel-ft-actions image{
+    width: 12px;
+    height: 12px;
+}
+
+.new-addr-btn::after{
+    border-radius: 0;
+} */
+
+.top{
+  margin-top: 40px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.toptext{
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+}
+.orderform{
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 10px;
+  line-height: 40px;
+  border-top: 1px solid #d8d4d4d8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.orderformtext{
+  font-size: 16px;
+  color: #838080d8;
+}
+.addresstext{
+  height: 80px;
+  width: 92%;
+  margin-left: 15px;
+  margin-right: 15px;
+  border-top: 1px solid #d8d4d4d8;
+  border-bottom: 1px solid #d8d4d4d8;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.addressimage{
+  width: 20px;
+  height: 20px;
+}
+.addressinfo{
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; 
+}
+.addressinfo_p{
+  font-size: 14px;
+  font-weight: 600;
+}
+.addressinfo_a{
+  font-size: 14px;
+}
+.footer{
+  margin-top: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
+  display: flex;
+  justify-content: flex-end;
+}
+.footer_text{
+  width: 70px;
+  height: 25px;
+  font-size: 14px;
+  color: #363535d8;
+  border: 1px solid #d8d4d4d8;
+  border-radius: 5px;
+  margin-left: 20px;
+  text-align: center;
+  line-height: 25px;
+}

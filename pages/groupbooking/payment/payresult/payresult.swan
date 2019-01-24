@@ -1,0 +1,43 @@
+<view class="icon-section">
+    <icon type="success" size="64" color="{{themecolor.success_icon_color}}"/>
+    <view class="text">团单支付成功</view>
+</view>
+<filter src="../../../../utils/fmt.js" module="fmt"></filter>
+<view class="weui-panel__bd addr-block">
+    <view class="weui-media-box weui-media-box_appmsg member-addr">
+        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg location-box">
+            <view class="icon icon-sm icon-location"></view>
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+            <view class="weui-media-box__title name-and-mobile" >
+                <view class="name">{{order.consignee.name}}</view>
+                <view class="mobile" >
+                    {{order.consignee.mobile}}
+                </view>
+            </view>
+            <view class="weui-media-box__desc area">{{fmt.region(order.consignee.area)}}</view>
+            <view class="weui-media-box__desc address">{{order.consignee.addr}}</view>
+        </view>
+    </view>
+</view>
+<view class="weui-form-preview" s-if="{{order}}">
+    <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">团单号</label>
+            <text class="weui-form-preview__value">{{order.gb_id}}</text>
+        </view>
+        <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">团单金额</label>
+            <text class="weui-form-preview__value">{{fmt.price(order.order_total)}}</text>
+        </view>
+        <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">支付金额</label>
+            <text class="weui-form-preview__value">{{fmt.price(order.payed)}}</text>
+        </view>
+    </view>
+</view>
+<view class="weui-btn-area">
+    <navigator url="/pages/index/index" open-type="reLaunch" class="weui-btn weui-btn_default text-center redirect-index">
+        接着逛
+    </navigator>
+</view>

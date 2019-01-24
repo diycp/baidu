@@ -1,0 +1,62 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<canvas style="width: 100%; height: {{canvas_height}}px;" canvas-id="top_canvas_wrap">
+    <cover-image class="avatar" src="{{images[to_user.avatar]}}" mode="aspectFill" style="margin-top:{{(canvas_height-60)/2}}px" s-if="{{images[to_user.avatar]}}"/>
+</canvas>
+<block s-if="{{hideLoading && !reward_success}}">
+    <view class="user-top">
+        <view class="to-user-info">
+            <view class="nickname">{{to_user.nickname}}</view>
+            <view class="user-sign">{{to_user.sign}}</view>
+        </view>
+    </view>
+    <view class="reward-section" s-if="{{!reward_input_show}}">
+        <button bindtap="evt_reward_section" data-section="{{item}}" s-for="{{reward_section}}" plain="true" type="warn">{{item}}</button>
+    </view>
+    <form bindsubmit="evt_reward_submit" class="reward-input" s-if="{{reward_input_show}}">
+        <!-- <view class="weui-cells__title">输入打赏金额</view> -->
+        <view class="weui-cells">
+            <view class="weui-cell weui-cell_warn">
+                <view class="weui-cell__bd">
+                    <input class="weui-input" name="reward_input" type="number" placeholder="请输入打赏金额"/>
+                </view>
+            </view>
+        </view>
+        <view class="weui-btn-area">
+            <button type="warn" form-type="submit">确认</button>
+        </view>
+    </form>
+    <view class="weui-footer">
+        <view class="weui-footer__links">
+            <view class="weui-footer__link" bindtap="evt_togglesection">
+                <block s-if="{{!reward_input_show}}">自定义打赏金额</block>
+                <block s-if="{{reward_input_show}}">选择打赏金额</block>
+            </view>
+            <navigator url="/pages/ubalance/recharge" class="weui-footer__link">充值</navigator>
+        </view>
+        <view class="weui-footer__text">您当前的余额为:{{ubalance.ubalance}}</view>
+    </view>
+</block>
+<block s-if="{{reward_success}}">
+    <view class="weui-msg">
+        <view class="weui-msg__icon-area">
+            <icon type="success" size="64"/>
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">
+                成功打赏{{reward_success}}
+            </view>
+        </view>
+        <view class="weui-msg__opr-area">
+            <view class="weui-btn-area">
+                <button bindtap="evt_gotoback">返回</button>
+            </view>
+        </view>
+        <view class="weui-msg__extra-area">
+            <view class="weui-footer">
+                <view class="weui-footer__links">
+                    <view bindtap="evt_gotoubalance" class="weui-footer__link">管理余额</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</block>

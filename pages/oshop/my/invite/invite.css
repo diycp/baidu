@@ -1,0 +1,23 @@
+page{
+    /*background: #2BA246;*/
+    background: linear-gradient(to bottom,#2BA246,#4EC046);
+}
+.my-qrcode{
+    margin: 5%;
+    background: #fff;
+    border-radius: 5px;
+    padding: 20px 0 20px 0;
+    /*border: 1px green solid;*/
+    text-align: center;
+
+}
+.qrcanvas{
+    margin:0 auto;
+}
+.page-tip.no-margin{
+    border-radius: 5px;
+    margin-top: 20px;
+}
+.page-tip .tip-content{
+    text-align: center;
+}

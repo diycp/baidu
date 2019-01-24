@@ -1,0 +1,146 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<view class="weui-tab">
+    <view class="weui-navbar">
+        <navigator open-type="redirect" url="/pages/vshop/statement/index?status=all" class="weui-navbar__item {{status=='all'?'weui-bar__item_on':''}}" >
+            <view class="weui-navbar__title">全部</view>
+        </navigator>
+        <navigator open-type="redirect" url="/pages/vshop/statement/index?status=noconfirm" class="weui-navbar__item {{status=='noconfirm'?'weui-bar__item_on':''}}">
+            <view class="weui-navbar__title">待确认</view>
+        </navigator>
+        <navigator open-type="redirect" url="/pages/vshop/statement/index?status=process" class="weui-navbar__item {{status=='process'?'weui-bar__item_on':''}}">
+            <view class="weui-navbar__title">待处理</view>
+        </navigator>
+        <navigator open-type="redirect" url="/pages/vshop/statement/index?status=succ" class="weui-navbar__item {{status=='succ'?'weui-bar__item_on':''}}">
+            <view class="weui-navbar__title">已结算</view>
+        </navigator>
+    </view>
+</view>
+<view class="weui-search-bar">
+    <view>从</view>
+    <picker mode="date" bindchange="evt_changefilter_from" start="{{se_start}}" end="{{se_end}}" value="{{filter_data['from']?filter_data['from']:se_start}}" >
+        <view class="picker">
+            {{filter_data['from']?filter_data['from']:se_start}}
+        </view>
+    </picker>
+    <view>至</view>
+    <picker mode="date" bindchange="evt_changefilter_to" start="{{se_start}}" end="{{se_end}}" value="{{filter_data['to']?filter_data['to']:se_end}}">
+        <view class="picker">
+            {{filter_data['to']?filter_data['to']:se_end}}
+        </view>
+    </picker>
+    <button size="mini" plain="true" bindtap="evt_dofilter">筛选</button>
+</view>
+<view class="prompt-panel" s-if="{{empty_list == 'YES'}}">
+    <view class="icon-empty-list"></view>
+</view>
+<scroll-view scroll-y="true" style="height:{{sv_height}}px;" bindscrolltolower="evt_scrolltolower" s-if="{{statement_list}}">
+    <view class="statement-panel">
+            <view class="weui-form-preview" s-for="{{statement_list}}" s-for-item="statement" s-key="statement_id">
+                <view class="weui-panel__hd">
+                    {{statement.createtime}}
+                    <view class="status-icon status-{{statement.status}}">{{status_kvmap[statement.status]}}</view>
+                </view>
+                <view class="weui-form-preview__hd">
+                    <view class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">结算金额</label>
+                        <text class="weui-form-preview__value">¥{{statement.money}}</text>
+                    </view>
+                </view>
+                <view class="weui-form-preview__bd">
+                    <view class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">结算时间</label>
+                        <text class="weui-form-preview__value">{{statement.createtime}}</text>
+                    </view>
+                    <view class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">结算单号</label>
+                        <text class="weui-form-preview__value">{{statement.statement_id}}</text>
+                    </view>
+                </view>
+                <view class="weui-form-preview__bd">
+                    <view class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">收款人</label>
+                        <text class="weui-form-preview__value">{{statement.payee}}</text>
+                    </view>
+                    <view class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">收款银行</label>
+                        <text class="weui-form-preview__value">{{statement.payee_bank}}</text>
+                    </view>
+                    <view class="weui-form-preview__item">
+                        <label class="weui-form-preview__label">收款账号</label>
+                        <text class="weui-form-preview__value">{{statement.payee_account}}</text>
+                    </view>
+                </view>
+                <view class="weui-form-preview__bd">
+                    <view class="weui-form-preview__item" s-if="{{statement.payer}}">
+                        <label class="weui-form-preview__label">付款人</label>
+                        <text class="weui-form-preview__value">{{statement.payer}}</text>
+                    </view>
+                    <view class="weui-form-preview__item" s-if="{{statement.payer_bank}}">
+                        <label class="weui-form-preview__label">付款银行</label>
+                        <text class="weui-form-preview__value">{{statement.payer_bank}}</text>
+                    </view>
+                    <view class="weui-form-preview__item" s-if="{{statement.payer_account}}">
+                        <label class="weui-form-preview__label">付款账号</label>
+                        <text class="weui-form-preview__value">{{statement.payer_account}}</text>
+                    </view>
+                    <view class="weui-form-preview__item" s-if="{{statement.out_trade_no}}">
+                        <label class="weui-form-preview__label">支付流水号</label>
+                        <text class="weui-form-preview__value">{{statement.out_trade_no}}</text>
+                    </view>
+                </view>
+                <view class="weui-form-preview__ft">
+                    <navigator class="btn" url="detail/detail?statement_id={{statement.statement_id}}">
+                        查看详情
+                    </navigator>
+                    <view class="btn confirm-btn" bindtap="evt_confirm_order" data-statement_id="{{statement.statement_id}}" s-if="{{statement.status === 'noconfirm'}}">确认</view>
+                </view>
+            </view>
+    </view>
+    <view class="weui-loadmore" s-if="{{pager.current && pager.total>pager.current}}">正在加载</view>
+    <view class="weui-loadmore weui-loadmore_line" s-if="{{pager.total>1 && pager.total == pager.current}}">
+        <view class="weui-loadmore__tips">共{{count}}笔</view>
+    </view>
+</scroll-view>
+<view class="modal" catchtouchmove="myCatchTouch" animation="{{animationData}}">
+    <!-- 结算方式,银联 -->
+    <view class="wrapper">
+        <form class="content" bindsubmit="evt_submit" report-submit="true">
+            <view class="modal-head">
+                <view class="title">结算确认</view>
+                <image class="cancel-icon" bindtap="evt_cancel_modal" src="{{img_url}}/public/wechat/vshop/cancel.png" mode="widthFix"></image>
+            </view>
+            <view class="modal-body">
+                <view class="item">
+                    <view class="left">结算凭证号</view>
+                    <view class="right">{{statement_id}}</view>
+                </view>
+                <view class="item">
+                    <view class="left">结算方式</view>
+                    <view class="right">银行卡</view>
+                </view>
+                <view class="item">
+                    <view class="left">收款人</view>
+                    <view class="right">
+                        <input type="text" value="" placeholder="请添加收款人姓名" placeholder-style="{{input_placeholder_style}}" adjust-position="true" confirm-type="next" name="payee" bindfocus="inputFocus"/>
+                    </view>
+                </view>
+                <view class="item">
+                    <view class="left">收款银行</view>
+                    <view class="right">
+                        <input type="text" value="" placeholder="请添加收款银行" placeholder-style="{{input_placeholder_style}}" adjust-position="true" confirm-type="next"  name="payee_bank" bindfocus="inputFocus"/>
+                    </view>
+                </view>
+                <view class="item">
+                    <view class="left">收款账号</view>
+                    <view class="right">
+                        <input type="number" value="" placeholder="请添加收款账号" placeholder-style="{{input_placeholder_style}}" adjust-position="true" confirm-type="next"  name="payee_account" bindfocus="inputFocus"/>
+                    </view>
+                </view>
+            </view>
+            <view class="error-msg" hidden="{{!showError}}">*请完善收款信息</view>
+            <view class="modal-footer">
+                <button form-type="submit">确认结算</button>
+            </view>
+        </form>
+    </view>
+</view>

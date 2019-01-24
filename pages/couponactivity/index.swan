@@ -1,0 +1,32 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{hideLoading}}">
+    <view s-if="{{data_list}}">
+        <view class="coupon-list">
+            <view class="coupon-item weui-panel"  s-for="{{data_list}}" s-for-item="coupon" s-key="coupon_id">
+                <navigator url="detail/detail?act_id={{coupon.activity_id}}">
+                    <view class="weui-panel__bd">
+                        <image  mode="aspectFill" src="{{images[coupon.image_id]?images[coupon.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{coupon.image_id}}" bindload="load_image" />
+                    </view>
+                    <view class="weui-panel__ft act-name" style="color:{{themecolor.text_primary}}">
+                        {{coupon.name}}
+                    </view>
+                    <view class="weui-panel__ft act-brief" style="color:{{themecolor.text_info}}">
+                        {{coupon.brief}}
+                    </view>
+                </navigator>
+            </view>
+        </view>
+        <view class="weui-loadmore" s-if="{{alist_pager.current && alist_pager.total>alist_pager.current}}">正在加载</view>
+        <view class="weui-loadmore weui-loadmore_line" s-if="{{alist_pager.total>1 && alist_pager.total == alist_pager.current}}">
+            <view class="weui-loadmore__tips">没有更多了</view>
+        </view>
+    </view>
+    <view class="weui-footer">
+            <view class="weui-footer__text">
+                共{{all_count}}个优惠券活动
+            </view>
+            <view class="weui-footer__links">
+                <navigator url="/pages/member/coupons/index" class="weui-footer__link">查看我的优惠券</navigator>
+            </view>
+    </view>
+</block>

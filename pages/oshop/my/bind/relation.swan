@@ -1,0 +1,19 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{hideLoading}}">
+    <view class="weui-msg">
+        <view class="weui-msg__icon-area">
+            <icon type="info" class="weui-icon_msg" color="info" size="64"/>
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">
+                加入"{{biz.name}}"
+            </view>
+            <view class="weui-msg__desc">
+                您现在正在加入"{{biz.name}}"成为其{{relation_data.type=='enterprise'?'业务员':'营业员'}}
+            </view>
+        </view>
+    </view>
+    <view class="weui-btn-area">
+        <button type="primary" bindtap="evt_confirm">立即加入</button>
+    </view>
+</block>

@@ -1,0 +1,15 @@
+page{
+    background: #efefef;
+}
+.weui-form-preview{
+    margin-top: 10px;
+}
+.weui-form-preview__hd .weui-form-preview__value{
+    font-size: 22px;
+}
+.weui-cell__bd{
+    font-size: 14px;
+}
+.weui-cell__bd .s-num{
+    color: #ccc;
+}

@@ -1,0 +1,49 @@
+page{
+    background: #efefef;
+}
+.icon-section{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+.icon-section .text{
+    line-height: 32px;
+    margin: 0 0 30px 0 0;
+}
+.addr-block{
+    background-color: #fff;
+    margin-top: 15px;
+}
+.location-box{
+    width: 20px;
+
+}
+.location-box image{
+    width: 20px;
+    height: 20px;
+}
+.name-and-mobile{
+    display: flex;
+}
+.name-and-mobile .mobile{
+    margin-left: 10px;
+}
+.name-and-mobile .name text{
+    color: #666;
+}
+.text-center{
+    text-align: center;
+    font-size:15px;
+}
+.weui-btn_default{
+    height: 35px;
+    line-height: 35px;
+    background-color: red;
+    color:#fff;
+    border-radius: 4px;
+}
+.redirect-index{
+    background-color:#52B737;
+}

@@ -1,0 +1,89 @@
+@import "/pages/community/style/media.css";
+page{
+    background-color: #e9e9e9;
+}
+.relation{
+    position: absolute;
+    right: 15px;
+    top:0;
+}
+.user-lv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    padding: 5px 0 0 0;
+}
+.user-lv-name{
+    background: #efefef;
+    color: #555;
+    padding: 2px 5px 2px 5px;
+    line-height: 20px;
+    border-radius: 2px;
+    border: 1px #fff solid;
+    font-size: 12px;
+}
+.user-lv-logo image{
+    max-width: 32px;
+}
+.user-top{
+    background: #fff;
+    text-align: center;
+    padding: 10px 0 0 0;
+    position: relative;
+}
+.user-info{
+    position: relative;
+    z-index: 10;
+    color: #FFF;
+}
+.user-info .nickname{
+    font-size: 14px;
+    font-weight: bold;
+}
+.user-opt{
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    background: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.3));
+    padding: 10px 0;
+    margin: 0;
+    color:#fff;
+
+}
+.user-info .sign{
+    font-size: 12px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    padding: 5px 0;
+}
+
+.avatar-bg{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left: 0;
+    -webkit-filter: blur(14px); /* Chrome, Opera */
+       -moz-filter: blur(14px);
+        -ms-filter: blur(14px);
+            filter: blur(14px);
+}
+.avatar{
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    border: 1px #efefef solid;
+}
+.author-info .timeago{
+    position: static;
+
+}
+.icon-like{
+    background-image: url(data:image/svg+xml;charset=utf-8,%3Csvg%20t=%221507307663877%22%20class=%22icon%22%20style=%22%22%20viewBox=%220%200%201024%201024%22%20version=%221.1%22%20xmlns=%22http://www.w3.org/2000/svg%22%20p-id=%225728%22%20xmlns:xlink=%22http://www.w3.org/1999/xlink%22%20width=%22128%22%20height=%22128%22%3E%3Cdefs%3E%3Cstyle%20type=%22text/css%22%3E%3C/style%3E%3C/defs%3E%3Cpath%20d=%22M512%20928c-28.928%200-57.92-12.672-86.624-41.376L106.272%20564C68.064%20516.352%2032%20471.328%2032%20384c0-141.152%20114.848-256%20256-256%2053.088%200%20104%2016.096%20147.296%2046.592%2014.432%2010.176%2017.92%2030.144%207.712%2044.608-10.176%2014.432-30.08%2017.92-44.608%207.712C366.016%20204.064%20327.808%20192%20288%20192c-105.888%200-192%2086.112-192%20192%200%2061.408%2020.288%2090.112%2059.168%20138.688l315.584%20318.816C486.72%20857.472%20499.616%20863.808%20512%20864c12.704%200.192%2024.928-6.176%2041.376-22.624l316.672-319.904C896.064%20493.28%20928%20445.696%20928%20384c0-105.888-86.112-192-192-192-48.064%200-94.08%2017.856-129.536%2050.272l-134.08%20134.112c-12.512%2012.512-32.736%2012.512-45.248%200s-12.512-32.736%200-45.248l135.104-135.136C610.56%20151.808%20671.904%20128%20736%20128c141.152%200%20256%20114.848%20256%20256%200%2082.368-41.152%20144.288-75.68%20181.696l-317.568%20320.8C569.952%20915.328%20540.96%20928%20512%20928z%22%20p-id=%225729%22%20fill=%22#FFFFFF%22%3E%3C/path%3E%3C/svg%3E);
+}
+.icon-like-fill{
+    background-image: url(data:image/svg+xml;charset=utf-8,%3Csvg%20t=%221507307655665%22%20class=%22icon%22%20style=%22%22%20viewBox=%220%200%201024%201024%22%20version=%221.1%22%20xmlns=%22http://www.w3.org/2000/svg%22%20p-id=%225503%22%20xmlns:xlink=%22http://www.w3.org/1999/xlink%22%20width=%22128%22%20height=%22128%22%3E%3Cdefs%3E%3Cstyle%20type=%22text/css%22%3E%3C/style%3E%3C/defs%3E%3Cpath%20d=%22M736%20128c-65.952%200-128.576%2025.024-176.384%2070.464-4.576%204.32-28.672%2028.736-47.328%2047.68L464.96%20199.04C417.12%20153.216%20354.272%20128%20288%20128c-141.152%200-256%20114.848-256%20256%200%2082.432%2041.184%20144.288%2076.48%20182.496l316.896%20320.128C450.464%20911.68%20478.304%20928%20512%20928c33.696%200%2061.568-16.32%2086.752-41.504l316.736-320%202.208-2.464C955.904%20516.384%20992%20471.392%20992%20384%20992%20242.848%20877.152%20128%20736%20128z%22%20p-id=%225504%22%20fill=%22#FFFFFF%22%3E%3C/path%3E%3C/svg%3E);
+}

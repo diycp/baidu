@@ -1,0 +1,53 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{hideLoading}}">
+    <view class="vshop-top">
+        <image src="{{vshop.logo_url?vshop.logo_url:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" s-if="{{vshop}}" class="vshop-banner" mode="aspectFill"/>
+        <view class="vshop-info">
+            <image class="vshop-logo" s-if="{{vshop}}"  mode="aspectFit" src="{{vshop.logo_url?vshop.logo_url:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" />
+            <view class="vshop-name">
+                <view class="name">{{vshop.name}}</view>
+                <view class="keeper">店主: {{vshop.shopkeeper}}</view>
+                <view class="shop-id" >
+                    ID:{{vshop.shop_id}}
+                </view>
+            </view>
+            <view class="vshop-qrcode" bindtap="evt_getqrcode">
+                <view class="icon icon-qrcode icon-sm"></view> 我的二维码
+            </view>
+        </view>
+    </view>
+    <view class="weui-tab">
+        <view class="weui-navbar">
+           <view class="weui-navbar__item weui-bar__item_on">
+                <view class="weui-navbar__title">店主推荐</view>
+           </view>  
+           <view class="weui-navbar__item" bindtap="evt_showdefaultgroupbooking">
+                <view class="weui-navbar__title">拼团</view>
+           </view>
+           <view class="weui-navbar__item" bindtap="evt_showdefaultpreselling">
+                <view class="weui-navbar__title">预售</view>
+           </view>
+            <view bindtap="evt_showdefaultindex" class="weui-navbar__item">
+                <view class="weui-navbar__title">发现</view>
+            </view>
+        </view>
+    </view>
+    <scroll-view scroll-y="true" s-if="{{goods_list}}" style="height:{{sv_height}}px;">
+    <view class="vshop-items">
+        <import src="/pages/gallery/tpl.swan"/>
+        <template is="goods-{{gallery_tpl_type}}" data="{{data_list:goods_list,pickout_data:pickout,fromother:fromother}}"/>
+    </view>
+    </scroll-view>
+    <block s-else>
+        <view class="weui-msg">
+            <view class="weui-msg__icon-area">
+                <view class="icon-empty-list"></view>
+            </view>
+            <view class="weui-msg__text-area">
+                <view class="weui-msg__title">
+                    店主还未推荐任何商品
+                </view>
+            </view>
+        </view>
+    </block>
+</block>

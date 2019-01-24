@@ -1,0 +1,79 @@
+<filter src="../../utils/fmt.js" module="fmt"></filter>
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{(!vip_lvs && hideLoading) || (error && hideLoading)}}">
+    <view class="weui-msg">
+        <view class="weui-msg__icon-area">
+            <icon type="warn" size="64" color="#ff0700"/>
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title" s-if="{{!vip_lvs}}">
+                无可用于购买的VIP会员等级
+            </view>
+            <view class="weui-msg__desc" s-if="{{error}}">
+                {{error}}
+            </view>
+        </view>
+    </view>
+    <view class="weui-msg__opr-area">
+        <view class="weui-btn-area">
+            <button type="default" bindtap="evGotoIndex">返回首页</button>
+        </view>
+    </view>
+</block>
+<block s-if="{{vip_lvs && hideLoading}}">
+    <view class="weui-panel">
+        <view class="weui-panel">
+            <view class="weui-panel__bd">
+                <view s-if="{{member_vip && member_vip.status}}">
+                    <view class="weui-cells__title">当前VIP会员等级</view>
+                    <view class="weui-cells weui-cells_after-title">
+                        <view class="weui-cell">
+                            <view class="weui-cell__bd">会员等级</view>
+                            <view class="weui-cell__ft">{{member_vip.vip_lv.name}}</view>
+                            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                        </view>
+                        <view class="weui-cell">
+                            <view class="weui-cell__bd">开始日期</view>
+                            <view class="weui-cell__ft">{{member_vip.start_time_fmt}}</view>
+                            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                        </view>
+                        <view class="weui-cell">
+                            <view class="weui-cell__bd">结束日期</view>
+                            <view class="weui-cell__ft">{{member_vip.end_time_fmt}}</view>
+                            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                        </view>
+                    </view>
+                    <view class="weui-msg__text-area" s-if="{{!member_vip.renew}}">
+                        <view class="weui-msg__desc member-lv-unrenew">
+                            {{member_vip.renew_msg||'暂时不可续费'}}
+                        </view>
+                    </view>
+                </view>
+                
+                <view class="weui-panel weui-panel_access" s-if="{{!member_vip || !member_vip.status || member_vip.renew}}">
+                    <view class="weui-panel__hd">购买会员</view>
+                    <view class="weui-panel__bd">
+                        <radio-group class="radio-group" bindchange="lvChange">
+                            <view class="weui-media-box weui-media-box_text" s-for="{{vip_lvs}}" s-for-item="lv">
+                                <view class="weui-media-box__title weui-media-box__title_in-text">
+                                    <label class="radio">
+                                        <radio value="{{lv.member_lv_id}}" checked="{{member_vip && member_vip.status && member_vip.member_lv_id == lv.member_lv_id}}" disabled="{{member_vip && member_vip.status}}" />{{lv.name}} <text class="lv-price-text">￥{{fmt.price(lv.price)}}/年</text>
+                                    </label>
+                                </view>
+                                <view class="weui-media-box__desc lv-remark" s-if="{{lv.lv_remark}}">
+                                    {{lv.lv_remark}}
+                                </view>
+                            </view>
+                        </radio-group>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="weui-btn-area" s-if="{{!member_vip || !member_vip.status || member_vip.renew}}">
+        <button form-type="default" type="warn" class="submit-order" bindtap="evCreatOrder">{{(member_vip && member_vip.status && member_vip.renew) ? '确认续费' : '确认购买'}}</button>
+    </view>
+    <view class="weui-btn-area">
+        <button type="default" bindtap="evGotoIndex">返回首页</button>
+    </view>
+</block>

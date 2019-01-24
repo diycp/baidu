@@ -1,0 +1,27 @@
+<block s-if="{{!qrcode}}">
+    <view class="step-1">
+        <image mode='widthFix' src="{{img_url}}/public/wechat/statics/image/xcxicon/pc.png" />
+        <view class="weui-footer">
+                <view class="weui-footer__text">请先在电脑上打开以下网址</view>
+                <view class="locationhref">
+                    {{locationhref}}
+                </view>
+        </view>
+    </view>
+    <button type="warn" form-type="button" class="qrcodelogin-btn" bindtap="evt_qrcodelogin">已打开网址,扫码登录</button>
+</block>
+
+<block s-if="{{qrcode}}">
+    <view class="step-2">
+        <view class="avatar">
+            <image src="{{member.avatarUrl}}" />
+        </view>
+        <view class="nickname">{{member.nickName}}</view>
+        <view class="weui-btn-area">
+            <button type="warn" form-type="button" bindtap="evt_qrcodelogin_confirm">确认登录</button>
+        </view>
+        <view class="weui-btn-area">
+            <button type="default" form-type="button" plain="true" bindtap="evt_qrcodelogin_cancel">取消</button>
+        </view>
+    </view>
+</block>

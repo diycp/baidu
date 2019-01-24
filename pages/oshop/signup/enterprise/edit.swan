@@ -1,0 +1,59 @@
+<view class="weui-msg">
+    <view class="weui-msg__icon-area">
+        <icon type="info" class="weui-icon_msg" size="64"/>
+    </view>
+    <view class="weui-msg__text-area">
+        <view class="weui-msg__title">
+            成为分销企业
+        </view>
+        <view class="weui-msg__desc">
+            提交企业基本信息,您将默认成为分销企业管理员。后台审核通过后,您可以生成分销店铺邀请码。也可以邀请业务员加入,完成快速拓店计划。
+        </view>
+    </view>
+</view>
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<form bindsubmit="evt_submit" s-if="{{hideLoading && member}}">
+        <view class="weui-panel">
+            <view class="weui-panel__bd">
+                    <view class="weui-cell">
+                            <view class="weui-cell__hd">
+                                <text>*</text>企业名称
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input  type="text" name="name" value="{{enterprise.name}}"  placeholder="请输入企业全称" />
+                            </view>
+                    </view>
+                    <view class="weui-cell">
+                            <view class="weui-cell__hd">
+                                <text>*</text>地区
+                            </view>
+                            <view class="weui-cell__bd">
+                                <picker bindchange="evt_changeregion" value="{{region_data_index}}" range="{{region_data}}">
+                                    <view class="picker">
+                                        {{region_data[region_data_index]||"请选择地区"}}
+                                    </view>
+                                </picker>
+                            </view>
+                    </view>
+                    <view class="weui-cell">
+                            <view class="weui-cell__hd">
+                                <text>*</text>负责人
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input type="text" name="director_name" value="{{enterprise.director_name}}"  placeholder="请输入负责人姓名" />
+                            </view>
+                    </view>
+                    <view class="weui-cell">
+                            <view class="weui-cell__hd">
+                                <text>*</text>手机号
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input type="number" name="mobile" value="{{enterprise.mobile}}"   placeholder="请输入负责人手机号码" />
+                            </view>
+                    </view>
+            </view>
+        </view>
+        <view class="weui-btn-area">
+            <button form-type="submit" type="primary" >提交申请</button>
+        </view>
+</form>

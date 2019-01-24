@@ -1,0 +1,65 @@
+page{
+    background-color: #ffffff;
+}
+.item{
+    padding: 30rpx 20rpx;
+    border-bottom: 1px solid #D8D8D8;
+}
+.flex-between{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.flex-end{
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.avatar{
+    width: 86rpx;
+    height: 86rpx;
+    border-radius: 100%;
+    background-color: #eeeeee;
+    margin-right: 26rpx;
+}
+.name{
+    color: #333333;
+    font-size: 30rpx;
+}
+.level{
+    /*width: 55rpx;*/
+    padding:0 10rpx;
+    height: 23rpx;
+    border-radius: 11.5rpx;
+    background-color: #3093F8;
+    color: #ffffff;
+    text-align: center;
+    font-size: 16rpx;
+    margin-left: 10rpx;
+}
+.shopid{
+    color: #888888;
+    font-size: 28rpx;
+    margin-top: 12rpx;
+}
+.total{
+    font-size: 30rpx;
+    color: #333333;
+    font-weight: 600;
+}
+.tips{
+    color: #888888;
+    font-size: 28rpx;
+    margin-top: 12rpx;
+}

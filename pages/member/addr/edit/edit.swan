@@ -1,0 +1,71 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{hideLoading}}">
+<form bindsubmit="evt_editaddrsubmit">
+        <view class="weui-panel">
+            <view class="weui-panel__bd">
+                    <view class="weui-cell">
+                            <view class="weui-cell__hd">
+                                <text>*</text>收货人
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input  type="text" name="name" value="{{maddr.name}}"  placeholder="请输入收货人姓名" />
+                            </view>
+                    </view>
+                    <view class="weui-cell">
+                            <!-- <view class="weui-cell__hd">
+                                <text>*</text>地区
+                            </view> -->
+                            <view class="weui-cell__bd" s-if="{{selected_region}}">
+                                <text class="red">*</text>收货地区选择
+                                <picker-view  class="region-picker-view" indicator-style="height: 30px;" style="height: 100px;" value="{{selected_region}}" bindchange="evt_regionchange">
+                                    <picker-view-column class="column">
+                                      <view s-for="{{region_data.first}}" s-for-item="item" s-key="index">{{item.text}}</view>
+                                    </picker-view-column>
+                                    <picker-view-column class="column">
+                                      <view s-for="{{region_data.second}}" s-for-item="item" s-key="index">{{item.text}}</view>
+                                    </picker-view-column>
+                                    <picker-view-column class="column">
+                                      <view s-for="{{region_data.third}}" s-for-item="item" s-key="index">{{item.text}}</view>
+                                    </picker-view-column>
+                                </picker-view>
+                            </view>
+                    </view>
+                    <view class="weui-cell">
+                            <view class="weui-cell__hd">
+                                <text>*</text>地址
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input type="text" name="addr" value="{{maddr.addr}}"  placeholder="请输入收货地址" />
+                            </view>
+                    </view>
+                    <view class="weui-cell" style="display:none;">
+                            <view class="weui-cell__hd">
+                                邮编
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input type="text" name="zip"  value="{{maddr.zip}}"  placeholder="邮编" />
+                            </view>
+                    </view>
+                    <view class="weui-cell">
+                            <view class="weui-cell__hd">
+                                <text>*</text>手机
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input type="text" name="mobile" value="{{maddr.mobile}}"   placeholder="请输入收货人手机号码" />
+                            </view>
+                    </view>
+                    <view class="weui-cell">
+                            <view class="weui-cell__hd">
+                                设为常用
+                            </view>
+                            <view class="weui-cell__bd">
+                                <switch name="is_default" checked="{{maddr.is_default == 'true'}}" value="{{maddr.is_default}}"/>
+                            </view>
+                    </view>
+            </view>
+        </view>
+        <view class="weui-btn-area">
+            <button form-type="submit" type="primary" style="background-color:{{themecolor.form_submit_color}};color:{{themecolor.form_submittext_color}}">保存</button>
+        </view>
+</form>
+</block>

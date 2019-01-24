@@ -1,0 +1,10 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<view class="weui-article" s-if="{{hideLoading}}">
+    <view class="article-title">{{notice.title}}</view>
+    <view class="article-pubtime">{{notice.last_modify}}</view>
+    <import src="/utils/wxParse/wxParse.swan"/>
+    <view class="wxParse article-content">
+        <template is="wxParse" data="{{wxParseData:notice_content.nodes}}"/>
+    </view>
+    
+</view>

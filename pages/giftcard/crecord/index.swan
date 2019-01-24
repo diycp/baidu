@@ -1,0 +1,53 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<filter src="../../../utils/fmt.js" module="fmt"></filter>
+<block s-if="{{hideLoading}}">
+    <view class="weui-tab">
+        <view class="weui-navbar" style="position: fixed;">
+            <navigator open-type="redirect" url="/pages/giftcard/crecord/index?is_recipient=0" class="weui-navbar__item {{is_recipient!='1'?'weui-bar__item_on':''}}" >
+                <view class="weui-navbar__title">我购买的</view>
+            </navigator>
+            <navigator open-type="redirect" url="/pages/giftcard/crecord/index?is_recipient=1" class="weui-navbar__item {{is_recipient=='1'?'weui-bar__item_on':''}}" >
+                <view class="weui-navbar__title">我收到的</view>
+            </navigator>
+        </view>
+    </view>
+    <view class="prompt-panel" s-if="{{empty_list == 'YES'}}">
+        <view class="icon-empty-list"></view>
+    </view>
+    <scroll-view scroll-y="true" style="height:{{win_height-34}}px;" bindscrolltolower="evt_scrolltolower" s-if="{{crecord_list}}">
+        <view class="crecord-list">
+
+            <navigator class="crecord-item" s-for="{{crecord_list}}" s-for-item="crecord" s-key="crecord_id" url="detail?crecord_id={{crecord.crecord_id}}">
+                <view class="ci-hd">
+                    <view class="card-box">
+                        <view class="card-style" style="width:{{win_width*0.4-25}}px;height:{{(win_width*0.4-25)*3/5}}px">
+                            <image  mode="aspectFill" src="{{images[crecord.card_image]?images[crecord.card_image]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{crecord.card_image}}" bindload="load_image_l" />
+                        </view>
+                        <view class="c-id">{{crecord.crecord_id}}</view>
+                    </view>
+                    <view class="crecord-info" style="width:{{win_width*0.6-15}}px;">
+                        <view class="c-title">{{crecord.card_title}}</view>
+                        <view class="c-memo">{{crecord.card_memo}}</view>
+                        <view class="c-price"><text>¥</text>{{fmt.price(crecord.order_total)}}</view>
+                        <view class="c-time">{{crecord.createtime_fmt}} 购买</view>
+                    </view>
+                </view>
+                <view class="ci-ft" s-if="{{crecord.recipient_member_id || crecord.use_status=='1'}}">
+                    <view class="c-recipient" s-if="{{crecord.recipient_member_id}}">
+                        <image class="avatar" mode="aspectFill" src="{{images[crecord.recipient_member.avatar]?images[crecord.recipient_member.avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{crecord.recipient_member.avatar}}" bindload="load_image_s" />
+                        <view class="cr-name">{{crecord.recipient_member.name}}</view>
+                        <view class="cr-status">已领取</view>
+                    </view>
+                    <view class="c-use" s-if="{{crecord.use_status=='1'}}">
+                        已于{{crecord.use_time_fmt}}使用,最终订单:{{crecord.use_order}}
+                    </view>
+                </view>
+            </navigator>
+
+        </view>
+        <view class="weui-loadmore" s-if="{{pager.current && pager.total>pager.current}}">正在加载</view>
+        <view class="weui-loadmore weui-loadmore_line" s-if="{{pager.total>1 && pager.total == pager.current}}">
+            <view class="weui-loadmore__tips">共{{crecord_count}}</view>
+        </view>
+    </scroll-view>
+</block>

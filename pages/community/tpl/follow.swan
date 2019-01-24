@@ -1,0 +1,32 @@
+<template name="widget-blogfollow">
+    <view class="weui-panel media-list media-follow-list">
+        <view class="weui-panel__bd">
+            <view class="weui-media-box weui-media-box_appmsg"  s-for="{{data.blog_list}}" s-for-item="item" s-key="*this" id="blog_panel_{{item.blog_id}}">
+                <view class="weui-media-box__hd">
+                    <image src="{{images[data.author_list[item.author].avatar]?images[data.author_list[item.author].avatar]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}"  mode="aspectFit"  data-ident="{{data.author_list[item.author].avatar}}" bindload="load_image" class="avatar" catchtap="evt_navuserpage" data-userid="{{item.author}}"/>
+                </view>
+                <view class="weui-media-box__bd">
+                    <view class="media-content-top" >
+                        <view class="nickname" catchtap="evt_navuserpage" data-userid="{{item.author}}">{{data.author_list[item.author].nickname}}
+                        </view>
+                        <view class="media-options">
+                            <view class="media-opt media-zan" catchtap="evt_tapfollowzan" data-blogid="{{item.blog_id}}" data-blogidx="{{index}}" data-iszan="{{my_follow_map['_'+item.blog_id].zan}}">
+                                <view class="icon icon-zan{{my_follow_map['_'+item.blog_id].zan?'-fill':''}} icon-sm"></view>
+                                <view>{{item.zan_count||''}}</view>
+                            </view>
+                            <!-- <view class="media-opt media-unzan" catchtap="evt_tapfollowunzan" data-blogid="{{item.blog_id}}" data-blogidx="{{index}}" data-isunzan="{{my_follow_map['_'+item.blog_id].unzan}}">
+                                <view class="icon icon-zan{{my_follow_map['_'+item.blog_id].unzan?'-fill':''}} icon-unzan icon-sm"></view>
+                                <view>{{item.unzan_count||''}}</view>
+                            </view> -->
+                            <view class='timeago'>{{item.timeago}}</view>
+                        </view>
+
+                    </view>
+                    <view class="media-content" s-if="{{item.content && item.content!='undefined'}}">
+                        {{item.content}}
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>

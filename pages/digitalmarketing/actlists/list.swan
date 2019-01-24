@@ -1,0 +1,12 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<view class="weui-cells weui-cells_in-small-appmsg" s-for="{{data}}" s-for-item="act_type" s-key="acttype">
+	<view class="weui-cell" s-if="{{act_type.items.length != 0}}">
+		<text> {{act_type.name}} </text>		
+	</view>
+    <navigator s-for="{{act_type.items}}" open-type="navigate" s-for-item="item" s-key="*this" url="/pages/digitalmarketing/{{type[item.type]}}/{{type[item.type]}}?act_id={{item.activity_id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd weui-cell_primary">
+            {{item.title}}
+        </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+</view>

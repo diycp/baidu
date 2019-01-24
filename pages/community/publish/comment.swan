@@ -1,0 +1,56 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<block s-if="{{hideLoading && user_lv.allow_content == 'true' && !publish_success}}">
+    <form bindsubmit="evt_submit">
+        <view class="weui-cells__title">发布回复</view>
+        <view class="weui-cells weui-cells_form">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <textarea maxlength="255" auto-height="true" placeholder="请输入回复内容"/>
+                    </view>
+                </view>
+        </view>
+        <view class="weui-btn-area">
+            <button type="warn" form-type="submit"  bindtap="evt_publish">确认</button>
+        </view>
+    </form>
+</block>
+<block s-if="{{hideLoading && !user_lv.allow_publish || user_lv.allow_publish == 'false'}}">
+    <view class="weui-msg">
+        <view class="weui-msg__icon-area">
+            <icon type="warn" size="64" color="red"/>
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">
+                暂无权限
+            </view>
+            <view class="weui-msg__desc">
+                您暂无发布权限!
+            </view>
+        </view>
+        <view class="weui-msg__opr-area">
+            <view class="weui-btn-area">
+                <button bindtap="evt_gotoback">返回</button>
+            </view>
+        </view>
+    </view>
+</block>
+<block s-if="{{comment_success}}">
+    <view class="weui-msg">
+        <view class="weui-msg__icon-area">
+            <icon type="success" size="64"/>
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">
+                回复成功
+            </view>
+            <view class="weui-msg__desc">
+                您的回复已发布成功
+            </view>
+        </view>
+        <view class="weui-msg__opr-area">
+            <view class="weui-btn-area">
+                <button bindtap="evt_gotoback">返回</button>
+            </view>
+        </view>
+    </view>
+</block>

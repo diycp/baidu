@@ -1,0 +1,156 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<filter src="../../../utils/fmt.js" module="fmt"></filter>
+<form bindsubmit="evt_submit_order" s-if="{{activity_result}}" report-submit="true">
+<view class="weui-panel">
+        <!-- <view class="weui-panel__hd">收货人</view> -->
+        <view class="weui-panel__bd">
+            <block s-if="{{member_addrs}}">
+            <navigator url="/pages/member/addr/addr?select={{addr.addr_id}}"  s-for="{{member_addrs}}" s-for-item="addr" s-key="index">
+                <view class="weui-media-box weui-media-box_appmsg member-addr" s-if="{{addr.selected == 'true'}}">
+                    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg location-box">
+                        <image mode="aspectFit" src="{{img_url}}/public/wechat/statics/image/xcxicon/location.png"/>
+                    </view>
+                    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                        <view class="weui-media-box__title name-and-mobile" >
+                            <view class="name">{{addr.name}}</view>
+                            <view class="mobile" >
+                                {{addr.mobile}}
+                            </view>
+                        </view>
+                        <view class="weui-media-box__desc area">{{addr.area_format}}</view>
+                        <view class="weui-media-box__desc address">{{addr.addr}}</view>
+                    </view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </view>
+            </navigator>
+            </block>
+            <block s-else>
+                <navigator url="../../member/addr/edit/edit?fromcheckout=true">
+                    <view class="weui-media-box weui-media-box_appmsg member-addr">
+                        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg location-box">
+                            <icon type="clear" class="icon-clear2plus" color="red" size="16"/>
+                        </view>
+                        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                            <view class="weui-media-box__title" >
+                                新增收货地址
+                            </view>
+                            <view class="weui-media-box__desc">立即新增收货地址</view>
+                        </view>
+                        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                    </view>
+                </navigator>
+            </block>
+        </view>
+</view>
+
+<view class="weui-panel">
+    <!-- 自营 //TODO 多商户-->
+    <view class="weui-panel__bd">
+        <block>
+            <view  class="weui-media-box weui-media-box_appmsg co-item">
+                <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                    <image mode="aspectFit" class="weui-media-box__thumb" bindload="load_image" src="{{images[activity_result.product.image_id]?images[activity_result.product.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{activity_result.product.image_id}}" />
+                </view>
+                <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                    <view class="weui-media-box__desc co-name">{{activity_result.product.name}}</view>
+                    <view class="weui-media-box__desc co-inline">
+                        <view class="weui-media-box product-buycount">
+                          <view class="product-quantity">
+                              <button class="pq-minus" plain="true" disabled="{{quantityVal<2}}" bindtap="tappqminus">-</button>
+                              <input type="number" value="{{quantityVal}}" class="pq-ipt"/>
+                              <button class="pq-minus" plain="true" bindtap="tappqplus" disabled="{{quantityVal>=activity_result.member_restrict_number}}">+</button>
+                          </view>
+                          限购{{activity_result.member_restrict_number}}件
+                      </view>
+                        <view class="co-price" style="color:{{themecolor.price_text}}">
+                            ￥{{fmt.price(activity_result.price)}}
+                            <text>x {{activity_result.quantity}} </text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+    </view>
+</view>
+<view class="weui-panel default-panel">
+    <view class="weui-panel__ft">
+        <view class="weui-cell cart-total">
+                共 {{activity_result.quantity}} 件商品 小计: <text class="price" style="color:{{themecolor.price_text}}">¥ {{fmt.price(activity_result.order_total)}}</text>
+        </view>
+        <block>
+        <view class="weui-cell dlytype-cell" bindtap="evt_showmodal" data-modalname="dlytype_panel">
+            <view class="weui-cell__hd">
+                配送方式
+            </view>
+            <view class="weui-cell__bd">
+                    {{selecteddly.dt_name}}
+            </view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">
+                ￥{{ activity_result.freight }}
+            </view>
+        </view>
+        </block>
+        <view class="weui-cell order-memo" >
+            <view class="weui-cell__hd">
+                买家留言
+            </view>
+            <view class="weui-cell__bd">
+                    <input class="weui-input" bindinput="evt_setpagedata" data-key="memo" placeholder="选填:对本次交易的说明" />
+            </view>
+        </view>
+    </view>
+</view>
+<view class="weui-panel">
+    <view class="weui-panel__bd">
+        <block>
+        <view class="weui-cell payapp-cell" bindtap="evt_showmodal" data-modalname="payapp_panel">
+            <view class="weui-cell__hd">
+                支付方式
+            </view>
+            <view class="weui-cell__bd">
+                    {{selectedpay.display_name?selectedpay.display_name:selectedpay.name}}
+            </view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+        </block>
+    </view>
+</view>
+
+
+<view class="checkout-footer" s-if="{{activity_result}}" style="background-color:{{themecolor.cart_footbg_color}}">
+    <view class="checkout-total" style="color:{{themecolor.cart_foottext_color}}">
+            共 {{activity_result.quantity}} 件商品
+            合计：<text style="color:{{themecolor.cart_footprice_color}}">¥ {{fmt.price(activity_result.order_total)}}</text>
+    </view>
+    <button form-type="submit" class="submit-order" style="background-color:{{themecolor.cart_checkout_color}};color:{{themecolor.cart_checkouttext_color}}">
+        提交团单
+    </button>
+</view>
+</form>
+
+<!--TEMPLATE IMPORT -->
+<import src="tpl/dlytype.swan"/>
+<view animation="{{modal_animation_data}}" class="quick-modal {{active_dlytype_panel?'active':''}}" bindtouchmove="evt_touchmovemodal" bindtap="evt_tapmodal" data-modalname="dlytype_panel">
+    <view class="modal-section">
+        <view class="modal-hd">
+            <text>选择配送方式</text>
+            <icon type="cancel" size="16" color="blcak" data-modalname="dlytype_panel"/>
+        </view>
+        <view class="modal-bd">
+            <template is="dlytype-use-panel" data="{{dlytypes:dlytypes,themecolor:themecolor}}"/>
+        </view>
+    </view>
+</view>
+
+<import src="tpl/payapp.swan"/>
+<view animation="{{modal_animation_data}}" class="quick-modal {{active_payapp_panel?'active':''}}" bindtouchmove="evt_touchmovemodal" bindtap="evt_tapmodal" data-modalname="payapp_panel">
+    <view class="modal-section">
+        <view class="modal-hd">
+            <text>选择支付方式</text>
+            <icon type="cancel" size="16" color="blcak" data-modalname="payapp_panel"/>
+        </view>
+        <view class="modal-bd">
+            <template is="payapp-use-panel" data="{{payapps:paymentapps,themecolor:themecolor}}"/>
+        </view>
+    </view>
+</view>

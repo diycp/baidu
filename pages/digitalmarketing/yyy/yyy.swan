@@ -1,0 +1,16 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<view class="page-yyy" style="background: #f94545 url({{static_path}}/yyy/pg-bg.png) no-repeat 50% -55px;background-size: cover;">
+	<view class="view-yyy main" id="app-main">
+	    <view class="main-top">
+	        <view class="a" bindtap="viewRule"><image mode="widthFix" src="{{static_path}}/yyy/rule-btn.png"></image></view>
+	    </view>
+	    <view class="yaoyiyao" id="elActivity">
+	        <view class="p" style="background: url({{static_path}}/yyy/mobile-bg.png) no-repeat center top;background-size: cover;"><image mode="widthFix" class="{{detail.animate?'hand-animate':''}}" id="yaoimg" src="{{static_path}}/yyy/mobile.png"></image></view>
+	        <!-- <audio style="display: none;" id="el-audio" controls=""></audio> -->
+	    </view>
+	    <view class="view-desc">
+	        <view class="p"><view class="span" :show="limit">可抽奖次数：<text class="var" data-num="true">{{detail.num}}</text>次</view></view>
+	    </view>
+	</view>
+	<include src="../widgets/widgets_modal.swan"/>
+</view>	

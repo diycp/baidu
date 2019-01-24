@@ -1,0 +1,8 @@
+<!-- <view class="store-desc">
+    <import src="/utils/wxParse/wxParse.swan"/>
+    <view class="wxParse">
+        <template is="wxParse" data="{{wxParseData:store_desc.nodes}}"/>
+    </view>
+</view> -->
+
+<web-view src="{{web_url}}"></web-view>

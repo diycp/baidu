@@ -1,0 +1,46 @@
+.step-1{
+    text-align: center;
+    padding: 20px 0 20px 0;
+}
+.step-1 image{
+    width: 50%
+}
+.step-2{
+    text-align: center;
+    padding: 20px 0 20px 0;
+}
+.step-2 .avatar{
+    width: 64px;
+    height: 64px;
+    border: 2px #e9e9e9 solid;
+    border-radius: 100%;
+    margin: 0 auto;
+}
+.step-2 image{
+    border: 1px #fff solid;
+    border-radius: 100%;
+    width: 62px;
+    height: 62px;
+}
+.step-2 .nickname{
+    line-height: 50px;
+    font-size: 14px;
+    color: #777;
+}
+.qrcodelogin-btn{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+}
+.qrcodelogin-btn::after{
+    border-radius: 0;
+}
+
+.locationhref{
+    font-size: 18px;
+    margin: 10px 0 0 0;
+    color: #000;
+}

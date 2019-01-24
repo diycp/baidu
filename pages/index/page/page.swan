@@ -1,0 +1,94 @@
+<!--index.swan-->
+<import src="/widgets/template/blankhelper.swan"/>
+<import src="/widgets/template/goodslist.swan"/>
+<import src="/widgets/template/imgnav.swan"/>
+<import src="/widgets/template/linehelper.swan"/>
+<import src="/widgets/template/searchbar.swan"/>
+<import src="/widgets/template/slider.swan"/>
+<import src="/widgets/template/textnav.swan"/>
+<import src="/widgets/template/video.swan"/>
+<import src="/widgets/template/map.swan"/>
+<import src="/widgets/template/imagetext.swan"/>
+<import src="/widgets/template/articlelist.swan"/>
+<import src="/widgets/template/activecard.swan"/>
+<import src="/widgets/template/smartwindow.swan"/>
+<import src="/widgets/template/grouppresale.swan"/>
+<import src="/widgets/template/omnipotentform.swan"/>
+<import src="/widgets/template/sixteenpalaces.swan"/>
+<import src="/widgets/template/labelnav.swan"/>
+<import src="/widgets/template/fixedpopup.swan"/>
+<import src="/widgets/template/storelist.swan"/>
+<import src="/widgets/template/textmsg.swan"/>
+<import src="/widgets/template/limitimepurchase.swan"/>
+<import src="/widgets/template/coupon.swan"/>
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<view class="page" s-if="{{hideLoading}}" style="min-height:{{systeminfo.windowHeight}}px;background-color:{{page_bgcolor||'#EFEFEF'}}">
+	<block s-for="{{widgets_stream}}" s-for-item="widget_name">
+		<block s-if="{{widget_name == 'omnipotentform'}}">
+			<template is="widget-omnipotentform" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+		<block s-if="{{widget_name == 'blankhelper'}}">
+			<template is="widget-blankhelper" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+        <block s-if="{{widget_name == 'grouppresale'}}">
+			<template is="widget-grouppresale" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+        <block s-if="{{widget_name == 'goodslist'}}">
+			<template is="widget-goodslist" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+        <block s-if="{{widget_name == 'imgnav'}}">
+			<template is="widget-imgnav" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+        <block s-if="{{widget_name == 'searchbar'}}">
+			<template is="widget-searchbar" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+		<block s-if="{{widget_name == 'slider'}}">
+			<template is="widget-slider" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+        <block s-if="{{widget_name == 'textnav'}}">
+			<template is="widget-textnav" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+        <block s-if="{{widget_name == 'video'}}">
+			<template is="widget-video" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+        <block s-if="{{widget_name == 'map'}}">
+			<template is="widget-map" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+        <block s-if="{{widget_name == 'articlelist'}}">
+			<template is="widget-articlelist" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+        <block s-if="{{widget_name == 'activecard'}}">
+			<template is="widget-activecard" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+        <block s-if="{{widget_name == 'smartwindow'}}">
+			<template is="widget-smartwindow" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+        <block s-if="{{widget_name == 'sixteenpalaces'}}">
+			<template is="widget-sixteenpalaces" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+        <block s-if="{{widget_name == 'labelnav'}}">
+			<template is="widget-labelnav" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+        <block s-if="{{widget_name == 'fixedpopup'}}">
+			<template is="widget-fixedpopup" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+        <block s-if="{{widget_name == 'storelist'}}">
+			<template is="widget-storelist" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+        <block s-if="{{widget_name == 'textmsg'}}">
+			<template is="widget-textmsg" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+        <block s-if="{{widget_name == 'limitimepurchase'}}">
+			<template is="widget-limitimepurchase" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+        <block s-if="{{widget_name == 'coupon'}}">
+			<template is="widget-coupon" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+		<block s-if="{{widget_name == 'linehelper'}}">
+			<template is="widget-linehelper" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+		<block s-if="{{widget_name == 'imagetext'}}">
+			<template is="widget-imagetext" data="{{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}}"/>
+		</block>
+	</block>
+</view>

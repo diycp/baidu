@@ -1,0 +1,53 @@
+
+page{
+    background-color: #FFFFFF;
+}
+.user-top{
+
+    text-align: center;
+    margin-bottom: 20px;
+}
+.avatar{
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    border: 1px #FFF solid;
+    margin: 10px auto 0 auto;
+}
+.user-sign{
+    font-size: 13px;
+    color: #999;
+}
+.to-user-info .nickname{
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 30px;
+}
+.reward-section{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 15px;
+    font-style: italic;
+}
+.reward-input{
+    text-align: center;
+}
+.reward-input input{
+    font-weight: bold;
+    font-style: italic;
+    font-size: 22px;
+}
+.reward-section button{
+    width: 30%;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 22px;
+    line-height: 1.8;
+    border-width: 2px!important;
+}
+.weui-footer{
+    margin: 20px 0;
+}
+.weui-footer__text{
+    margin: 30px 0;
+}

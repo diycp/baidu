@@ -1,0 +1,367 @@
+page{
+ background:#efefef;
+}
+.shop-info{
+    position: absolute;
+    top: 38rpx;
+    left: 40rpx;
+}
+.right-icon{
+    width: 18rpx;
+    position: absolute;
+    top: 96rpx;
+    right: 21rpx;
+}
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.vshop-logo{
+    width: 148rpx;
+    height: 148rpx;
+    border-radius: 100%;
+    background-color: #efefef;
+    margin-right: 25rpx;
+}
+.shop-name{
+    font-size: 32rpx;
+    color: #FFFFFF;
+}
+.shop-lv{
+    /*width: 55rpx;*/
+    padding:0 10rpx;
+    height: 23rpx;
+    border-radius: 11.5rpx;
+    font-size: 16rpx;
+    color: #FFFFFF;
+    background-color: rgba(0,93,182,0.5); 
+    margin-left: 10rpx;
+    text-align: center;
+}
+.shop-id{
+    font-size: 26rpx;
+    color: #FFFFFF;
+}
+.top-panel{
+    margin-top: 0;
+
+}
+
+.shop-name{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.text-right{
+    text-align: right;
+}
+.award-info{
+    position: absolute;
+    top: 224rpx;
+    left: 20rpx;
+    right: 20rpx;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow:0px 10px 5px 0px rgba(236,236,236,1);
+    overflow: hidden;
+}
+.benefit{
+    display:flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+}
+.benefit navigator{
+    width: auto;
+    color: #444;
+    display: block;
+    text-align: center;
+    width: 50%;
+    border-right: 1px solid #eee;
+}
+.last{
+    border:none;
+}
+.benefit navigator .val{
+    font-weight: lighter;
+    font-size: 36rpx;
+    line-height: 45px;
+    display: block;
+    color: #666666;
+    font-weight: 500;
+}
+
+.label{
+    font-size: 20rpx;
+    color: #888888;
+}
+.benefit .weui-media-box::before{
+    display: none;
+}
+
+.weui-grids{
+    margin-top: 40px;
+}
+.f-red{
+    color: #FF3030 !important;
+}
+.weui-grid{
+    background: #fff;
+}
+.weui-grid{
+    padding: 25px 15px;
+}
+.weui-grid__icon{
+    width: 40px;
+    height: 40px;
+    margin-bottom: 30rpx;
+}
+.weui-grid__icon image{
+    width: 40px;
+    height: 40px;
+    
+}
+.weui-grid__label{
+    color: #888888;
+    font-size: 28rpx;
+}
+.icon-tip{
+    position: absolute;
+    right: 40px;
+    top:20px;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background: #f00;
+    border:1px #fff solid;
+}
+.validate-shop-logo{
+    width: 145rpx;
+    height: 145rpx;
+}
+.weui-msg__title{
+    color: #666666;
+    font-size: 28rpx;
+}
+.warpper-content{
+    position: relative;
+}
+.warpper-image{
+    width: 100%;
+}
+.tips{
+    position: absolute;
+    top: 71rpx;
+    left: 48rpx;
+    font-size: 42rpx;
+    color: #ffffff;
+}
+.line{
+   position: absolute;
+    top: 0;
+    right: 89rpx;
+    width: 1px; 
+    height: 66rpx;
+    background-color: #97CDFF;
+    z-index: 99;
+}
+.rules{
+    position: absolute;
+    top: 66rpx;
+    right: 52rpx;
+    width: 74rpx;
+}
+.rules-text{
+    position: absolute;
+    top: 82rpx;
+    right: 62rpx;
+    width: 43rpx;
+    height: 50rpx;
+    font-size: 18rpx;
+    word-wrap: break-word;
+    color: #ffffff;
+}
+.content{
+    position: absolute;
+    background-color: #ffffff;
+    width: 710rpx;
+    height: 302rpx;
+    border-radius: 16rpx;
+    left: 20rpx;
+    top: 213rpx;
+    z-index: 99;
+}
+.content-inner{
+    padding: 44rpx 46rpx 27rpx 46rpx;
+}
+.item{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1rpx solid #D8D8D8;
+    padding-bottom: 9rpx;
+    margin-bottom: 20rpx;
+}
+.icon{
+    width: 73rpx;
+    margin-right: 21rpx;
+}
+.title{
+    color: #353535;
+    font-size: 26rpx;
+}
+.brief{
+    font-size: 20rpx;
+    color: #888888;
+}
+.tips-2{
+    font-size: 20rpx;
+    color: #888888;
+}
+.join-vshop{
+    position: fixed;
+    bottom: 30rpx;
+    left: 71rpx;
+    width: 609rpx;
+    height: 75rpx;
+    line-height: 75rpx;
+    font-size: 28rpx;
+    text-align: center;
+    border-radius: 37.5rpx;
+    background-color: #4BA0FA;
+}
+button[type="primary"]{
+    background-color: #4BA0FA !important;
+    color: #ffffff !important;
+}
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.45);
+    z-index: 999;
+}
+.rules-show{
+    position: absolute;
+    width: 510rpx;
+    height: 524rpx;
+    background-color: #ffffff;
+    top: 50%;
+    left: 50%;
+    margin-top: -262rpx;
+    margin-left: -255rpx;
+    border-radius: 8px;
+    text-align: center;
+}
+.modal-success{
+    position: absolute;
+    width: 510rpx;
+    height: 430rpx;
+    background-color: #ffffff;
+    top: 50%;
+    left: 50%;
+    margin-top: -215rpx;
+    margin-left: -255rpx;
+    border-radius: 8px;
+    text-align: center;
+}
+.modal-failure{
+    position: absolute;
+    width: 510rpx;
+    height: 524rpx;
+    background-color: #ffffff;
+    top: 50%;
+    left: 50%;
+    margin-top: -262rpx;
+    margin-left: -255rpx;
+    border-radius: 8px;
+    text-align: center;
+}
+.modal-head{
+    padding: 20rpx 0;
+}
+.modal-title{
+   font-size: 28rpx;
+   color: #333333;
+   text-align: center; 
+}
+.icon-cancel{
+    width: 40rpx;
+    position: absolute;
+    top: 20rpx;
+    right: 20rpx;
+    z-index: 999;
+}
+.icon-status{
+    width: 324rpx;
+    margin: 0 auto;
+    display: block;
+}
+.content{
+    box-shadow:0px 10px 5px 0px rgba(236,236,236,1);
+}
+.modal-content{
+    width: 430rpx;
+    margin: 0 auto;
+    font-size: 20rpx;
+    color: #333333;
+    overflow: hidden;
+}
+.modal-content-rules{
+    border:1rpx solid #3093F8;
+    height: 413rpx;
+}
+.rules-content{
+    margin: 20rpx 25rpx 15rpx 25rpx;
+    overflow-y: scroll;
+    height: 376rpx;
+    word-wrap: break-word;
+}
+.tips-success{
+    font-size: 32rpx;
+    color: #3093F8;
+    text-align: center;
+    margin-top: 45rpx;
+}
+.tips-failure{
+    font-size: 32rpx;
+    color: #666666;
+    text-align: center;
+    margin-top: 45rpx;
+}
+.tips-why{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 28rpx;
+}
+.money{
+    font-size: 28rpx;
+    color: #FF3030;
+}
+.back{
+    width: 302rpx;
+    height: 70rpx;
+    line-height: 70rpx;
+    text-align: center;
+    font-size: 28rpx;
+    color: #FFFFFF;
+    border-radius: 35rpx;
+    margin: 20rpx auto 0;
+    background-color: #4BA0FA;
+}

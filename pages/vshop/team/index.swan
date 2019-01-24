@@ -1,0 +1,27 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<filter src="../../../utils/fmt.js" module="fmt"></filter>
+<view class="prompt-panel" s-if="{{empty_list == 'YES'}}">
+    <view class="icon-empty-list"></view>
+</view>
+<scroll-view scroll-y="true" style="height:{{sv_height}}px;" bindscrolltolower="evt_scrolltolower" s-if="{{group_list}}">
+    <view class="item flex-between" s-for="{{group_list}}" s-for-item="item">
+        <view class="left flex-row">
+            <image mode="aspectFit" class="avatar" bindload="load_image" src="{{images[item.logo]?images[item.logo]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{item.logo}}" />
+            <view class="flex-column">
+                <view class="flex-row">
+                    <view class="name">{{item.name}}</view>
+                    <view class="level">{{lv_info[item.shop_lv_id].name}}</view>
+                </view>
+                <view class="shopid">ID:{{item.shop_id}}</view>
+            </view>
+        </view>    
+        <view class="right flex-column flex-end">
+            <view class="total">{{fmt.price(item.total)}}</view>
+            <view class="tips">累计获得奖励(元)</view>
+        </view>
+    </view>
+    <view class="weui-loadmore" s-if="{{pager.current && pager.total>pager.current}}">正在加载</view>
+    <view class="weui-loadmore weui-loadmore_line" s-if="{{pager.total>1 && pager.total == pager.current}}">
+        <view class="weui-loadmore__tips">共{{count}}笔</view>
+    </view>
+</scroll-view>

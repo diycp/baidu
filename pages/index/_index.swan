@@ -1,0 +1,34 @@
+<!--index.swan-->
+<import src="/widgets/template/blankhelper.swan"/>
+<import src="/widgets/template/goodslist.swan"/>
+<import src="/widgets/template/imgnav.swan"/>
+<import src="/widgets/template/linehelper.swan"/>
+<import src="/widgets/template/searchbar.swan"/>
+<import src="/widgets/template/slider.swan"/>
+<import src="/widgets/template/textnav.swan"/>
+<import src="/widgets/template/video.swan"/>
+<import src="/widgets/template/map.swan"/>
+<import src="/widgets/template/imagetext.swan"/>
+<import src="/widgets/template/articlelist.swan"/>
+<import src="/widgets/template/activecard.swan"/>
+<import src="/widgets/template/smartwindow.swan"/>
+<import src="/widgets/template/grouppresale.swan"/>
+<import src="/widgets/template/omnipotentform.swan"/>
+<import src="/widgets/template/sixteenpalaces.swan"/>
+<import src="/widgets/template/labelnav.swan"/>
+<import src="/widgets/template/fixedpopup.swan"/>
+<import src="/widgets/template/storelist.swan"/>
+<import src="/widgets/template/textmsg.swan"/>
+<import src="/widgets/template/limitimepurchase.swan"/>
+<import src="/widgets/template/coupon.swan"/>
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<view class="page" s-if="{{hideLoading}}" style="min-height:{{systeminfo.windowHeight}}px;background-color:{{page_bgcolor||'#EFEFEF'}}">
+	<block s-for="{{widgets_stream}}" s-for-item="widget_name">
+		<block s-if="{{widget_name == 'omnipotentform'}}">
+			<template is="widget-{{widget_name}}" data="{{data:widgets[widget_name][index],region_data:region_data,selected_region:selected_region}}"/>
+		</block>
+		<block s-else>
+			<template is="widget-{{widget_name}}" data="{{data:widgets[widget_name][index],sv_width:systeminfo.windowWidth}}"/>
+		</block>
+	</block>
+</view>

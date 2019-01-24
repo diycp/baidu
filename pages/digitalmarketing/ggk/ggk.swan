@@ -1,0 +1,24 @@
+<view class="page-loading" s-if="{{!hideLoading}}"></view>
+<view class="page-ggl" style="background: #f94545 url({{static_path}}/ggl/pg-bg.png) no-repeat center top;background-size: cover;">
+	<view class="view-ggl main" id="app-main">
+	    <view class="view-text">
+	        <view class="p"><image src="{{static_path}}/ggl/ggl-text.png" mode="widthFix"></image></view>
+	    </view>
+	    <view class="guaguale">
+	        <view id="elActivity">
+	            <view class="ggl-main-box" hidden="{{detail.showRule}}" id="ggl-main-box" style="background: url({{static_path}}/ggl/gyg-bg.png) no-repeat center top;background-size: cover;">
+	                <view class="ggl-view" style="text-indent: {{detail.ggl_style}}">{{detail.ggl_text}}</view>
+	                <canvas class="ggl-canvas" canvas-id="ggl-canvas" bindtouchstart="start" bindtouchmove="move" bindtouchend="end"></canvas> 
+	            </view>
+	        </view>
+	        <!-- <audio style="display: none;" id="el-audio" controls=""></audio> -->
+	    </view>
+	    <view class="view-desc">
+	        <view class="p"><view class="span" hidden="{{limit}}">可抽奖次数：<text class="var" data-num="true">{{detail.num}}</text>次</view></view>
+	    </view>
+	</view>
+	<view class="view-ggl footer" id="app-footer">
+	    <view data-view-rule="true" class="view-rule a" bindtap="viewRule">活动规则</view>
+	</view>
+	<include src="../widgets/widgets_modal.swan"/>
+</view>

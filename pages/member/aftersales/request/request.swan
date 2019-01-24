@@ -1,0 +1,83 @@
+<form bindsubmit="evt_submit">
+    <view class="weui-panel">
+            <view class="weui-panel__hd">申请售后商品</view>
+            <view class="weui-panel__bd">
+                    <view class="weui-media-box weui-media-box_appmsg co-item">
+                        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                            <image s-if="{{request_item.image_id}}" data-ident="{{request_item.image_id}}" mode="aspectFit" class="weui-media-box__thumb" bindload="image_load" src="{{images[request_item.image_id]?images[request_item.image_id]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}"/>
+                        </view>
+                        <view class="weui-media-box__bd">
+                            <view class="weui-media-box__desc co-name">{{request_item.name}}</view>
+                            <view class="weui-media-box__desc co-inline">
+                                <view class="co-spec">{{request_item.spec_info?request_item.spec_info:''}}</view>
+                                <view class="co-price">
+                                       {{request_item.buy_price}}
+                                    <text>x {{request_item.nums}} </text>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+            </view>
+    </view>
+    <view class="weui-panel">
+            <view class="weui-panel__hd">申请售后数量</view>
+            <view class="weui-panel__bd">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <input type="number" name="product_return_num" bindblur="event_quantity_blur"  value="{{page_prn?page_prn:request_item.sendnum}}" />
+                    </view>
+                    <view class="weui-cell__ft">
+                        最多申请数量:{{request_item.sendnum}}
+                    </view>
+                </view>
+            </view>
+    </view>
+    <view class="weui-panel">
+            <view class="weui-panel__hd">*描述问题</view>
+            <view class="weui-panel__bd">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd no-hd">
+                        <textarea class="weui-textarea" name="request[description]" placeholder="请在此描述问题" auto-height="true"></textarea>
+                    </view>
+                </view>
+            </view>
+    </view>
+    <view class="weui-panel">
+            <view class="weui-panel__hd">上传一张照片辅助描述问题</view>
+            <view class="weui-panel__bd">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd no-hd">
+                        <view class="images-wrap">
+                            <block s-for="{{request_images}}" s-for-item="image" s-key="index" >
+                                <view class="images-wrap-selected">
+                                    <image data-src="{{image}}"  class="selected-image" src="{{image}}" mode="aspectFit"/>
+                                    <text data-index="{{index}}" class="selected-image-remove" bindtap="evt_removeimage">x</text>
+                                </view>
+                            </block>
+                            <button s-if="{{!request_images || request_images.length < 1}}" class="select-image" bindtap="evt_selimage" plain="true">
+                                选择照片
+                            </button>
+                        </view>
+                    </view>
+                </view>
+            </view>
+    </view>
+    <import src="/utils/wxParse/wxParse.swan"/>
+    <view class="weui-panel">
+            <view class="weui-panel__hd"><icon type="info_circle" size="16" color="#f00"></icon> 售后服务规则</view>
+            <view class="weui-panel__bd wxml-content">
+                <view class="wxParse">
+                    <template is="wxParse" data="{{wxParseData:assule_fmt.nodes}}"/>
+                </view>
+            </view>
+    </view>
+    <view class="weui-panel">
+            <view class="weui-panel__hd"><icon type="info_circle" size="16" color="#f00"></icon> 售后商品返回说明</view>
+            <view class="weui-panel__bd wxml-content">
+                <view class="wxParse">
+                    <template is="wxParse" data="{{wxParseData:return_item_helpinfo_fmt.nodes}}"/>
+                </view>
+            </view>
+    </view>
+    <button type="warn" class="button-submit" form-type="submit" >下一步</button>
+</form>

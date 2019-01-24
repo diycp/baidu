@@ -1,0 +1,28 @@
+page{
+    background: #efefef;
+}
+.icon-section{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+.icon-section .text{
+    line-height: 32px;
+    margin: 0 0 30px 0 0;
+}
+.payapp-cell{
+    font-size: 14px;
+}
+.payapp-cell .weui-cell__bd{
+    padding-left: 15px;
+}
+.weui-form-preview__hd
+.weui-form-preview__value{
+    font-size: 22px
+}
+
+.btn{
+    width: 100%;
+}
